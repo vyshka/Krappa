@@ -1,0 +1,20 @@
+﻿@model WebApplication1.Models.UserViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/Content/Custom.css" type="text/css" />
+</head>
+<h2>Профиль</h2>
+
+<div class="user-info">
+    <span>Логин:</span> @Model.userName<br>
+    <span>Email:</span> @Model.Email<br>
+    <span>Время регистрации:</span> @Model.registerTime<br>
+    <br>
+    <a href="@Url.Action("Edit")/@Html.DisplayFor(modelItem => modelItem.Id)">Редактировать</a>
+</div>
+
+
+

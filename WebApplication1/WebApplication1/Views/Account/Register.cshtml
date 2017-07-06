@@ -1,0 +1,24 @@
+﻿@model WebApplication1.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registration</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(u => u.Email)    <br />
+    @Html.TextBoxFor(u => u.Email)    <br />
+    @Html.LabelFor(u => u.Password)    <br />
+    @Html.PasswordFor(u => u.Password)   <br />
+    @Html.LabelFor(u => u.PasswordConfirm)    <br />
+    @Html.PasswordFor(u => u.PasswordConfirm)   <br />
+    @Html.LabelFor(u => u.Name)     <br />
+    @Html.TextBoxFor(u => u.Name)   <br />
+    <p>
+        <button type="submit">Регистрация</button>
+
+    </p>
+}
+

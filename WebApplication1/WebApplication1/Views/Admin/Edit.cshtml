@@ -1,8 +1,48 @@
-﻿@model WebApplication1.Models.AdminEditModelAdminEditModel
+﻿@model WebApplication1.Models.AdminEditModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
+<body>
+    <a href="@Url.Action("Index")">Вернуться к профилю</a>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="editForm">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-horizontal">
+                        <h4></h4>
+                        <hr />
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.userName, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.userName, new { @Value = Model.userName })
+                                @Html.ValidationMessageFor(model => model.userName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { @Value = Model.Email })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.password, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(model => model.password)
+                                @Html.ValidationMessageFor(model => model.password)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Сохранить" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</body>

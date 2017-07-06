@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
@@ -12,7 +13,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                     <img alt="Brand" src="~/Images/logo.png">
                 </a>
             </div>
@@ -22,14 +23,17 @@
                 <li><a href="#">Page 2</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">О компании</a></li>
+                <li><a href="@Url.Action("About", "Home")">О компании</a></li>
                 @if (@User.Identity.IsAuthenticated)
                 {
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Profile", "Account")"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
-                            <li><a href="@Url.Action("Index", "Admin")"><i class="glyphicon glyphicon-user"></i> Админка</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a href="@Url.Action("Index", "Admin")"><i class="glyphicon glyphicon-wrench"></i> Админка</a></li>
+                            }
                             <li role="separator" class="divider"></li>
                             <li><a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
                         </ul>
@@ -40,12 +44,20 @@
                     <li><a href="@Url.Action("Register", "Account")"> Регистрация</a></li>
                     <li><a href="@Url.Action("Login", "Account")"><span class="glyphicon glyphicon-log-in"></span> Вход</a></li>
                 }
-                
-                
             </ul>
         </div>
     </nav>
-
+    @if (@User.Identity.IsAuthenticated)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-left">
+            <a class="navbar-brand" href="#">Меню</a>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Link1</a></li>
+                <li><a href="#">Link2</a></li>
+                <li><a href="#">Link3</a></li>
+            </ul>
+        </div>
+    }
     <div>
         @RenderBody()
         @RenderSection("scripts", required: false)
@@ -53,7 +65,7 @@
 
     <footer class="footer">
         <div class="container text-center">
-            <p class="text-muted">KrappaG</p>
+            <p class="text-muted">Copyright @@ 2017 iTechArt</p>
         </div>
     </footer>
 </body>

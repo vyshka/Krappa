@@ -6,6 +6,9 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
@@ -15,7 +18,11 @@ namespace WebApplication1.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ApplicationRoleManager mng = new ApplicationRoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+            return View();
+        }
+
+        public ActionResult About()
+        {
             return View();
         }
     }

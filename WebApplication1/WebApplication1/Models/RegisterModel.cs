@@ -9,16 +9,20 @@ namespace WebApplication1.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name ="Email")]
         public string Email { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        [Display(Name = "Имя")]
+        public string userName { get; set; }
 
         [Required]
+        [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
+        [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }

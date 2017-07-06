@@ -37,12 +37,21 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Name, Email = model.Email, registerTime = DateTime.Now };
+                ApplicationUser user = new ApplicationUser { UserName = model.userName, Email = model.Email, registerTime = DateTime.Now };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(user.Id, "User");
-                    return RedirectToAction("Login", "Account");
+
+                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+                                            DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -127,11 +136,13 @@ namespace WebApplication1.Controllers
             if (user != null)
             {
                 user.UserName = model.userName;
-
+                
 
                 IdentityResult result = await UserManager.UpdateAsync(user);
-                if (result.Succeeded)
+                if (result.Succeeded && model.newPassword!= null)
                 {
+                    UserManager.RemovePassword(user.Id);
+                    UserManager.AddPassword(user.Id, model.newPassword);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -148,7 +159,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult>  Profile()
+        public async Task<ActionResult> Profile()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var model = new UserViewModel

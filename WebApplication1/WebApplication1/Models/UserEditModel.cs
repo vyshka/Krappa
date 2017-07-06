@@ -12,6 +12,7 @@ namespace WebApplication1.Models
         public string userName { get; set; }
 
         [Display(Name = "Старый пароль")]
+        [DataType(DataType.Password)]
         public string oldPassword { get; set; }
 
         [DataType(DataType.Password)]
@@ -20,7 +21,7 @@ namespace WebApplication1.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "Новый пароль и подтверждение пароля не совпадают")]
         public string confrimPassword { get; set; }
     }
 }

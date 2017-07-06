@@ -9,11 +9,13 @@ namespace WebApplication1.Models
     public class LoginModel
     {
         [Required]
+        [Display(Name = "Имя")]
         public string userName { get; set; }
 
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
     }
 }

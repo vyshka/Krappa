@@ -176,6 +176,8 @@
     <Content Include="Content\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\in.png" />
+    <Content Include="Images\Socials.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="scripts\About.js" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />

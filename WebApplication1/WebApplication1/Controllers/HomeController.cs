@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult About()
         {
-            return RedirectToAction("Index");
+            return View();
         }
     }
 }

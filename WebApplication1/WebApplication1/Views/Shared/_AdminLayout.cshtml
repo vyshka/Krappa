@@ -45,22 +45,31 @@
     </nav>
     <div class="row">
         <div class="col-md-2">
-            <nav class="navbar navbar-default sidebar" role="navigation">
-                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="@Url.Action("UserList", "Admin")">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-                        <li><a href="@Url.Action("VacancyList", "Admin")">Вакансии<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Опросы<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
-                            <ul class="dropdown-menu forAnimate" role="menu">
-                                <li><a href="#">Создать</a></li>
-                                <li><a href="#">Мои опросы</a></li>
-                                <li><a href="#">Шаблоны опросов</a></li>
-                            </ul>
-                        </li>      
+            <div class="sidebar-nav-fixed affix">
+                <div class="well">
+                    <ul class="nav ">
+                        <li class="nav-header">Меню</li>
+                        <li>
+                            <a href="#">Новый опрос</a>
+                        </li>
+                        <li>
+                            <a href="#">Мои опросы</a>
+                        </li>
+                        <li>
+                            <a href="#">Шаблоны опросов</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("UsersList", "Admin")">Пользователи</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("VacancyList", "Admin")">Вакансии</a>
+                        </li>
+                        
                     </ul>
                 </div>
-            </nav>
+                <!--/.well -->
+            </div>
+            <!--/sidebar-nav-fixed -->
         </div>
         
         <div class="col-md-8">

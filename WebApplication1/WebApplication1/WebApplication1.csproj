@@ -165,10 +165,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\LoginsDB.mdf" />
-    <Content Include="App_Data\LoginsDB_log.ldf">
-      <DependentUpon>LoginsDB.mdf</DependentUpon>
-    </Content>
+    <Content Include="Content\About.css" />
+    <Content Include="Content\Admin.css" />
+    <Content Include="Content\Auth.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -177,13 +176,8 @@
     <Content Include="Content\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\educ.png" />
-    <Content Include="Images\fin.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="Images\med.png" />
-    <Content Include="Images\sec.png" />
-    <Content Include="Images\shop.png" />
-    <Content Include="Images\tv.png" />
+    <Content Include="scripts\About.js" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -196,6 +190,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\Krappa.pubxml" />
     <None Include="scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="scripts\Custom.js" />
     <Content Include="scripts\jquery-3.1.1.js" />
@@ -265,6 +260,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -272,7 +268,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707051327056_InitialCreate.resx">
       <DependentUpon>201707051327056_InitialCreate.cs</DependentUpon>

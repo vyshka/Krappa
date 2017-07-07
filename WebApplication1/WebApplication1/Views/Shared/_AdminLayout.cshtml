@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/Admin.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
@@ -29,12 +30,6 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("Profile", "Account")"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li><a href="@Url.Action("Index", "Admin")"><i class="glyphicon glyphicon-wrench"></i> Админка</a></li>
-                            }
-                            <li role="separator" class="divider"></li>
                             <li><a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a></li>
                         </ul>
                     </li>
@@ -46,12 +41,31 @@
                 }
             </ul>
         </div>
-        </nav>
             
-
-    <div>
-        @RenderBody()
-        @RenderSection("scripts", required: false)
+    </nav>
+    <div class="row">
+        <div class="col-md-2">
+            <nav class="navbar navbar-default sidebar" role="navigation">
+                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index", "Admin")">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Опросы<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
+                            <ul class="dropdown-menu forAnimate" role="menu">
+                                <li><a href="#">Создать</a></li>
+                                <li><a href="#">Мои опросы</a></li>
+                                <li><a href="#">Шаблоны опросов</a></li>
+                            </ul>
+                        </li>      
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        
+        <div class="col-md-8">
+            @RenderBody()
+            @RenderSection("scripts", required: false)
+        </div>
     </div>
 
     <footer class="footer">

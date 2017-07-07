@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace WebApplication1.Models
 {
-    public class RegisterModel
+    public class AdminCreateViewModel
     {
         [Required]
         [Display(Name = "Email")]
@@ -21,10 +22,11 @@ namespace WebApplication1.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
-        [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        [DataType(DataType.Password)]
-        public string PasswordConfirm { get; set; }
+        [Display(Name = "Роль")]
+        public IEnumerable<SelectListItem> Roles { get; set; }
+
+        public string SelectedRoleId { get; set; }
+
+
     }
 }

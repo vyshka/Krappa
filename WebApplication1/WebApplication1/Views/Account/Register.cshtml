@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <!-- Website CSS style -->
-    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/Auth.css" rel="stylesheet" />
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
@@ -47,7 +47,6 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -57,7 +56,6 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -67,9 +65,11 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                 @Html.PasswordFor(m => m.PasswordConfirm, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.PasswordConfirm, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.ValidationSummary(false)
                     </div>
                     <div class="form-group ">
                         <input type="submit" class="btn btn-lg btn-block login-button" value="Зарегестрироваться">

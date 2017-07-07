@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.LoginModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <!-- Website CSS style -->
-    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/Auth.css" rel="stylesheet" />
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
@@ -50,6 +50,9 @@
                                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.ValidationSummary(false)
                     </div>
                     <div class="form-group ">
                         <input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Войти">

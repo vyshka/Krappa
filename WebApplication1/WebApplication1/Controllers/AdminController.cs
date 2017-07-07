@@ -31,8 +31,9 @@ namespace WebApplication1.Controllers
             }
         }
 
+        
 
-        public ActionResult usersList()
+        public ActionResult UsersList()
         {
             var list = UserManager.Users;
             return View(list.ToList());
@@ -44,7 +45,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        public async Task<ActionResult> userDelete(string id)
+        public async Task<ActionResult> DeleteUser(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
             if (user == null)
@@ -52,10 +53,10 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             UserManager.Delete(user);
-            return RedirectToAction("Index");
+            return RedirectToAction("UsersList");
         }
 
-        public async Task<ActionResult> userEdit(string Id)
+        public async Task<ActionResult> EditUser(string Id)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(Id);
             if (user != null)
@@ -63,11 +64,11 @@ namespace WebApplication1.Controllers
                 AdminEditModel model = new AdminEditModel { userName = user.UserName, Email = user.Email, Id = user.Id };
                 return View(model);
             }
-            return View("Index");
+            return View("UsersList");
         }
 
         [HttpPost]
-        public async Task<ActionResult> userEdit(AdminEditModel model)
+        public async Task<ActionResult> EditUser(AdminEditModel model)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
             if (user != null)
@@ -81,12 +82,12 @@ namespace WebApplication1.Controllers
                     UserManager.AddPassword(user.Id, model.password);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("UsersList");
             }
             return View();
         }
 
-        public ActionResult userCreate()
+        public ActionResult CreateUsers()
         {
             var model = new AdminCreateViewModel
             {
@@ -102,7 +103,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> userCreate(AdminCreateViewModel model)
+        public async Task<ActionResult> CreateUser(AdminCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +120,7 @@ namespace WebApplication1.Controllers
                         await UserManager.AddToRoleAsync(user.Id, "User");
                     }
                     
-                    return RedirectToAction("Index");
+                    return RedirectToAction("UsersList");
                 }
                 else
                 {
@@ -129,7 +130,76 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("UsersList");
+        }
+
+        public ActionResult VacancyList()
+        {
+            var db = new MainDbContext();
+            return View(db.Vacancies.ToList());
+        }
+
+        public ActionResult CreateVacancy()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateVacancy(Vacancies vacancy)
+        {
+            if(ModelState.IsValid)
+            {
+                using (var db = new MainDbContext())
+                {
+                    var dbVacancy = db.Vacancies.Create();
+                    dbVacancy.name = vacancy.name;
+                    dbVacancy.vacancyUrl = vacancy.vacancyUrl;
+
+                    db.Vacancies.Add(dbVacancy);
+                    var result = await db.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("VacancyList");
+        }
+
+        public ActionResult EditVacancy(int Id)
+        {
+            using (var db = new MainDbContext())
+            {
+                var model = new Vacancies();
+                model = db.Vacancies.Find(Id);
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditVacancy(Vacancies vacancy)
+        {
+            if(ModelState.IsValid)
+            {
+                var db = new MainDbContext();
+                var original = db.Vacancies.Find(vacancy.vacancyId);
+                if(original != null)
+                {
+                    db.Entry(original).CurrentValues.SetValues(vacancy);
+                    db.SaveChanges();
+                    return RedirectToAction("VacancyList");
+                }
+            }
+            return View(vacancy);
+        }
+
+        public ActionResult DeleteVacancy(int id)
+        {
+            var db = new MainDbContext();
+            var model = db.Vacancies.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            db.Vacancies.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("VacancyList");
         }
     }
 }

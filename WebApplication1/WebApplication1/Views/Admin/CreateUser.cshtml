@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Create", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("CreateUser", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <hr />
@@ -52,9 +52,6 @@
                             <input type="submit" value="Создать" class="btn btn-default" />
                         </div>
                     </div>
-                        <p>
-                            @Html.ActionLink("Зарегестрироваться", "Register")
-                        </p>
             }
         </section>
     </div>

@@ -8,7 +8,7 @@
     <script src="@Url.Content("~/Scripts/Custom.js")"></script>
 }
 <head>
-    <title>Сптсок пользователей</title>
+    <title>Список пользователей</title>
 </head>
 <body>
     <div class="form-group">
@@ -29,13 +29,13 @@
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.UserName)</td>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.Email)</td>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.registerTime)</td>
-                        <td style="text-align:center"><a href="@Url.Action("userEdit", "Admin")/@Html.DisplayFor(modelItem => item.Id)">Редактировать</td>
-                        <td style="text-align: center;"><a href="@Url.Action("userDelete", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a>
+                        <td style="text-align:center"><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)">Редактировать</td>
+                        <td style="text-align: center;"><a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a>
                     </tr>
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Создать", "userCreate", null,
+        @Html.ActionLink("Создать", "CreateUser", null,
             new { @class = "btn btn-default" })
     </div>
 </body>

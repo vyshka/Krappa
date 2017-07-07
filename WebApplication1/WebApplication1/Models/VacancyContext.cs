@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         {
 
         }
-        public DbSet<Vacancy> vacancies { get; set;}
+        public DbSet<Vacancies> vacancies { get; set;}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

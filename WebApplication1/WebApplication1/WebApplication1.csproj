@@ -192,7 +192,6 @@
     <Content Include="scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\Krappa.pubxml" />
     <None Include="scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="scripts\Custom.js" />
     <Content Include="scripts\jquery-3.1.1.js" />
     <Content Include="scripts\jquery-3.1.1.min.js" />
     <Content Include="scripts\jquery-3.1.1.slim.js" />
@@ -242,7 +241,7 @@
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UsersList.cs" />
     <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Models\Vacancy.cs" />
+    <Compile Include="Models\Vacancies.cs" />
     <Compile Include="Models\VacancyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -264,9 +263,12 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\usersList.cshtml" />
-    <Content Include="Views\Admin\userEdit.cshtml" />
-    <Content Include="Views\Admin\userCreate.cshtml" />
+    <Content Include="Views\Admin\UsersList.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\CreateUser.cshtml" />
+    <Content Include="Views\Admin\VacancyList.cshtml" />
+    <Content Include="Views\Admin\CreateVacancy.cshtml" />
+    <Content Include="Views\Admin\EditVacancy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

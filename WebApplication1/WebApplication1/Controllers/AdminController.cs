@@ -32,14 +32,19 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult usersList()
         {
             var list = UserManager.Users;
             return View(list.ToList());
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-        public async Task<ActionResult> Delete(string id)
+
+        public async Task<ActionResult> userDelete(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
             if (user == null)
@@ -50,7 +55,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(string Id)
+        public async Task<ActionResult> userEdit(string Id)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(Id);
             if (user != null)
@@ -62,7 +67,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(AdminEditModel model)
+        public async Task<ActionResult> userEdit(AdminEditModel model)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
             if (user != null)
@@ -81,7 +86,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult userCreate()
         {
             var model = new AdminCreateViewModel
             {
@@ -97,7 +102,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(AdminCreateViewModel model)
+        public async Task<ActionResult> userCreate(AdminCreateViewModel model)
         {
             if (ModelState.IsValid)
             {

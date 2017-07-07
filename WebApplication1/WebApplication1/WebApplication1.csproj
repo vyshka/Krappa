@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MainDbContext.cs" />
     <Compile Include="Migrations\201707051327056_InitialCreate.cs" />
     <Compile Include="Migrations\201707051327056_InitialCreate.Designer.cs">
       <DependentUpon>201707051327056_InitialCreate.cs</DependentUpon>
@@ -241,6 +242,8 @@
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UsersList.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\Vacancy.cs" />
+    <Compile Include="Models\VacancyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +264,9 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\usersList.cshtml" />
+    <Content Include="Views\Admin\userEdit.cshtml" />
+    <Content Include="Views\Admin\userCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

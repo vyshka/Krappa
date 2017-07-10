@@ -61,14 +61,14 @@ namespace WebApplication1.Controllers
             ApplicationUser user = await UserManager.FindByIdAsync(Id);
             if (user != null)
             {
-                AdminEditModel model = new AdminEditModel { userName = user.UserName, Email = user.Email, Id = user.Id };
+                AdminUserEditModel model = new AdminUserEditModel { userName = user.UserName, Email = user.Email, Id = user.Id };
                 return View(model);
             }
             return View("UsersList");
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditUser(AdminEditModel model)
+        public async Task<ActionResult> EditUser(AdminUserEditModel model)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
             if (user != null)
@@ -154,6 +154,7 @@ namespace WebApplication1.Controllers
                     var dbVacancy = db.Vacancies.Create();
                     dbVacancy.name = vacancy.name;
                     dbVacancy.vacancyUrl = vacancy.vacancyUrl;
+                    dbVacancy.City = vacancy.City;
 
                     db.Vacancies.Add(dbVacancy);
                     var result = await db.SaveChangesAsync();
@@ -173,22 +174,25 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditVacancy(Vacancies vacancy)
+        public async Task<ActionResult> EditVacancy(Vacancies vacancy)
         {
-            if(ModelState.IsValid)
+            var db = new MainDbContext();
+            var original = await db.Vacancies.FindAsync(vacancy.vacancyId);
+            if (original != null)
             {
-                var db = new MainDbContext();
-                var original = db.Vacancies.Find(vacancy.vacancyId);
-                if(original != null)
-                {
-                    db.Entry(original).CurrentValues.SetValues(vacancy);
-                    db.SaveChanges();
-                    return RedirectToAction("VacancyList");
-                }
+                original.name = vacancy.name;
+                original.vacancyUrl = vacancy.vacancyUrl;
+                original.City = vacancy.City;
+
+                var resultupdate = await db.SaveChangesAsync();
+
+                return RedirectToAction("VacancyList");
             }
             return View(vacancy);
         }
 
+
+        
         public ActionResult DeleteVacancy(int id)
         {
             var db = new MainDbContext();

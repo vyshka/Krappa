@@ -14,13 +14,13 @@
                         <hr />
                         @Html.ValidationSummary(true)
                         <div class="form-group">
-                            @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.name, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.name, new { @Value = Model.name })
-                                @Html.ValidationMessageFor(model => model.name)
+                                @Html.EditorFor(model => model.name, new { @Value = Model.name, @class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.vacancyUrl, new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -36,6 +36,7 @@
                                 @Html.ValidationMessageFor(model => model.City)
                             </div>
                         </div>
+                        @Html.HiddenFor(model => model.vacancyId)
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Сохранить" class="btn btn-default" />

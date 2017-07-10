@@ -239,7 +239,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateViewModel.cs" />
-    <Compile Include="Models\AdminEditModel.cs" />
+    <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
@@ -252,6 +252,7 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\Vacancies.cs" />
     <Compile Include="Models\VacancyContext.cs" />
+    <Compile Include="Models\AdminVacancyEditModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

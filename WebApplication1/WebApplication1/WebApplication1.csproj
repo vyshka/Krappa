@@ -278,6 +278,7 @@
     <Content Include="Views\Admin\VacancyList.cshtml" />
     <Content Include="Views\Admin\CreateVacancy.cshtml" />
     <Content Include="Views\Admin\EditVacancy.cshtml" />
+    <Content Include="Views\Home\VacancyList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

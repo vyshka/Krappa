@@ -12,10 +12,13 @@ namespace WebApplication1.Models
         [Key]
         public int vacancyId { get; set; }
 
+        [Display(Name = "Название")]
         public string name { get; set; }
-        
+
+        [Display(Name = "Город")]
         public string City { get; set; }
 
+        [Display(Name = "Ссылка")]
         public string vacancyUrl { get; set; }
     }
 }

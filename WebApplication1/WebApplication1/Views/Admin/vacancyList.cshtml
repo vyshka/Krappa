@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<WebApplication1.Models.Vacancies>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Список пользователей";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @section Scripts
 {
     <script src="@Url.Content("~/Scripts/Custom.js")"></script>
 }
-<head>
-    <title>Сптсок пользователей</title>
-</head>
-<body>
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -38,6 +34,5 @@
         @Html.ActionLink("Добавить", "CreateVacancy", null,
             new { @class = "btn btn-default" })
     </div>
-</body>
 
 

@@ -15,7 +15,7 @@ namespace WebApplication1.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         public string password { get; set; }
 

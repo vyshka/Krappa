@@ -23,7 +23,14 @@ namespace WebApplication1.Controllers
 
         public ActionResult About()
         {
-            return View();
+            var db = new MainDbContext();
+            return View(db.Vacancies.ToList());
+        }
+
+        public ActionResult VacancyList()
+        {
+            var db = new MainDbContext();
+            return PartialView(db.Vacancies.ToList());
         }
     }
 }

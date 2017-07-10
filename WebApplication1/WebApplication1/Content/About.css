@@ -17,3 +17,7 @@
 .soclink-inst{
     background-image:url(https://hhcdn.ru/ichameleon/66454.png);
 }
+
+.img-fluid.mainimg {
+    margin-top:20px;
+}

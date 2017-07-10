@@ -87,7 +87,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult CreateUsers()
+        public ActionResult CreateUser()
         {
             var model = new AdminCreateViewModel
             {

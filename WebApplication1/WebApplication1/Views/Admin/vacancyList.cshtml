@@ -12,11 +12,12 @@
 </head>
 <body>
     <div class="form-group">
-        <table class="table table-bordered table-condensed">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th style="text-align: center;">Имя</th>
                     <th style="text-align: center;">Url</th>
+                    <th style="text-align: center;">Город</th>
                     <th style="text-align: center;">Редактировать</th>
                     <th style="text-align: center;">Удалить</th>
                 </tr>
@@ -27,13 +28,14 @@
                     <tr>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.name)</td>
                         <td style="text-align:center">@Html.DisplayFor(modelItem => item.vacancyUrl)</td>
+                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.City)</td>
                         <td style="text-align:center"><a href="@Url.Action("EditVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)">Редактировать</td>
                         <td style="text-align: center;"><a href="@Url.Action("DeleteVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a>
                     </tr>
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Создать", "CreateVacancy", null,
+        @Html.ActionLink("Добавить", "CreateVacancy", null,
             new { @class = "btn btn-default" })
     </div>
 </body>

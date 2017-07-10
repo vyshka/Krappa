@@ -176,7 +176,6 @@
     <Content Include="Content\main.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\in.png" />
     <Content Include="Images\Socials.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="scripts\About.js" />
@@ -229,6 +228,14 @@
     <Compile Include="Migrations\201707060837201_role class changed.cs" />
     <Compile Include="Migrations\201707060837201_role class changed.Designer.cs">
       <DependentUpon>201707060837201_role class changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707100929047_VacancyModelCityAdded.cs" />
+    <Compile Include="Migrations\201707100929047_VacancyModelCityAdded.Designer.cs">
+      <DependentUpon>201707100929047_VacancyModelCityAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.cs" />
+    <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.Designer.cs">
+      <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateViewModel.cs" />
@@ -293,6 +300,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707060837201_role class changed.resx">
       <DependentUpon>201707060837201_role class changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707100929047_VacancyModelCityAdded.resx">
+      <DependentUpon>201707100929047_VacancyModelCityAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707100930399_VacancyModelCityAdded1.resx">
+      <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

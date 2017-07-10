@@ -11,7 +11,11 @@ namespace WebApplication1.Models
     {
         [Key]
         public int vacancyId { get; set; }
+
         public string name { get; set; }
+        
+        public string City { get; set; }
+
         public string vacancyUrl { get; set; }
     }
 }

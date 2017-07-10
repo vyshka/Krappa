@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult AboutCompany()
         {
             var db = new MainDbContext();
             return View(db.Vacancies.ToList());
@@ -31,6 +31,11 @@ namespace WebApplication1.Controllers
         {
             var db = new MainDbContext();
             return PartialView(db.Vacancies.ToList());
+        }
+
+        public ActionResult AboutUs()
+        {
+            return PartialView();
         }
     }
 }

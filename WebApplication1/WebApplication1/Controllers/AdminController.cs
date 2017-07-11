@@ -85,6 +85,49 @@ namespace WebApplication1.Controllers
             return View(list.ToList());
         }
 
+
+        public ActionResult VacancyList(string sortOrder, string searchString)
+        {
+            ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";
+            ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
+
+            var db = new MainDbContext();
+            var list = db.Vacancies.ToList();
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.name.Contains(searchString)
+                                    || s.City.Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case ("name"):
+                    {
+                        list = list.OrderBy(s => s.name).ToList();
+                        break;
+                    }
+                case ("name_desc"):
+                    {
+                        list = list.OrderByDescending(s => s.name).ToList();
+                        break;
+                    }
+                case ("City"):
+                    {
+                        list = list.OrderBy(s => s.City).ToList();
+                        break;
+                    }
+                case ("City_desc"):
+                    {
+                        list = list.OrderByDescending(s => s.City).ToList();
+                        break;
+                    }
+            }
+
+            
+            return View(list);
+        }
         public ActionResult Index()
         {
             return View();
@@ -179,11 +222,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("UsersList");
         }
 
-        public ActionResult VacancyList()
-        {
-            var db = new MainDbContext();
-            return View(db.Vacancies.ToList());
-        }
+      
 
         public ActionResult CreateVacancy()
         {

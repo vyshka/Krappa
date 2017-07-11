@@ -44,11 +44,9 @@
             </div>
             </div>
     </nav>
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col-xs-4">
             <div class="sidebar-nav-fixed affix">
-                <div class="well">
-                    <ul class="nav ">
+                    <ul class="nav">
                         <li class="nav-header">Меню</li>
                         <li>
                             <a href="#">Новый опрос</a>
@@ -69,9 +67,8 @@
                     </ul>
                 </div>
             </div>
-        </div>
         
-        <div class="container body-content">
+        <div class="container body-content col-md-10 col-xs-8">
             @RenderBody()
             @RenderSection("scripts", required: false)
             <footer class="navbar-fixed-bottom">
@@ -80,7 +77,6 @@
                 </div>
             </footer>
         </div>
-    </div>
 
     
 </body>

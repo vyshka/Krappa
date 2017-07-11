@@ -8,12 +8,12 @@ namespace WebApplication1.Models
 {
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "Поле Имя обязательно для заполнения")]
         [Display(Name = "Имя")]
         public string userName { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Поле Пароль обязательно для заполнения")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

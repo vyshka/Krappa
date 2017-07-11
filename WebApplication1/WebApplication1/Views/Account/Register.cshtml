@@ -3,23 +3,6 @@
     ViewBag.Title = "Регистрация";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <!-- Website CSS style -->
-    <link href="~/Content/Auth.css" rel="stylesheet" />
-    <!-- Website Font style -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-    <title>Admin</title>
-</head>
-<body>
     <div class="container">
         <div class="row main">
             <div class="panel-heading">
@@ -32,53 +15,50 @@
                 <form class="form-horizontal" method="post" action="#">
 
                     <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                        <label for="name" class="cols-sm-2 control-label">Логин</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                                 @Html.TextBoxFor(m => m.userName, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
                             </div>
+                            @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                        <label for="email" class="cols-sm-2 control-label">Email</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                             </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        <label for="password" class="cols-sm-2 control-label">Пароль</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                             </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                        <label for="confirm" class="cols-sm-2 control-label">Подтверждение пароля</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                 @Html.PasswordFor(m => m.PasswordConfirm, new { @class = "form-control" })
                             </div>
+                            @Html.ValidationMessageFor(m => m.PasswordConfirm, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.ValidationSummary(false)
-                    </div>
-                    <div class="form-group ">
-                        <input type="submit" class="btn btn-lg btn-block login-button" value="Зарегестрироваться">
+                    <div class="form-group ">       
+                        <input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Зарегестрироваться">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-</body>
-</html>
 

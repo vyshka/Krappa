@@ -78,8 +78,8 @@ namespace WebApplication1.Controllers
                 var resultUpdate = await UserManager.UpdateAsync(user);
                 if (resultUpdate.Succeeded && model.password != null)
                 {
-                    UserManager.RemovePassword(user.Id);
-                    UserManager.AddPassword(user.Id, model.password);
+                    var resultRemovePassword = await UserManager.RemovePasswordAsync(user.Id);
+                    var resultAddPassword = await UserManager.AddPasswordAsync(user.Id, model.password);
                 }
 
                 return RedirectToAction("UsersList");
@@ -192,7 +192,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        
         public ActionResult DeleteVacancy(int id)
         {
             var db = new MainDbContext();

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebApplication1.Models.Vacancies>
+
+<div class="form-group">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Название</th>
+                <th style="text-align: center;">Город</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center"><a href="@item.vacancyUrl" target="_blank">@item.name</a></td>
+                    <td style="text-align:center">@item.City</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Добавить", "CreateVacancy", null,
+            new { @class = "btn btn-default" })
+</div>
+

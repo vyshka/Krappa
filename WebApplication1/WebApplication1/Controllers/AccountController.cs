@@ -28,6 +28,10 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("AboutCompany", "Home");
+            }
             return View();
         }
 
@@ -51,7 +55,7 @@ namespace WebApplication1.Controllers
                         IsPersistent = true
                     }, claim);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("AboutCompany", "Home");
                 }
                 else
                 {
@@ -77,6 +81,10 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("AboutCompany", "Home");
+            }
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -91,7 +99,7 @@ namespace WebApplication1.Controllers
                 ApplicationUser user = await UserManager.FindAsync(model.userName, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    ModelState.AddModelError("Password", "Неверный логин или пароль.");
                 }
                 else
                 {
@@ -102,9 +110,7 @@ namespace WebApplication1.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    if (String.IsNullOrEmpty(returnUrl))
-                        return RedirectToAction("Index", "Home");
-                    return Redirect(returnUrl);
+                    return RedirectToAction("AboutCompany", "Home");
                 }
             }
             ViewBag.returnUrl = returnUrl;
@@ -132,7 +138,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(UserEditModel model)
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
                 user.UserName = model.userName;
@@ -141,9 +147,16 @@ namespace WebApplication1.Controllers
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded && model.newPassword!= null)
                 {
-                    UserManager.RemovePassword(user.Id);
-                    UserManager.AddPassword(user.Id, model.newPassword);
-                    return RedirectToAction("Index", "Home");
+                    var resultPasswordChange = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.oldPassword, model.newPassword);
+                    if(resultPasswordChange.Succeeded)
+                    {
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("oldPassword", "Старый пароль неверный");
+                    }
+                    
                 }
                 else
                 {

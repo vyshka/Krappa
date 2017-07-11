@@ -8,6 +8,8 @@ namespace WebApplication1.Models
 {
     public class UserEditModel
     {
+
+        [Required(ErrorMessage = "Поле Имя обязательно для заполнения")]
         [Display(Name = "Имя")]
         public string userName { get; set; }
 
@@ -17,11 +19,12 @@ namespace WebApplication1.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Новый пароль")]
+        [StringLength(100, ErrorMessage = "{0} должен быть как минимум {2} символов.", MinimumLength = 6)]
         public string newPassword { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("NewPassword", ErrorMessage = "Новый пароль и подтверждение пароля не совпадают")]
+        [Compare("newPassword", ErrorMessage = "Новый пароль и подтверждение пароля не совпадают")]
         public string confrimPassword { get; set; }
     }
 }

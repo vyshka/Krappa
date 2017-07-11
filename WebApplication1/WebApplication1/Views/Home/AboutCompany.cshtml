@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "О компании";
     if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -10,9 +10,8 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
-<link href="~/Content/About.css" rel="stylesheet" />
-<div class="row">
-
+<link href="~/Content/css/About.css" rel="stylesheet" />
+<div class="row about">
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-3">iTechArt Group</h1>
@@ -41,7 +40,7 @@
 
         <div class="tab-content ">
             <div class="tab-pane active" id="About">
-                <h3>О нас</h3>
+                @Html.Partial("AboutUs")>
             </div>
             <div class="tab-pane" id="Vacancies">
                 <h3>Вакансии</h3>

@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("AboutCompany");
         }
 
         public ActionResult AboutCompany()

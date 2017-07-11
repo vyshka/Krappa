@@ -31,11 +31,57 @@ namespace WebApplication1.Controllers
             }
         }
 
-        
 
-        public ActionResult UsersList()
+
+        public ActionResult UsersList(string sortOrder, string searchString)
         {
+            ViewBag.NameSortParm = sortOrder == "UserName" ? "userName_desc" : "UserName";
+            ViewBag.DateSortParm = sortOrder == "registerTime" ? "registerTime_desc" : "Date";
+            ViewBag.RegisterTimeSortParm = sortOrder == "email" ? "email_desc" : "Email";
+
             var list = UserManager.Users;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.UserName.Contains(searchString)
+                                    || s.Email.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case ("UserName"):
+                    {
+                        list = list.OrderBy(s => s.UserName);
+                        break;
+                    }
+                case ("userName_desc"):
+                    {
+                        list = list.OrderByDescending(s => s.UserName);
+                        break;
+                    }
+                case ("email"):
+                    {
+                        list = list.OrderBy(s => s.Email);
+                        break;
+                    }
+                case ("email_desc"):
+                    {
+                        list = list.OrderByDescending(s => s.Email);
+                        break;
+                    }
+                case ("registerTime"):
+                    {
+                        list = list.OrderBy(s => s.registerTime);
+                        break;
+                    }
+                case ("registerTime_desc"):
+                    {
+                        list = list.OrderByDescending(s => s.registerTime);
+                        break;
+                    }
+            }
+
+            
             return View(list.ToList());
         }
 

@@ -3,30 +3,33 @@
     ViewBag.Title = "Редактирование пользователя";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<head>
-    <title>Список пользователей</title>
-</head>
-<body>
     <div class="form-group">
+        @using (Html.BeginForm())
+        {
+            <p>
+                Поиск: @Html.TextBox("SearchString")
+                <input type="submit" class="btn btn-default" value="Поиск">
+            </p>
+        }
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th style="text-align: center;">Имя</th>
-                    <th style="text-align: center;">Email</th>
-                    <th style="text-align: center;">Дата регистрации</th>
-                    <th style="text-align: center;">Редактировать</th>
-                    <th style="text-align: center;">Удалить</th>
+                    <th>@Html.ActionLink("Имя", "UsersList", new { sortOrder = ViewBag.NameSortParm})</th>
+                    <th>@Html.ActionLink("Email", "UsersList", new { sortOrder = ViewBag.EmailSortParm })</th>
+                    <th>@Html.ActionLink("Дата регистрации", "UsersList", new { sortOrder = ViewBag.RegisterTimeSortParm })</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.UserName)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td style="text-align:center">@Html.DisplayFor(modelItem => item.registerTime)</td>
-                        <td style="text-align:center"><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)">Редактировать</td>
-                        <td style="text-align: center;"><a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a>
+                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.registerTime)</td>
+                        <td><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)">Редактировать</a></td>
+                        <td><a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a></td>
                     </tr>
                 }
             </tbody>
@@ -34,6 +37,6 @@
         @Html.ActionLink("Создать", "CreateUser", null,
             new { @class = "btn btn-default" })
     </div>
-</body>
+
 
 

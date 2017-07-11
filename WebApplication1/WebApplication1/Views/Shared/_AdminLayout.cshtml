@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/css/Main.css" rel="stylesheet" />
-    <link href="~/Content/css/Admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Main.css" rel="stylesheet"/>
     <script src="~/Content/js/jquery-3.1.1.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
 </head>
@@ -44,31 +43,32 @@
             </div>
             </div>
     </nav>
+    <div class="container body-content">
         <div class="col-md-2 col-xs-4">
             <div class="sidebar-nav-fixed affix">
-                    <ul class="nav">
-                        <li class="nav-header">Меню</li>
-                        <li>
-                            <a href="#">Новый опрос</a>
-                        </li>
-                        <li>
-                            <a href="#">Мои опросы</a>
-                        </li>
-                        <li>
-                            <a href="#">Шаблоны опросов</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("UsersList", "Admin")">Пользователи</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("VacancyList", "Admin")">Вакансии</a>
-                        </li>
-                        
-                    </ul>
-                </div>
+                <ul class="nav">
+                    <li class="nav-header">Меню</li>
+                    <li>
+                        <a href="#">Новый опрос</a>
+                    </li>
+                    <li>
+                        <a href="#">Мои опросы</a>
+                    </li>
+                    <li>
+                        <a href="#">Шаблоны опросов</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("UsersList", "Admin")">Пользователи</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("VacancyList", "Admin")">Вакансии</a>
+                    </li>
+
+                </ul>
             </div>
-        
-        <div class="container body-content col-md-10 col-xs-8">
+        </div>
+
+        <div class="col-md-10 col-xs-8">
             @RenderBody()
             @RenderSection("scripts", required: false)
             <footer class="navbar-fixed-bottom">
@@ -77,7 +77,7 @@
                 </div>
             </footer>
         </div>
-
+    </div>
     
 </body>
 </html>

@@ -1,28 +1,31 @@
-﻿@model IEnumerable<WebApplication1.Models.Vacancies>
+﻿@model PagedList.IPagedList<WebApplication1.Models.Vacancies>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Список вакансий";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
     <div class="form-group">
-        @using (Html.BeginForm())
-        {
-            <div class="col-md-4">
-                <p>
-                    Поиск: @Html.TextBox("SearchString", null, new { @class = "form-control" })
-                    <input type="submit" class="btn btn-default" value="Поиск">
-                </p>
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+            <p>
+                Поиск: 
+                <div class="col-md-6 col-xs-6">
+                    @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                </div>
+                <input type="submit" class="btn btn-default" value="Поиск">
+            </p>
+        </div>
 
-            </div>
-            
-        }
-        <table class="table table-hover">
+    }
+    <div class="table-responsive  col-md-12 col-xs-12 ">
+        <table class="table-borderless table">
             <thead>
                 <tr>
                     <th>@Html.ActionLink("Имя", "VacancyList", new { sortOrder = ViewBag.NameSortParm })</th>
                     <th>Url</th>
-                    <th>@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm })</th>
-                    <th>Редактировать</th>
-                    <th>Удалить</th>
+                    <th class="hidden-xs hidden-sm">@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm })</th>
+                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,16 +33,24 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.vacancyUrl)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.vacancyUrl)</td>
                         <td>@Html.DisplayFor(modelItem => item.City)</td>
-                        <td><a href="@Url.Action("EditVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)">Редактировать</a></td>
-                        <td><a href="@Url.Action("DeleteVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)" onclick="return confirm('Действительно хотите удалить?')">Удалить</a></td>
+                        <td><a href="@Url.Action("EditVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
                     </tr>
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Добавить", "CreateVacancy", null,
-            new { @class = "btn btn-default" })
+        </div>
+    <div class="row">
+        <div class="col-md-6 col-xs-6">
+            @Html.ActionLink("Создать", "CreateVacancy", null,
+                                new { @class = "btn btn-default" })
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <span class="pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("VacancyList",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </span>
+        </div>
     </div>
-
 

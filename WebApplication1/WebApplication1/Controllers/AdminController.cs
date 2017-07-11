@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.Owin.Security;
+using PagedList;
 
 namespace WebApplication1.Controllers
 {
@@ -33,60 +34,62 @@ namespace WebApplication1.Controllers
 
 
 
-        public ActionResult UsersList(string sortOrder, string searchString)
+        public ActionResult UsersList(string sortOrder, string searchString, int? page)
         {
             ViewBag.NameSortParm = sortOrder == "UserName" ? "userName_desc" : "UserName";
             ViewBag.DateSortParm = sortOrder == "registerTime" ? "registerTime_desc" : "Date";
             ViewBag.RegisterTimeSortParm = sortOrder == "email" ? "email_desc" : "Email";
 
-            var list = UserManager.Users;
+            var list = UserManager.Users.ToList();
+
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 list = list.Where(s => s.UserName.Contains(searchString)
-                                    || s.Email.Contains(searchString));
+                                    || s.Email.Contains(searchString)).ToList();
             }
 
             switch (sortOrder)
             {
                 case ("UserName"):
                     {
-                        list = list.OrderBy(s => s.UserName);
+                        list = list.OrderBy(s => s.UserName).ToList();
                         break;
                     }
                 case ("userName_desc"):
                     {
-                        list = list.OrderByDescending(s => s.UserName);
+                        list = list.OrderByDescending(s => s.UserName).ToList();
                         break;
                     }
                 case ("email"):
                     {
-                        list = list.OrderBy(s => s.Email);
+                        list = list.OrderBy(s => s.Email).ToList();
                         break;
                     }
                 case ("email_desc"):
                     {
-                        list = list.OrderByDescending(s => s.Email);
+                        list = list.OrderByDescending(s => s.Email).ToList();
                         break;
                     }
                 case ("registerTime"):
                     {
-                        list = list.OrderBy(s => s.registerTime);
+                        list = list.OrderBy(s => s.registerTime).ToList();
                         break;
                     }
                 case ("registerTime_desc"):
                     {
-                        list = list.OrderByDescending(s => s.registerTime);
+                        list = list.OrderByDescending(s => s.registerTime).ToList();
                         break;
                     }
             }
-
-            
-            return View(list.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
 
-        public ActionResult VacancyList(string sortOrder, string searchString)
+        public ActionResult VacancyList(string sortOrder, string searchString, int? page)
         {
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";
             ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
@@ -125,8 +128,9 @@ namespace WebApplication1.Controllers
                     }
             }
 
-            
-            return View(list);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult Index()
         {

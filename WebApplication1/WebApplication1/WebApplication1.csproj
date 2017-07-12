@@ -182,7 +182,7 @@
     <Content Include="Content\css\Main.css" />
     <Content Include="Content\css\Profile.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\css\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\Socials.jpg" />
     <Content Include="Content\img\logo.png" />
@@ -209,8 +209,6 @@
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Content\js\jquery.unobtrusive-ajax.js" />
-    <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

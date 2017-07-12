@@ -26,7 +26,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <a class="navbar-brand" href="@Url.Action("AboutCompany", "Home")">
                     <img alt="Brand" src="~/Content/img/logo.png">
                 </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -62,7 +62,7 @@
         @RenderBody()
         @RenderSection("scripts", required: false)
 
-        <footer class="navbar-fixed-bottom">
+        <footer>
             <div class="container text-center">
                 <p class="text-muted">Copyright @@ 2017 iTechArt</p>
             </div>

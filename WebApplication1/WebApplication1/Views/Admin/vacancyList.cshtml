@@ -7,7 +7,7 @@
 
     @using (Html.BeginForm("VacancyList", "Admin", FormMethod.Get))
     {
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-12 col-xs-12">
             <div class="col-md-6 col-xs-6">
                 @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск" })
              </div>
@@ -33,9 +33,7 @@
             <tfoot>
                 <tr>
                     <td>Всего вакансий:@ViewBag.TotalCount</td>
-                    <td class="hidden-xs hidden-sm"></td>
-                    <td class="hidden-xs hidden-sm"></td>
-                    <td>
+                    <td colspan="3" class="text-right">
                         @Html.PagedListPager(Model, page => Url.Action("VacancyList",
                             new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
                     </td>

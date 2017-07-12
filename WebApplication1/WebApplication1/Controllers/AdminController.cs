@@ -34,14 +34,25 @@ namespace WebApplication1.Controllers
 
 
 
-        public ActionResult UsersList(string sortOrder, string searchString, int? page)
+        public ActionResult UsersList(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = sortOrder == "UserName" ? "userName_desc" : "UserName";
-            ViewBag.DateSortParm = sortOrder == "registerTime" ? "registerTime_desc" : "Date";
-            ViewBag.RegisterTimeSortParm = sortOrder == "email" ? "email_desc" : "Email";
+            ViewBag.EmailSortParm = sortOrder == "Email" ? "email_desc" : "Email";
+            ViewBag.RegisterTimeSortParm = sortOrder == "RegisterTime" ? "registerTime_desc" : "RegisterTime";
 
             var list = UserManager.Users.ToList();
+            ViewBag.TotalCount = list.Count;
 
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -49,6 +60,8 @@ namespace WebApplication1.Controllers
                 list = list.Where(s => s.UserName.Contains(searchString)
                                     || s.Email.Contains(searchString)).ToList();
             }
+
+            ViewBag.CurrentFilter = searchString;
 
             switch (sortOrder)
             {
@@ -62,7 +75,7 @@ namespace WebApplication1.Controllers
                         list = list.OrderByDescending(s => s.UserName).ToList();
                         break;
                     }
-                case ("email"):
+                case ("Email"):
                     {
                         list = list.OrderBy(s => s.Email).ToList();
                         break;
@@ -72,7 +85,7 @@ namespace WebApplication1.Controllers
                         list = list.OrderByDescending(s => s.Email).ToList();
                         break;
                     }
-                case ("registerTime"):
+                case ("RegisterTime"):
                     {
                         list = list.OrderBy(s => s.registerTime).ToList();
                         break;
@@ -88,21 +101,35 @@ namespace WebApplication1.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
-
-        public ActionResult VacancyList(string sortOrder, string searchString, int? page)
+        public ActionResult VacancyList(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";
             ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
 
             var db = new MainDbContext();
             var list = db.Vacancies.ToList();
 
+            ViewBag.TotalCount = list.Count;
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 list = list.Where(s => s.name.Contains(searchString)
                                     || s.City.Contains(searchString)).ToList();
             }
+
+            ViewBag.CurrentFilter = searchString;
 
             switch (sortOrder)
             {

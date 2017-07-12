@@ -4,30 +4,44 @@
     ViewBag.Title = "Список вакансий";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-    <div class="form-group">
-    @using (Html.BeginForm())
+
+    @using (Html.BeginForm("VacancyList", "Admin", FormMethod.Get))
     {
-        <div class="col-md-12">
-            <p>
-                Поиск: 
-                <div class="col-md-6 col-xs-6">
-                    @Html.TextBox("SearchString", null, new { @class = "form-control" })
-                </div>
+        <div class="col-md-8 col-xs-8">
+            <div class="col-md-6 col-xs-6">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск" })
+             </div>
+            <div class="col-md-2 col-xs-2">
                 <input type="submit" class="btn btn-default" value="Поиск">
-            </p>
+            </div>
+             
         </div>
+
 
     }
     <div class="table-responsive  col-md-12 col-xs-12 ">
         <table class="table-borderless table">
             <thead>
                 <tr>
-                    <th>@Html.ActionLink("Имя", "VacancyList", new { sortOrder = ViewBag.NameSortParm })</th>
+                    <th>@Html.ActionLink("Имя", "VacancyList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                     <th>Url</th>
-                    <th class="hidden-xs hidden-sm">@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm })</th>
+                    <th class="hidden-xs hidden-sm">@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm, currentFilter = ViewBag.CurrentFilter })</th>
                     <th>Действия</th>
                 </tr>
             </thead>
+
+            <tfoot>
+                <tr>
+                    <td>Всего вакансий:@ViewBag.TotalCount</td>
+                    <td class="hidden-xs hidden-sm"></td>
+                    <td class="hidden-xs hidden-sm"></td>
+                    <td>
+                        @Html.PagedListPager(Model, page => Url.Action("VacancyList",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                    </td>
+                </tr>
+            </tfoot>
+
             <tbody>
                 @foreach (var item in Model)
                 {
@@ -45,12 +59,6 @@
         <div class="col-md-6 col-xs-6">
             @Html.ActionLink("Создать", "CreateVacancy", null,
                                 new { @class = "btn btn-default" })
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <span class="pull-right">
-                @Html.PagedListPager(Model, page => Url.Action("VacancyList",
-                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-            </span>
         </div>
     </div>
 

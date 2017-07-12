@@ -3,43 +3,61 @@
 @{
     ViewBag.Title = "Редактирование пользователя";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("UsersList", "Admin", FormMethod.Get))
 {
-    <div class="col-md-8 col-xs-8">
-        <p>
-            Поиск: @Html.TextBox("SearchString", null, new { @class = "form-control" })
-            <input type="submit" class="btn btn-default" value="Поиск">
-        </p>
+    <div class="col-md-8 col-xs-8"> 
+        <div class="col-md-6">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск" })
+        </div>
+            <input type="submit" class="btn btn-default" value="Поиск" />
+        
     </div>
 
 }
-<div class="table-responsive  col-md-12 col-xs-12 ">
-    <table class="table-borderless table">
-        <thead>
-            <tr>
-                <th>@Html.ActionLink("Имя", "UsersList", new { sortOrder = ViewBag.NameSortParm })</th>
-                <th>@Html.ActionLink("Email", "UsersList", new { sortOrder = ViewBag.EmailSortParm })</th>
-                <th class="hidden-xs hidden-sm">@Html.ActionLink("Дата регистрации", "UsersList", new { sortOrder = ViewBag.RegisterTimeSortParm })</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<div id="results">
+    <div class="table-responsive  col-md-12 col-xs-12 ">
+        <table class="table-borderless table">
+            <thead>
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
-                    <td><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
-                    
+                    <th>@Html.ActionLink("Имя", "UsersList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                    <th>@Html.ActionLink("Email", "UsersList", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                    <th class="hidden-xs hidden-sm">@Html.ActionLink("Дата регистрации", "UsersList", new { sortOrder = ViewBag.RegisterTimeSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                    <th>Действия</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td>Всего пользоваттелей:@ViewBag.TotalCount</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @Html.PagedListPager(Model, page => Url.Action("UsersList",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                    </td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
+                        <td><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
         <div class="row">
             <div class="col-md-6 col-xs-6">

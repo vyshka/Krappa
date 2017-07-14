@@ -183,6 +183,12 @@
     <Content Include="Content\css\Profile.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\css\PagedList.css" />
+    <Content Include="Content\img\advans\1.png" />
+    <Content Include="Content\img\advans\2.png" />
+    <Content Include="Content\img\advans\3.png" />
+    <Content Include="Content\img\advans\4.png" />
+    <Content Include="Content\img\advans\5.png" />
+    <Content Include="Content\js\tabs.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\Socials.jpg" />
     <Content Include="Content\img\logo.png" />
@@ -291,6 +297,7 @@
     <Content Include="Views\Admin\EditVacancy.cshtml" />
     <Content Include="Views\Home\VacancyList.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\Advans.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

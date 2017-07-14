@@ -35,8 +35,15 @@
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Войти">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="text-left">
+                                @Html.ActionLink("Регистрация", "Register")
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

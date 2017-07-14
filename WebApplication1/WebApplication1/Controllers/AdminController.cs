@@ -97,7 +97,7 @@ namespace WebApplication1.Controllers
                         break;
                     }
             }
-            int pageSize = 3;
+            int pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["pageSize"].ToString());
             int pageNumber = (page ?? 1);
             return View(list.ToPagedList(pageNumber, pageSize));
         }

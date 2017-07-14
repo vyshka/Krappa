@@ -6,8 +6,8 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/Style.css" rel="stylesheet" />
     <script src="~/Content/js/scripts.js"></script>
-    @*<script src="~/Content/js/jquery-3.1.1.min.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>*@
+
+    
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -26,10 +26,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="@Url.Action("AboutCompany", "Home")">О компании</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name <span class="caret"></span></a>
+                            <a href*="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="@Url.Action("index", "manage")"><i class="glyphicon glyphicon-user"></i> Профиль</a>
+                                    <a href="@Url.Action("Profile", "account")"><i class="glyphicon glyphicon-user"></i> Профиль</a>
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li >

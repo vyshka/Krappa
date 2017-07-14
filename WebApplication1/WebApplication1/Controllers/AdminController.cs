@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.Owin.Security;
 using PagedList;
+using System.Configuration;
 
 namespace WebApplication1.Controllers
 {
@@ -155,7 +156,7 @@ namespace WebApplication1.Controllers
                     }
             }
 
-            int pageSize = 3;
+            int pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["pageSize"].ToString());
             int pageNumber = (page ?? 1);
             return View(list.ToPagedList(pageNumber, pageSize));
         }

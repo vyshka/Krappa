@@ -42,7 +42,7 @@
             </div>
     </nav>
     <div class="container body-content">
-        <div class="col-md-2 col-xs-4">
+        <div class="col-md-3 col-xs-4">
             <div class="sidebar-nav">
                 <div class="well">
                     <ul class="nav nav-list">
@@ -56,12 +56,12 @@
             </div>
         </div>
 
-        <div class="col-md-10 col-xs-8">
+        <div class="col-md-9 col-xs-8">
             @RenderBody()
             @RenderSection("scripts", required: false)
-            <footer>
-                <div class="container text-center">
-                    <p class="text-muted">Copyright @@ 2017 iTechArt</p>
+            <footer class="navbar-default navbar-fixed-bottom text-center">
+                <div class="container-fluid">
+                    <span>Copyright @@ 2017 iTechArt</span>
                 </div>
             </footer>
         </div>

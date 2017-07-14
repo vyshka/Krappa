@@ -8,7 +8,7 @@
     @using (Html.BeginForm("VacancyList", "Admin", FormMethod.Get))
     {
         <div class="col-md-12 col-xs-12">
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-6 col-xs-6 nopading">
                 @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск" })
              </div>
             <div class="col-md-2 col-xs-2">
@@ -19,44 +19,53 @@
 
 
     }
-    <div class="table-responsive  col-md-12 col-xs-12 ">
-        <table class="table-borderless table">
-            <thead>
-                <tr>
-                    <th>@Html.ActionLink("Имя", "VacancyList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                    <th>Url</th>
-                    <th class="hidden-xs hidden-sm">@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
 
-            <tfoot>
-                <tr>
-                    <td>Всего вакансий:@ViewBag.TotalCount</td>
-                    <td colspan="3" class="text-right">
-                        @Html.PagedListPager(Model, page => Url.Action("VacancyList",
-                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-                    </td>
-                </tr>
-            </tfoot>
-
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.name)</td>
-                        <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.vacancyUrl)</td>
-                        <td>@Html.DisplayFor(modelItem => item.City)</td>
-                        <td><a href="@Url.Action("EditVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<div class="col-md-12 col-xs-12">
+    <div class="panel panel-default panel-table">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col col-xs-8">
+                    <h3 class="panel-title">Список пользователей</h3>
+                </div>
+                <div class="col col-xs-4 text-right">
+                    <button type="button" onclick="location.href='@Url.Action("CreateVacancy")'" class="btn btn-sm btn-primary btn-create">Создать</button>
+                </div>
+            </div>
         </div>
-    <div class="row">
-        <div class="col-md-6 col-xs-6">
-            @Html.ActionLink("Создать", "CreateVacancy", null,
-                                new { @class = "btn btn-default" })
+        <div class="panel-body">
+            <table class="table table-striped table-bordered table-list">
+                <thead>
+                    <tr>
+                        <th>@Html.ActionLink("Имя", "VacancyList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>Url</th>
+                        <th class="hidden-xs hidden-sm">@Html.ActionLink("Город", "VacancyList", new { sortOrder = ViewBag.CitySortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.name)</td>
+                            <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.vacancyUrl)</td>
+                            <td>@Html.DisplayFor(modelItem => item.City)</td>
+                            <td><a href="@Url.Action("EditVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteVacancy", "Admin")/@Html.DisplayFor(modelItem => item.vacancyId)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col col-xs-4">
+                    Всего вакансий:@ViewBag.TotalCount
+                </div>
+                <div class="col col-xs-8 text-right">
+                    @Html.PagedListPager(Model, page => Url.Action("VacancyList",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+            </div>
         </div>
     </div>
-
+</div>

@@ -32,15 +32,5 @@ namespace WebApplication1.Controllers
             var db = new MainDbContext();
             return PartialView(db.Vacancies.ToList());
         }
-
-        public ActionResult AboutUs()
-        {
-            return PartialView();
-        }
-
-        public ActionResult Advans()
-        {
-            return View();
-        }
     }
 }

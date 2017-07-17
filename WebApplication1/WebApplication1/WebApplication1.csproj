@@ -180,6 +180,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\Main.css" />
+    <Content Include="Content\css\media-queries.css" />
     <Content Include="Content\css\Profile.css" />
     <Content Include="Content\css\Style.css" />
     <Content Include="Content\css\Style.min.css" />

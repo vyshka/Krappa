@@ -1,11 +1,15 @@
 ﻿@model WebApplication1.Models.UserViewModel
 @{
     ViewBag.Title = "Профиль";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
-<head>
-    <link rel="stylesheet" href="~/Content/css/Profile.css" type="text/css" />
-</head>
 <h2>Профиль</h2>
 
 <div class="user-info">

@@ -10,51 +10,49 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
-    <div class="container-fluid">
-        <div class="jumbotron">
-            <h1 class="display-3">iTechArt Group</h1>
-            <p class="lead">iTechArt Group — это команда Remarkable People, профессионалов в сфере разработки, тестирования, сервисной поддержки программных продуктов, модернизации и интеграции бизнес-приложений.
-                            Мы страстно любим то, чем занимаемся, и стремимся к совершенству в решении любых задач!</p>
-            <hr class="my-4">
-            <p>Наша команда — более 700 высококлассных специалистов.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" target="_blank" href="https://www.itechart.com/" role="button">Наш сайт</a>
-            </p>
+<div class="jumbotron">
+    <h1 class="display-3">iTechArt Group</h1>
+    <p class="lead">iTechArt Group — это команда Remarkable People, профессионалов в сфере разработки, тестирования, сервисной поддержки программных продуктов, модернизации и интеграции бизнес-приложений.
+                    Мы страстно любим то, чем занимаемся, и стремимся к совершенству в решении любых задач!</p>
+    <hr class="my-4">
+    <p>Наша команда — более 700 высококлассных специалистов.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg ourSite" target="_blank" href="https://www.itechart.com/" role="button">Наш сайт</a>
+    </p>
+</div>
+
+<div id="exTab2" class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#About" data-toggle="tab">О нас</a>
+        </li>
+        <li>
+            <a href="#Vacancies" data-toggle="tab">Вакансии</a>
+        </li>
+        <li>
+            <a href="#Relo" data-toggle="tab">Релокация в Минск</a>
+        </li>
+        <li>
+            <a href="#Advans" data-toggle="tab">Наши приемущества</a>
+        </li>
+    </ul>
+
+    <div class="tab-content ">
+        <div class="tab-pane active" id="About">
+            @Html.Partial("AboutUs")>
+        </div>
+
+        <div class="tab-pane" id="Vacancies">
+            <h3>Вакансии</h3>
+            @Html.Partial("VacancyList")
+        </div>
+
+        <div class="tab-pane" id="Relo">
+            @Html.Partial("Advans")
+        </div>
+
+        <div class="tab-pane" id="Advans">
+            @Html.Partial("Relo")
         </div>
     </div>
-
-    <div id="exTab2" class="container-fluid">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#About" data-toggle="tab">О нас</a>
-            </li>
-            <li>
-                <a href="#Vacancies" data-toggle="tab">Вакансии</a>
-            </li>
-            <li>
-                <a href="#Relo" data-toggle="tab">Релокация в Минск</a>
-            </li>
-            <li>
-                <a href="#Advans" data-toggle="tab">Наши приемущества</a>
-            </li>
-        </ul>
-
-        <div class="tab-content ">
-            <div class="tab-pane active" id="About">
-                @Html.Partial("AboutUs")>
-            </div>
-
-            <div class="tab-pane" id="Vacancies">
-                <h3>Вакансии</h3>
-                @Html.Partial("VacancyList")
-            </div>
-
-            <div class="tab-pane" id="Relo">
-                @Html.Partial("Advans")
-            </div>
-
-            <div class="tab-pane" id="Advans">
-                @Html.Partial("Relo")
-            </div>
-        </div>
-    </div>
+</div>

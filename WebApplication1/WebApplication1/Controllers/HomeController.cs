@@ -15,6 +15,9 @@ namespace WebApplication1.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
+
+        private MainDbContext db = new MainDbContext();
+
         // GET: Home
         public ActionResult Index()
         {
@@ -23,13 +26,11 @@ namespace WebApplication1.Controllers
 
         public ActionResult AboutCompany()
         {
-            var db = new MainDbContext();
             return View(db.Vacancies.ToList());
         }
 
         public ActionResult VacancyList()
         {
-            var db = new MainDbContext();
             return PartialView(db.Vacancies.ToList());
         }
     }

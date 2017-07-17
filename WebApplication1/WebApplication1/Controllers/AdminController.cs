@@ -17,13 +17,6 @@ namespace WebApplication1.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private ApplicationUserManager UserManager
         {
@@ -32,6 +25,8 @@ namespace WebApplication1.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
+
+        private MainDbContext db = new MainDbContext();
 
 
 
@@ -102,6 +97,7 @@ namespace WebApplication1.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
+
         public ActionResult VacancyList(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -109,7 +105,6 @@ namespace WebApplication1.Controllers
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";
             ViewBag.CitySortParm = sortOrder == "City" ? "City_desc" : "City";
 
-            var db = new MainDbContext();
             var list = db.Vacancies.ToList();
 
             ViewBag.TotalCount = list.Count;
@@ -266,34 +261,27 @@ namespace WebApplication1.Controllers
         {
             if(ModelState.IsValid)
             {
-                using (var db = new MainDbContext())
-                {
-                    var dbVacancy = db.Vacancies.Create();
-                    dbVacancy.name = vacancy.name;
-                    dbVacancy.vacancyUrl = vacancy.vacancyUrl;
-                    dbVacancy.City = vacancy.City;
+                var dbVacancy = db.Vacancies.Create();
+                dbVacancy.name = vacancy.name;
+                dbVacancy.vacancyUrl = vacancy.vacancyUrl;
+                dbVacancy.City = vacancy.City;
 
-                    db.Vacancies.Add(dbVacancy);
-                    var result = await db.SaveChangesAsync();
-                }
+                db.Vacancies.Add(dbVacancy);
+                var result = await db.SaveChangesAsync();
             }
             return RedirectToAction("VacancyList");
         }
 
         public ActionResult EditVacancy(int Id)
         {
-            using (var db = new MainDbContext())
-            {
-                var model = new Vacancies();
-                model = db.Vacancies.Find(Id);
-                return View(model);
-            }
+            var model = new Vacancies();
+            model = db.Vacancies.Find(Id);
+            return View(model);
         }
 
         [HttpPost]
         public async Task<ActionResult> EditVacancy(Vacancies vacancy)
         {
-            var db = new MainDbContext();
             var original = await db.Vacancies.FindAsync(vacancy.vacancyId);
             if (original != null)
             {
@@ -311,7 +299,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult DeleteVacancy(int id)
         {
-            var db = new MainDbContext();
             var model = db.Vacancies.Find(id);
             if(model == null)
             {

@@ -64,8 +64,12 @@ used to vertically center elements, may need modification if you're not using de
   line-height: 34px;
 }
 
-.nopading{
-    padding-left:0 !important;
+.nopadingleft{
+    padding-left:0px !important;
+}
+
+.nopadingright{
+    padding-right:0px !important;
 }
 
 .h3{
@@ -79,4 +83,10 @@ used to vertically center elements, may need modification if you're not using de
 .becomebtn{
     margin-top:20px;
     margin-bottom:20px;
+}
+
+.search {
+    padding-bottom:15px;
+    margin-left:0px;
+    margin-right:0px;
 }

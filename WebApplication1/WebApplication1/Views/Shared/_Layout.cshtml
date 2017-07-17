@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/Style.css" rel="stylesheet" />
-    <script src="~/Content/js/scripts.js"></script>
-
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <script src="~/Content/js/scripts.js"></script> 
 
 </head>
 <body>
@@ -32,7 +27,7 @@
                     @if (@User.Identity.IsAuthenticated)
                     {
                         <li>
-                            @Html.ActionLink("Привет " + User.Identity.Name + "!", "Profile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            @Html.ActionLink("Привет" + User.Identity.Name + "!", "Profile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </li>
                         <li>
                             <a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
@@ -48,19 +43,18 @@
         </div>
         </nav>
             
-
     <div class="container body-content">
-        @RenderBody()
-        @RenderSection("scripts", required: false)
+        <div class="maincontent">
+            @RenderBody()
+            @RenderSection("scripts", required: false)
 
-        <footer class="navbar-default navbar-fixed-bottom text-center">
-            <div class="container-fluid">
-                <span>Copyright @@ 2017 iTechArt</span>
-            </div>
-        </footer>
+            <footer class="navbar-default text-center">
+                <div class="container-fluid">
+                    <span>Copyright @@ 2017 iTechArt</span>
+                </div>
+            </footer>
+        </div>
     </div>
-
-    
 </body>
 </html>
 

@@ -1,12 +1,11 @@
 ﻿.user-info span {
     font-weight: 700;
-    font-size: 16px;
-    margin: 20px 0 2px 5px;
+    margin: 15px 0 2px 5px;
     display: inline-block;
 }
 
 .user-info {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 

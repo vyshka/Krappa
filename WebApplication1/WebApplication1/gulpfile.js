@@ -21,7 +21,8 @@ var gulp = require('gulp'),
                 'Content/css/bootstrap-theme.css',
                 'Content/css/Main.css',
                 'Content/css/PagedList.css',
-                'Content/css/Profile.css']
+                'Content/css/Profile.css',
+                'Content/css/media-queries.css']
     cssOutFile = 'Content/css/Style.css';
    
 

@@ -1,4 +1,5 @@
-﻿/// <reference path="Content/js/scripts.js" />
+﻿/// <binding BeforeBuild='default' />
+/// <reference path="Content/js/scripts.js" />
 /// <binding BeforeBuild='default' />
 // include plug-ins
 var gulp = require('gulp'),
@@ -7,8 +8,9 @@ var gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
     del = require('del'),
-    rename = require('gulp-rename'),
-    jsDest = 'Content/js/',
+    rename = require('gulp-rename');
+
+var jsDest = 'Content/js/',
     jsFiles = [
             'Content/js/jquery-3.1.1.js',
             'Content/js/jquery.validate.js',
@@ -22,16 +24,16 @@ var gulp = require('gulp'),
                 'Content/css/Main.css',
                 'Content/css/PagedList.css',
                 'Content/css/Profile.css',
-                'Content/css/media-queries.css']
-    cssOutFile = 'Content/css/Style.css';
+                'Content/css/media-queries.css'],
+    cssOutFile = 'Content/css/Style.css',
+    jsOutFile = 'Content/js/script.js';
    
 
 gulp.task('minify-css', ['css'], () => {
     return gulp.src(cssOutFile)
       .pipe(cleanCSS())
       .pipe(rename({
-            suffix: '.min'
-        }))
+            suffix: '.min'}))
       .pipe(gulp.dest('Content/css/'));
 });
 
@@ -63,7 +65,7 @@ gulp.task('scripts',['cleanjs'], function () {
     return gulp.src(jsFiles)
         .pipe(concat('scripts.js'))
         .pipe(gulp.dest(jsDest))
-        .pipe(rename('scripts.min.js'))
+        .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest));
 });

@@ -9183,10 +9183,8 @@ ul {
 }
 
 .survey {
-  box-sizing: border-box;
   width: 70%;
   height: 200px;
-  border: 2px solid gray;
   display: inline-block;
   position: relative;
   float: left;

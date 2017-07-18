@@ -21,7 +21,36 @@
     </p>
 </div>
 
-<div id="exTab2" class="container-fluid">
+<input id="tab1" type="radio" name="tabs" checked>
+<label for="tab1">О нас</label>
+
+<input id="tab2" type="radio" name="tabs">
+<label for="tab2">Вакансии</label>
+
+<input id="tab3" type="radio" name="tabs">
+<label for="tab3">Релокация в Минск</label>
+
+<input id="tab4" type="radio" name="tabs">
+<label for="tab4">Наши приемущества</label>
+
+<section id="content1">
+    @Html.Partial("AboutUs")
+</section>
+
+<section id="content2">
+    @Html.Partial("VacancyList")
+</section>
+
+<section id="content3">
+    @Html.Partial("Relo")
+</section>
+
+<section id="content4">
+    @Html.Partial("Advans")
+</section>
+
+
+@*<div id="exTab2" class="container-fluid">
     <ul class="nav nav-tabs">
         <li class="active">
             <a href="#About" data-toggle="tab">О нас</a>
@@ -55,4 +84,4 @@
             @Html.Partial("Advans")
         </div>
     </div>
-</div>
+</div>*@

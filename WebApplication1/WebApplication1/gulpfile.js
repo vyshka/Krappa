@@ -24,7 +24,8 @@ var jsDest = 'Content/js/',
                 'Content/css/Main.css',
                 'Content/css/PagedList.css',
                 'Content/css/Profile.css',
-                'Content/css/media-queries.css'],
+                'Content/css/media-queries.css',
+                'Content/css/tab.css'],
     cssOutFile = 'Content/css/Style.css',
     jsOutFile = 'Content/js/script.js';
    

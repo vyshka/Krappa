@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/Style.css" rel="stylesheet" />
     <script src="~/Content/js/scripts.js"></script>
+    @RenderSection("css", false)
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -40,9 +41,10 @@
         </div>
     </nav>
     <div class="container body-content">
-        <div class="sidebar-nav col-md-3 col-xs-4 admincontent">
+        <div class="sidebar-nav col-md-3 col-xs-4">
             <div class="well">
                 <ul class="nav nav-list">
+                    <li><a href="@Url.Action("newSurvey", "Admin")"><i class="glyphicon glyphicon-question-sign"></i> Новый опрос </a></li>
                     <li><a href="@Url.Action("SurveyList", "Admin")"><i class="glyphicon glyphicon-tasks"></i> Мои опросы </a></li>
                     <li><a href="@Url.Action("UsersList", "Admin")"> <i class="glyphicon glyphicon-user"></i> Пользователи</a> </li>
                     <li><a href="@Url.Action("VacancyList", "Admin")"> <i class="glyphicon glyphicon-list"></i> Вакансии</a> </li>

@@ -160,3 +160,42 @@ html {
 ul{
     list-style-position:inside;
 }
+
+.survey-name {
+    width:40%;
+    white-space:nowrap;
+}
+
+.control-container {
+    width:100%;
+}
+
+.btn3{
+    float:right;
+}
+
+.main-container{
+    width: 100%;
+}
+
+.survey {
+    width:70%;
+    height:200px;
+    display:inline-block;
+    position:relative;
+    float:left;
+}
+
+
+.sidebar-menu{
+    width:30%;
+    display:inline-block
+}
+
+.settings{
+    margin-left:15px !important;
+}
+
+label{
+    font-size:12px;
+}

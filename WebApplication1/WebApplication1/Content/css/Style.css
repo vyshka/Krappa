@@ -1,33 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-@import url('https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
-.soclink-in,
-.soclink-inst,
-.soclink-fb {
-  float: left;
-  width: 51px;
-  height: 51px;
-  margin-right: 10px;
-}
-
-.soclink-in {
-  background-image: url(https://hhcdn.ru/ichameleon/66453.png);
-}
-
-.soclink-fb {
-  background-image: url(https://hhcdn.ru/ichameleon/65859.png);
-}
-
-.soclink-inst {
-  background-image: url(https://hhcdn.ru/ichameleon/66454.png);
-}
-
-.img-fluid.mainimg {
-  margin-top: 20px;
-}
-
-.row.about {
-  margin-right: auto;
-}
 body,
 html {
   height: 100%;
@@ -9195,6 +9165,45 @@ ul {
   list-style-position: inside;
 }
 
+.survey-name {
+  width: 40%;
+  white-space: nowrap;
+}
+
+.control-container {
+  width: 100%;
+}
+
+.btn3 {
+  float: right;
+}
+
+.main-container {
+  width: 100%;
+}
+
+.survey {
+  box-sizing: border-box;
+  width: 70%;
+  height: 200px;
+  border: 2px solid gray;
+  display: inline-block;
+  position: relative;
+  float: left;
+}
+
+.sidebar-menu {
+  width: 30%;
+  display: inline-block;
+}
+
+.settings {
+  margin-left: 15px !important;
+}
+
+label {
+  font-size: 12px;
+}
 .user-info span {
   font-weight: 700;
   margin: 15px 0 2px 5px;
@@ -9300,109 +9309,5 @@ ul {
 
   .pagination li {
     width: 60%;
-  }
-}
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-h1 {
-  padding: 50px 0;
-  font-weight: 400;
-  text-align: center;
-}
-
-p {
-  margin: 0 0 20px;
-  line-height: 1.5;
-}
-
-main {
-  min-width: 320px;
-  max-width: 800px;
-  padding: 50px;
-  margin: 0 auto;
-  background: #fff;
-}
-
-section {
-  display: none;
-  padding: 20px 0 0;
-  border-top: 1px solid #ddd;
-}
-
-input {
-  display: none;
-}
-
-label {
-  display: inline-block;
-  margin: 0 0 -1px;
-  padding: 15px 25px;
-  font-weight: 600;
-  text-align: center;
-  color: #bbb;
-  border: 1px solid transparent;
-}
-
-label:before {
-  font-family: fontawesome;
-  font-weight: normal;
-  margin-right: 10px;
-}
-
-label[for*='1']:before {
-  content: '\f129';
-}
-
-label[for*='2']:before {
-  content: '\f0c0';
-}
-
-label[for*='3']:before {
-  content: '\f0d1';
-}
-
-label[for*='4']:before {
-  content: '\f067';
-}
-
-label:hover {
-  color: #888;
-  cursor: pointer;
-}
-
-input:checked + label {
-  color: #555;
-  border: 1px solid #ddd;
-  border-top: 2px solid;
-  border-bottom: 1px solid #fff;
-}
-
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4 {
-  display: block;
-}
-
-@media screen and (max-width: 650px) {
-  label {
-    font-size: 0;
-  }
-
-  label:before {
-    margin: 0;
-    font-size: 18px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  label {
-    padding: 15px;
   }
 }

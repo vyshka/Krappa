@@ -173,7 +173,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\About.css" />
     <Content Include="Content\css\Auth.css" />
     <Content Include="Content\css\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
@@ -186,7 +185,6 @@
     <Content Include="Content\css\Style.min.css" />
     <Content Include="Content\css\tab.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\css\Paginator.css" />
     <Content Include="Content\img\advans\1.png" />
     <Content Include="Content\img\advans\2.png" />
     <Content Include="Content\img\advans\3.png" />
@@ -277,6 +275,7 @@
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\SurveyCreateModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UsersList.cs" />
     <Compile Include="Models\UserViewModel.cs" />

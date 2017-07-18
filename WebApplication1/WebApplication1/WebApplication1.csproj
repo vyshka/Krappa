@@ -186,7 +186,7 @@
     <Content Include="Content\css\Style.min.css" />
     <Content Include="Content\css\tab.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\css\PagedList.css" />
+    <Content Include="Content\css\Paginator.css" />
     <Content Include="Content\img\advans\1.png" />
     <Content Include="Content\img\advans\2.png" />
     <Content Include="Content\img\advans\3.png" />
@@ -309,6 +309,8 @@
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Home\Advans.cshtml" />
     <Content Include="Views\Home\Relo.cshtml" />
+    <Content Include="Views\Admin\SurveyList.cshtml" />
+    <Content Include="Views\Admin\NewSurvey.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

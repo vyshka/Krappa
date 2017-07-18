@@ -28,7 +28,15 @@ namespace WebApplication1.Controllers
 
         private MainDbContext db = new MainDbContext();
 
+        public ActionResult NewSurvey()
+        {
+            return View();
+        }
 
+        public ActionResult SurveyList()
+        {
+            return View();
+        }
 
         public ActionResult UsersList(string sortOrder, string currentFilter, string searchString, int? page)
         {

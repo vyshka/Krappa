@@ -19,7 +19,7 @@
                         <label for="name" class="cols-sm-2 control-label">Логин</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"  aria-hidden="true"></i></span>
                                 @Html.TextBoxFor(m => m.userName, new { @class = "form-control" })
                             </div>
                             @Html.ValidationMessageFor(m => m.userName, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
                         <label for="password" class="cols-sm-2 control-label">Пароль</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                             </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })

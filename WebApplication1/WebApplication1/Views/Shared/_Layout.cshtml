@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/css/Style.css" rel="stylesheet" />
     <script src="~/Content/js/scripts.js"></script> 
+    @RenderSection("css", false)
 
 </head>
 <body>
@@ -26,11 +27,16 @@
                     <li><a href="@Url.Action("AboutCompany", "Home")">О компании</a></li>
                     @if (@User.Identity.IsAuthenticated)
                     {
-                        <li>
-                            @Html.ActionLink("Привет" + User.Identity.Name + "!", "Profile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                        <li class="dropdown">
+                            <a href*="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@Url.Action("Profile", "account")"><i class="glyphicon glyphicon-user"></i> Профиль</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                                </li>
+                            </ul>
                         </li>
                     }
                     else
@@ -47,13 +53,11 @@
         <div class="maincontent">
             @RenderBody()
             @RenderSection("scripts", required: false)
-
-            <footer class="navbar-default text-center">
-                <div class="container-fluid">
-                    <span>Copyright @@ 2017 iTechArt</span>
-                </div>
-            </footer>
         </div>
+        <div class="hFooter"></div>
+    </div>
+    <div class="footer">
+        Copyright @@ 2017 iTechArt
     </div>
 </body>
 </html>

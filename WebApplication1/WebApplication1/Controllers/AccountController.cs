@@ -160,7 +160,7 @@ namespace WebApplication1.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Что-то пошло не так");
+                    return RedirectToAction("Profile", "Account");
                 }
             }
             else

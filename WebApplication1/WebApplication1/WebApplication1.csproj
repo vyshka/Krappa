@@ -310,6 +310,7 @@
     <Content Include="Views\Home\Relo.cshtml" />
     <Content Include="Views\Admin\SurveyList.cshtml" />
     <Content Include="Views\Admin\NewSurvey.cshtml" />
+    <Content Include="Views\Admin\SurveyTemplates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -105,6 +105,11 @@ namespace WebApplication1.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult SurveyTemplates()
+        {
+            return View();
+        }
+
 
         public ActionResult VacancyList(string sortOrder, string currentFilter, string searchString, int? page)
         {

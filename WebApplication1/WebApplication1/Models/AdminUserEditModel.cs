@@ -20,7 +20,6 @@ namespace WebApplication1.Models
                            ErrorMessage = "Неверный форма Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Поле Пароль обязательно для заполнения")]
         [StringLength(100, ErrorMessage = "{0} должен быть как минимум {2} символов.", MinimumLength = 6)]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]

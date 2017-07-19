@@ -30,7 +30,6 @@
                                 <li>
                                     <a href="@Url.Action("Profile", "account")"><i class="glyphicon glyphicon-user"></i> Профиль</a>
                                 </li>
-                                <li role="separator" class="divider"></li>
                                 <li >
                                     <a href="@Url.Action("Logout", "Account")"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
                                 </li>
@@ -41,11 +40,12 @@
         </div>
     </nav>
     <div class="container body-content">
-        <div class="sidebar-nav col-md-3 col-xs-4">
+        <div class="sidebar-nav col-md-3 col-xs-4 admincontent">
             <div class="well">
                 <ul class="nav nav-list">
-                    <li><a href="@Url.Action("newSurvey", "Admin")"><i class="glyphicon glyphicon-question-sign"></i> Новый опрос </a></li>
+                    @*<li><a href="@Url.Action("newSurvey", "Admin")"><i class="glyphicon glyphicon-question-sign"></i> Новый опрос </a></li>*@
                     <li><a href="@Url.Action("SurveyList", "Admin")"><i class="glyphicon glyphicon-tasks"></i> Мои опросы </a></li>
+                    @*<li><a href="@Url.Action("SurveyTemplates", "Admin")"><i class="glyphicon glyphicon-th"></i> Шаблоны опросов </a></li>*@
                     <li><a href="@Url.Action("UsersList", "Admin")"> <i class="glyphicon glyphicon-user"></i> Пользователи</a> </li>
                     <li><a href="@Url.Action("VacancyList", "Admin")"> <i class="glyphicon glyphicon-list"></i> Вакансии</a> </li>
                 </ul>

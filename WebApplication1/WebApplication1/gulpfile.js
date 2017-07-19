@@ -20,7 +20,6 @@ var jsDest = 'Content/js/',
     cssFiles = ['Content/css/About.css',
                 'Content/css/Auth.css',
                 'Content/css/bootstrap.css',
-                'Content/css/bootstrap-theme.css',
                 'Content/css/Main.css',
                 'Content/css/Profile.css',
                 'Content/css/media-queries.css',
@@ -37,31 +36,17 @@ gulp.task('minify-css', ['css'], () => {
       .pipe(gulp.dest('Content/css/'));
 });
 
-gulp.task('css',['cleancss'], function () {
+gulp.task('css',['clean'], function () {
     return gulp.src(cssFiles)
         .pipe(concatCss(cssOutFile, { rebaseUrls: false }))
         .pipe(gulp.dest(cssDest));
 });
 
-//delete the output file(s)
-gulp.task('cleanjs', function () {
-    //del is an async function and not a gulp plugin (just standard nodejs)
-    //It returns a promise, so make sure you return that from this task function
-    //  so gulp knows when the delete is complete
-    return del(['Content/js/scripts.min.js', 'Content/js/scripts.js']);
+gulp.task('clean', function () {
+    return del(['Content/css/Style.css', 'Content/css/Style.min.css', 'Content/js/scripts.min.js', 'Content/js/scripts.js']);
 });
 
-gulp.task('cleancss', function () {
-    //del is an async function and not a gulp plugin (just standard nodejs)
-    //It returns a promise, so make sure you return that from this task function
-    //  so gulp knows when the delete is complete
-    return del(['Content/css/Style.css', 'Content/css/Style.min.css']);
-});
-
-// Combine and minify all files from the app folder
-// This tasks depends on the clean task which means gulp will ensure that the 
-// Clean task is completed before running the scripts task.
-gulp.task('scripts',['cleanjs'], function () {
+gulp.task('scripts',['clean'], function () {
     return gulp.src(jsFiles)
         .pipe(concat('scripts.js'))
         .pipe(gulp.dest(jsDest))
@@ -71,5 +56,4 @@ gulp.task('scripts',['cleanjs'], function () {
 });
 
 
-//Set a default tasks
-gulp.task('default', ['cleancss', 'cleanjs', 'scripts', 'css', 'minify-css'], function () { });
+gulp.task('default', ['clean', 'scripts', 'css', 'minify-css'], function () { });

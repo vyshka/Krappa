@@ -146,9 +146,10 @@ html {
 }
 
 .footer{
+    font-family:sans-serif;
     height:20px;
     margin-top:-20px;
-    background-color:lightgray;
+    background-color:#efefef;
     clear:both;
     text-align:center;
 }
@@ -187,7 +188,8 @@ ul{
 }
 
 
-.sidebar-menu{
+.sidebar-menu {
+    margin-left:15px;
     width:30%;
     display:inline-block
 }

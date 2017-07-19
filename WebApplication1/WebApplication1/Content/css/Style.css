@@ -8452,19 +8452,11 @@ html {
   min-height: 100%;
 }
 
-#rcorners {
+.rcorners {
   border-radius: 10px;
   background: #73AD21;
   background-color: #efefef;
-  padding: 10px;
-  height: 70px;
-}
-
-.column {
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  vertical-align: top;
+  padding: 5px;
 }
 
 .wrap {
@@ -8550,8 +8542,32 @@ ul {
   margin-left: 15px !important;
 }
 
-label {
-  font-size: 12px;
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.tab-text {
+  padding-left: 4px;
+}
+
+.column-container {
+  display: table;
+}
+
+.column-row {
+  display: table-row;
+}
+
+.column {
+  display: table-cell;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.tab-textm {
+  display: none;
 }
 .user-info span {
   font-weight: 700;
@@ -8562,7 +8578,7 @@ label {
 .user-info {
   margin: 15px 0;
 }
-@media (max-width:600px) {
+@media (max-width:767px) {
   body {
     padding-top: 20px;
   }
@@ -8583,7 +8599,7 @@ label {
 
   .maincontent {
     width: 100%;
-    font-size: 0.7em;
+    font-size: 1em;
     padding-right: 15px;
     padding-left: 15px;
   }
@@ -8591,7 +8607,7 @@ label {
   .input {
     width: 70%;
     height: 70%;
-    font-size: 0.7em;
+    font-size: 1em;
   }
 
   .body-content {
@@ -8601,7 +8617,7 @@ label {
   }
 
   .btn-create {
-    font-size: 0.9em;
+    font-size: 1.2em;
   }
 
   .sidebar-nav {
@@ -8651,6 +8667,8 @@ label {
     font-size: 1em;
   }
 
+  /*remove !important*/
+
   h3 {
     font-size: 1.4em !important;
   }
@@ -8679,5 +8697,73 @@ label {
 
   .main {
     margin-top: 0px;
+  }
+
+  .tab-text {
+    display: none;
+  }
+
+  .column {
+    display: inline-flex;
+  }
+
+  .rcorners {
+    margin: 10px;
+  }
+}
+
+@media (max-width:991px) and (min-width:768px) {
+  .nav-tabs {
+    display: inline-flex;
+  }
+
+  .nav-tabs>li {
+    margin-right: 5px;
+    /*list-style-type:none;*/
+  }
+
+  .nav-tabs>li>a,
+  .nav-tabs>li>a>div {
+    height: 100%;
+    display: table;
+  }
+
+  .nav-tabs>li>a i span {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .tab-text {
+    display: block;
+    vertical-align: middle;
+  }
+
+  .display-3 {
+    font-size: 3em;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  .my-4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  a span {
+    top: 50%;
+    left: 50%;
+  }
+
+  .glyphicon-tab {
+    margin-top: 12px;
+  }
+
+  .column {
+    display: inline-flex;
+  }
+
+  .rcorners {
+    margin: 10px;
   }
 }

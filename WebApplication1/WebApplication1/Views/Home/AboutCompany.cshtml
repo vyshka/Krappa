@@ -10,9 +10,6 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
-@section css {
-    <link href="@Url.Content("~/Content/css/tab.css")" rel="stylesheet" />
-}
 <div class="jumbotron">
     <h1 class="display-3">iTechArt Group</h1>
     <p class="lead">iTechArt Group — это команда Remarkable People, профессионалов в сфере разработки, тестирования, сервисной поддержки программных продуктов, модернизации и интеграции бизнес-приложений.
@@ -24,32 +21,44 @@
     </p>
 </div>
 
-<input id="tab1" type="radio" name="tabs" checked>
-<label for="tab1">О нас</label>
 
-<input id="tab2" type="radio" name="tabs">
-<label for="tab2">Вакансии</label>
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#About" data-toggle="tab">
+                <i class="glyphicon glyphicon-info-sign glyphicon-tab"></i><span class="tab-text"> О нас</span> 
+            </a>
+        </li>
+        <li>
+            <a href="#Vacancies" data-toggle="tab">
+                <i class="glyphicon glyphicon-briefcase glyphicon-tab"></i>
+                <span class="tab-text"> Вакансии</span>
+            </a>
+        </li>
+        <li>
+            <a href="#Relo" data-toggle="tab"><i class="glyphicon glyphicon-transfer glyphicon-tab"></i><span class="tab-text">Релокация в Минск</span></a>
+        </li>
+        <li>
+            <a href="#Advans" data-toggle="tab"><i class="glyphicon glyphicon-plus glyphicon-tab"></i><span class="tab-text"> Наши приемущества</span></a>
+        </li>
+    </ul>
 
-<input id="tab3" type="radio" name="tabs">
-<label for="tab3">Релокация в Минск</label>
+    <div class="tab-content">
+        <div class="tab-pane active" id="About">
+            @Html.Partial("AboutUs")
+        </div>
 
-<input id="tab4" type="radio" name="tabs">
-<label for="tab4">Наши приемущества</label>
+        <div class="tab-pane" id="Vacancies">
+            <h3>Вакансии</h3>
+            @Html.Partial("VacancyList")
+        </div>
 
-<section id="content1">
-    @Html.Partial("AboutUs")
-</section>
+        <div class="tab-pane" id="Relo">
+            @Html.Partial("Advans")
+        </div>
 
-<section id="content2">
-    @Html.Partial("VacancyList")
-</section>
-
-<section id="content3">
-    @Html.Partial("Relo")
-</section>
-
-<section id="content4">
-    @Html.Partial("Advans")
-</section>
-
-
+        <div class="tab-pane" id="Advans">
+            @Html.Partial("Relo")
+        </div>
+    </div>
+</div>

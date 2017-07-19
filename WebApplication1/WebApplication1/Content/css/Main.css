@@ -98,20 +98,14 @@ html {
   min-height: 100%;
 }
 
-#rcorners {
+.rcorners {
     border-radius: 10px;
     background: #73AD21;
     background-color: #efefef;
-    padding: 10px; 
-    height:70px;
+    padding:5px;
 }
 
-.column{
-    display:inline-block;
-    width: 200px;
-    height: 200px;
-    vertical-align:top;
-}
+
 
 .wrap{
     width:100%;
@@ -198,6 +192,32 @@ ul{
     margin-left:15px !important;
 }
 
-label{
-    font-size:12px;
+
+.Grid{
+    display:flex;
+    flex-wrap:wrap;
+    list-style:none;
+}
+
+.tab-text{
+    padding-left:4px;
+}
+
+.column-container{
+    display: table;
+}
+
+.column-row{
+    display:table-row;
+}
+
+.column{
+    display:table-cell;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+
+.tab-textm{
+    display:none;
 }

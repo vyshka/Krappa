@@ -8470,7 +8470,7 @@ html {
 
 .video-container {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 50.25%;
   padding-top: 30px;
   height: 0;
   overflow: hidden;
@@ -8710,22 +8710,27 @@ ul {
   .rcorners {
     margin: 10px;
   }
+
+  .nav-tabs > li {
+    margin-bottom: -2px;
+  }
 }
 
 @media (max-width:991px) and (min-width:768px) {
   .nav-tabs {
     display: inline-flex;
-  }
-
-  .nav-tabs>li {
-    margin-right: 5px;
-    /*list-style-type:none;*/
+    flex-direction: row;
+    align-items: stretch;
   }
 
   .nav-tabs>li>a,
   .nav-tabs>li>a>div {
     height: 100%;
-    display: table;
+    display: inline-flex;
+  }
+
+  .nav-tabs>li>a {
+    align-items: center;
   }
 
   .nav-tabs>li>a i span {
@@ -8748,15 +8753,6 @@ ul {
   .my-4 {
     margin-top: 10px;
     margin-bottom: 10px;
-  }
-
-  a span {
-    top: 50%;
-    left: 50%;
-  }
-
-  .glyphicon-tab {
-    margin-top: 12px;
   }
 
   .column {

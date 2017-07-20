@@ -103,6 +103,8 @@ html {
     background: #73AD21;
     background-color: #efefef;
     padding:5px;
+    height:100%;
+    word-wrap:break-word;
 }
 
 
@@ -205,6 +207,8 @@ ul{
 
 .column-container{
     display: table;
+    table-layout: fixed;
+    width:100%;
 }
 
 .column-row{
@@ -215,6 +219,7 @@ ul{
     display:table-cell;
     padding-left:10px;
     padding-right:10px;
+
 }
 
 

@@ -1,5 +1,6 @@
 ﻿var urlget = "/api/vacancies/getallVacancies";
 var urldel = "/api/vacancies/DeleteVacancy/";
+var urledit = "EditVacancy/";
 var spinner;
 $(document).ready( function(){
     load();
@@ -17,8 +18,7 @@ function getData() {
         .done(function (data) {
             spinner.stop();
             $.each(data, function (key, item) {
-                var link = $("<a>");
-                link.on("click", function () {
+                var deleteLink = $("<a>").on("click", function () {
                     if (confirm('Вы действительно хотите удалить?')) {
                         $.ajax({
                             url: urldel + item.vacancyId,
@@ -26,15 +26,19 @@ function getData() {
                             success: clearData
                         });
                     }
-                    
+
                 });
-                $("<span />").addClass("glyphicon glyphicon-trash").appendTo(link);
+
+                var editLink = $("<a>").attr("href", urledit + item.vacancyId);
+                
+                $("<span />").addClass("glyphicon glyphicon-trash").appendTo(deleteLink);
+                $("<span />").addClass("glyphicon glyphicon-edit").appendTo(editLink);
 
                 $("<tr>").append(
                     $("<td>").text(item.name),
                     $("<td>").text(item.vacancyUrl).addClass("hidden-xs hidden-sm"),
                     $("<td>").text(item.City),
-                    $("<td>").append(link)
+                    $("<td>").append(deleteLink).append(editLink)
                     ).appendTo($("table"));
                 
             })

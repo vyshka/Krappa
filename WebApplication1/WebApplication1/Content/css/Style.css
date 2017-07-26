@@ -8600,6 +8600,10 @@ ul {
   word-wrap: break-word;
   vertical-align: middle;
 }
+
+span {
+  cursor: pointer;
+}
 .user-info span {
   font-weight: 700;
   margin: 15px 0 2px 5px;

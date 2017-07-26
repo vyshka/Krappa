@@ -8,15 +8,14 @@
 <script src="~/Content/js/web-api.js"></script> 
 
 <div class="row search">
-    @using (Html.BeginForm("VacancyList", "Admin", FormMethod.Get))
-    {
+    <form>
         <div class="col-md-8 col-xs-8 nopadingleft">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Поиск" })
+            <input id="searchString" class="form-control" placeholder="Поиск">
         </div>
         <div class="col-md-4 col-xs-4 text-right nopadingright">
-            <input type="submit" class="btn btn-sm btn-default " value="Поиск">
+            <button id="searchBtn" class="btn btn-sm btn-default">Поиск</button>
         </div>
-    }
+    </form>
 </div>
 
 
@@ -35,6 +34,43 @@
             <tbody></tbody>
         </table>
     </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Добавить вакансию</h3>
+            <form class="form-horizontal">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Название</label>
+                    <div class="col-md-10">
+                        <input id="name" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Город</label>
+                    <div class="col-md-10">
+                        <input id="city" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Url</label>
+                    <div class="col-md-10">
+                        <input id="url" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" id="createBtn" class="btn btn-default">Добавить</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+
 </div>
 
 

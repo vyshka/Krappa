@@ -249,3 +249,7 @@ ul{
     word-wrap:break-word;
     vertical-align: middle;
 }
+
+span{
+    cursor: pointer;
+}

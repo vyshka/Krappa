@@ -15,27 +15,44 @@ $(document).ready( function(){
 
     $(table).on("click", function(e) {
         var target = e.target;
-        var id = target.closest("tr").getAttribute("data-vacancy-id");
-        if (confirm('Вы действительно хотите удалить?')) {
-            $.ajax({
-                url: urlDel + id,
-                type: 'DELETE'
-            })
-            .done(function() {
-                $("table").find("tr[data-vacancy-id = '" + id + "']").remove();
-            }) 
+        if(target.className == "glyphicon glyphicon-trash") {
+            var tr = target.closest("tr");
+            var id = tr.getAttribute("data-vacancy-id");
+            var removedhref;
+            var spans = $(tr).find("span");
+            if (confirm('Вы действительно хотите удалить?') && tr.getAttribute("data-status") == "true") {
+                $.ajax({
+                    url: urlDel + id,
+                    type: 'DELETE',
+                    beforeSend: function() {
+                        $(tr).addClass("inactive-tr").attr("status", "false");
+                        $(spans[0]).addClass("inactive-span");
+                        $(spans[1]).addClass("inactive-span");
+                        removedhref = $(spans[1]).closest("a").attr("href");
+                        $(spans[1]).closest("a").removeAttr("href");
+                    },
+                    success: function(result) {
+                        if(result == true) {
+                            $("table").find("tr[data-vacancy-id = '" + id + "']").remove();
+                        } 
+                        else {
+                            $(tr).removeClass("inactive-tr").attr("status", "true");
+                            $(spans[0]).removeClass("inactive-span");
+                            $(spans[1]).removeClass("inactive-span");
+                            $(spans[1]).closest("a").attr("href", removedhref);
+                            alert("Ошибка");
+                        }
+                    
+                    }
+                })
+            }
         }
+        
     })
 })
 
 
 function load() {
-    // var tbody = document.getElementById("table");
-    // var opt = {
-    //     top: "30%"
-    // };
-    // spinner = new Spinner(opt).spin(tbody);
-    // setTimeout(getData(), 1000);
     table = document.getElementById("table");
     $.ajax({
         url: urlGet,
@@ -59,9 +76,9 @@ function fillTable(data) {
 
 function createRow(item) {
     
-    var deleteLink = $("<a ><span class = 'glyphicon glyphicon-trash'></span></a>");
-    var editLink = $("<a href=" + urlEdit + item.vacancyId + "><span class = 'glyphicon glyphicon-edit span'></span></a>");
-    var row = $("<tr data-vacancy-id = '" + item.vacancyId + "'>").append(
+    var deleteLink = $("<a><span class = 'glyphicon glyphicon-trash'></span></a>");
+    var editLink = $("<a href=" + urlEdit + item.vacancyId + "><span class = 'glyphicon glyphicon-edit'></span></a>");
+    var row = $("<tr data-vacancy-id = '" + item.vacancyId + "' data-status = true>").append(
         $("<td>" + item.name + "</td>"),
         $("<td class = 'hidden-xs hidden-sm'>" + item.vacancyUrl + "</td>"),
         $("<td>" + item.City + "</td>"),
@@ -72,7 +89,6 @@ function createRow(item) {
 
 
 function clearData() {
-    var tbody = $("#table").find("tbody").empty();
     $("#url").val("");
     $("#city").val("");
     $("#name").val("");
@@ -93,26 +109,7 @@ function addVacancy() {
         data: JSON.stringify(Vacancies),
         success: function(data) {
             $(table).append(createRow(data));
+            clearData();
         }
     })
 }
-
-// function search() {
-//     var opt = {
-//         top: "30%"
-//     };
-//     spinner = new Spinner(opt).spin($("#table"));
-//     setTimeout(getSearchData(), 1000);
-
-// }
-
-// function getSearchData() {
-//     $.ajax({
-//         type: "POST",
-//         url: urlSearch,
-//         data: JSON.stringify($("#searchstring")),
-//         contentType: "application/json",
-//         dataType: "json"
-//     })
-
-// }

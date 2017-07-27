@@ -253,3 +253,8 @@ ul{
 span{
     cursor: pointer;
 }
+
+.inactive-tr, .inactive-span{
+    cursor: default;
+    color: gray;
+}

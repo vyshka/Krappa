@@ -191,6 +191,7 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\lightbox.css" />
     <Content Include="Content\css\Main.css" />
     <Content Include="Content\css\media-queries.css" />
     <Content Include="Content\css\Profile.css" />
@@ -202,11 +203,20 @@
     <Content Include="Content\img\advans\3.png" />
     <Content Include="Content\img\advans\4.png" />
     <Content Include="Content\img\advans\5.png" />
+    <Content Include="Content\img\photo\1.jpg" />
+    <Content Include="Content\img\photo\2.jpg" />
+    <Content Include="Content\img\photo\3.jpg" />
+    <Content Include="Content\img\photo\4.jpg" />
+    <Content Include="Content\img\photo\images\close.png" />
+    <Content Include="Content\img\photo\images\loading.gif" />
+    <Content Include="Content\img\photo\images\next.png" />
+    <Content Include="Content\img\photo\images\prev.png" />
     <Content Include="Content\img\relo\1.png" />
     <Content Include="Content\img\relo\2.png" />
     <Content Include="Content\img\relo\3.png" />
     <Content Include="Content\img\relo\4.png" />
     <Content Include="Content\js\bootstrap-tabcollapse.js" />
+    <Content Include="Content\js\lightbox.js" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\js\scripts.min.js" />
     <Content Include="Content\js\spin.min.js" />
@@ -328,6 +338,7 @@
     <Content Include="Views\Admin\SurveyList.cshtml" />
     <Content Include="Views\Admin\NewSurvey.cshtml" />
     <Content Include="Views\Admin\SurveyTemplates.cshtml" />
+    <Content Include="Views\Home\Photo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,17 +1,10 @@
-﻿var urlGet = "/api/vacancies/getallVacancies";
-var urlSearch = "/api/vacancies/getallVacanciesWithSearch";
-var urlDel = "/api/vacancies/DeleteVacancy/";
-var urlEdit = "EditVacancy/";
-var urlAdd = "/api/vacancies/CreateVacancy";
-var table;
-var spinner = new Spinner({ top:"30%" });
-
+﻿var table;
 
 $(document).ready( function(){
     load();
-
-
     $("#createBtn").on("click", addVacancy);
+
+    
 
     $(table).on("click", function(e) {
         var target = e.target;
@@ -22,12 +15,11 @@ $(document).ready( function(){
             var spans = $(tr).find("span");
             if (confirm('Вы действительно хотите удалить?') && tr.getAttribute("data-status") == "true") {
                 $.ajax({
-                    url: urlDel + id,
+                    url: "/api/vacancies/DeleteVacancy/" + id,
                     type: 'DELETE',
                     beforeSend: function() {
-                        $(tr).addClass("inactive-tr").attr("status", "false");
-                        $(spans[0]).addClass("inactive-span");
-                        $(spans[1]).addClass("inactive-span");
+                        $(tr).addClass("inactive").attr("status", "false");
+                        $(spans).addClass("inactive");
                         removedhref = $(spans[1]).closest("a").attr("href");
                         $(spans[1]).closest("a").removeAttr("href");
                     },
@@ -36,9 +28,8 @@ $(document).ready( function(){
                             $("table").find("tr[data-vacancy-id = '" + id + "']").remove();
                         } 
                         else {
-                            $(tr).removeClass("inactive-tr").attr("status", "true");
-                            $(spans[0]).removeClass("inactive-span");
-                            $(spans[1]).removeClass("inactive-span");
+                            $(tr).removeClass("inactive").attr("status", "true");
+                            $(spans).removeClass("inactive");
                             $(spans[1]).closest("a").attr("href", removedhref);
                             alert("Ошибка");
                         }
@@ -49,13 +40,26 @@ $(document).ready( function(){
         }
         
     })
-})
 
+
+    $("#searchString").keyup(function() {
+        var searchValue = this.value.toLowerCase();
+        $("tbody tr").each(function() {
+            $("tbody tr").each(function() {
+                var stringData = $(this).text().toLowerCase();
+                var not_found = (stringData.indexOf(searchValue) == -1);
+                $(this).closest('tr').toggle(!not_found);
+            })
+
+        })
+    })
+})
 
 function load() {
     table = document.getElementById("table");
+    var spinner = new Spinner({ top:"30%" });
     $.ajax({
-        url: urlGet,
+        url: "/api/vacancies/getallVacancies",
         beforeSend: function() {
             spinner.spin(table);
         },
@@ -75,16 +79,14 @@ function fillTable(data) {
 
 
 function createRow(item) {
-    
     var deleteLink = $("<a><span class = 'glyphicon glyphicon-trash'></span></a>");
-    var editLink = $("<a href=" + urlEdit + item.vacancyId + "><span class = 'glyphicon glyphicon-edit'></span></a>");
+    var editLink = $("<a href = EditVacancy/" + item.vacancyId + "><span class = 'glyphicon glyphicon-edit'></span></a>");
     var row = $("<tr data-vacancy-id = '" + item.vacancyId + "' data-status = true>").append(
         $("<td>" + item.name + "</td>"),
         $("<td class = 'hidden-xs hidden-sm'>" + item.vacancyUrl + "</td>"),
         $("<td>" + item.City + "</td>"),
         $("<td>").append(deleteLink).append(editLink));
-    return row;
-                
+    return row;       
 }
 
 
@@ -103,7 +105,7 @@ function addVacancy() {
     name: $("#name").val()
     }
     $.ajax({
-        url: urlAdd,
+        url: "/api/vacancies/CreateVacancy",
         contentType: "application/json",
         type: "POST",
         data: JSON.stringify(Vacancies),

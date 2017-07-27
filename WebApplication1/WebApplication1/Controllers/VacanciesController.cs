@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<Vacancies> GetAllVacancies()
         {
-            Thread.Sleep(10);
+            Thread.Sleep(1500);
             var temp = db.Vacancies.ToList();
             return (db.Vacancies.ToList());
             

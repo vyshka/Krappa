@@ -17,13 +17,14 @@ var jsDest = 'Content/js/',
             'Content/js/jquery.validate.unobtrusive.js',
             'Content/js/bootstrap.js',
             'Content/js/bootstrap-tabcollapse.js',
-            'Content/js/tabcollapse-call.js'];
+            'Content/js/lightbox.js'];
     cssDest = './',
     cssFiles = ['Content/css/Auth.css',
                 'Content/css/bootstrap.css',
                 'Content/css/Main.css',
                 'Content/css/Profile.css',
-                'Content/css/media-queries.css'],
+                'Content/css/media-queries.css',
+                'Content/css/lightbox.css'],
     cssOutFile = 'Content/css/Style.css',
     jsOutFile = 'Content/js/script.js';
    

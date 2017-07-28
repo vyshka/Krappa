@@ -5,8 +5,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
 }
-
-
+@section Scripts
+{
+    <script src="@Url.Content("~/Content/js/UserList.js")"></script>
+}
 
 <div class="row search">
     @using (Html.BeginForm("UsersList", "Admin", FormMethod.Get))
@@ -44,8 +46,12 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <tr @Html.HiddenFor(x => item.Id, new { data_id=item.Id })>
+                                <td>
+                                    <a class="fancybox" data-fancybox data-type="ajax" data-src="/Admin/EditUser/(@Html.DisplayFor(modelItem => item.Id))" >
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </a> 
+                                </td>
                                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
                                 <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
                                 <td><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>

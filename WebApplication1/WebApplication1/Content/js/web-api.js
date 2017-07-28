@@ -99,10 +99,10 @@ function clearData() {
 
 function addVacancy() {
     var Vacancies = {
-    vacancyId: 0,
-    vacancyUrl: $("#url").val(),
-    City: $("#city").val(),
-    name: $("#name").val()
+        vacancyId: 0,
+        vacancyUrl: $("#url").val(),
+        City: $("#city").val(),
+        name: $("#name").val()
     }
     $.ajax({
         url: "/api/vacancies/CreateVacancy",

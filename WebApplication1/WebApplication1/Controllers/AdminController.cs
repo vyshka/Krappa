@@ -110,6 +110,18 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult GetUserById(string id)
+        {
+            var idR = id.Substring(1, id.Length - 1);
+            idR = idR.Remove(idR.Length - 1, 1);
+            var user = UserManager.FindById(idR);
+            UserViewModel model = new UserViewModel();
+            model.Email = user.Email;
+            model.Id = user.Id;
+            model.userName = user.UserName;
+
+            return PartialView(user);
+        }
 
         public ActionResult VacancyList(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -187,11 +199,13 @@ namespace WebApplication1.Controllers
 
         public async Task<ActionResult> EditUser(string Id)
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(Id);
+            var idR = Id.Substring(1, Id.Length - 1);
+            idR = idR.Remove(idR.Length - 1, 1);
+            ApplicationUser user = await UserManager.FindByIdAsync(idR);
             if (user != null)
             {
                 AdminUserEditModel model = new AdminUserEditModel { userName = user.UserName, Email = user.Email, Id = user.Id };
-                return View(model);
+                return PartialView(model);
             }
             return View("UsersList");
         }

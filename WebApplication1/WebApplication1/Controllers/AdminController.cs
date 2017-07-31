@@ -211,23 +211,22 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditUser(AdminUserEditModel model)
+        public JsonResult EditUser(AdminUserEditModel model)
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
+            ApplicationUser user = UserManager.FindById(model.Id);
             if (user != null)
             {
                 user.Email = model.Email;
                 user.UserName = model.userName;
-                var resultUpdate = await UserManager.UpdateAsync(user);
+                var resultUpdate = UserManager.Update(user);
                 if (resultUpdate.Succeeded && model.password != null)
                 {
-                    var resultRemovePassword = await UserManager.RemovePasswordAsync(user.Id);
-                    var resultAddPassword = await UserManager.AddPasswordAsync(user.Id, model.password);
+                    UserManager.RemovePassword(user.Id);
+                    UserManager.AddPassword(user.Id, model.password);
                 }
-
-                return RedirectToAction("UsersList");
+                return Json(user);
             }
-            return View();
+            return null;
         }
 
         public ActionResult CreateUser()

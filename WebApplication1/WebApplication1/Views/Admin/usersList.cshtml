@@ -46,15 +46,20 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr @Html.HiddenFor(x => item.Id, new { data_id=item.Id })>
+                            <tr data-id = @Html.DisplayFor(modelItem => item.Id)>
+                                <td data-name = "userName">
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td data-name = "eMail">@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
                                 <td>
                                     <a class="fancybox" data-fancybox data-type="ajax" data-src="/Admin/EditUser/(@Html.DisplayFor(modelItem => item.Id))" >
-                                        @Html.DisplayFor(modelItem => item.UserName)
-                                    </a> 
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                    <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
                                 </td>
-                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                                <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
-                                <td><a href="@Url.Action("EditUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)"><span class="glyphicon glyphicon-edit"></span></a>  <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')"><span class="glyphicon glyphicon-trash"></span></a></td>
 
                             </tr>
                         }

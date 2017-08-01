@@ -43,12 +43,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClearScript, Version=5.4.9.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.4.2\lib\net45\ClearScript.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.ChakraCore, Version=2.4.8.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.ChakraCore.2.4.8\lib\net45\JavaScriptEngineSwitcher.ChakraCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.2.4.9\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.4.9.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.2.4.9\lib\net45\JavaScriptEngineSwitcher.Msie.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.V8, Version=2.4.2.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.4.2\lib\net45\JavaScriptEngineSwitcher.V8.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JSPool, Version=3.0.1.0, Culture=neutral, PublicKeyToken=2fc7775f73072640, processorArchitecture=MSIL">
+      <HintPath>..\packages\JSPool.3.0.1\lib\net451\JSPool.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -116,6 +140,10 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MsieJavaScriptEngine, Version=2.2.2.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MsieJavaScriptEngine.2.2.2\lib\net45\MsieJavaScriptEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -130,6 +158,10 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="React.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
+      <HintPath>..\packages\React.Core.3.1.0\lib\net40\React.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -161,6 +193,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="VroomJs, Version=1.2.3.0, Culture=neutral, PublicKeyToken=e7c52e67fcb0044f, processorArchitecture=MSIL">
+      <HintPath>..\packages\VroomJs.1.2.3\lib\net45\VroomJs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Westwind.Utilities, Version=2.69.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Westwind.Utilities.2.69\lib\net45\Westwind.Utilities.dll</HintPath>
       <Private>True</Private>
@@ -198,15 +234,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\Auth.css" />
-    <Content Include="Content\css\bootstrap-theme.css" />
-    <Content Include="Content\css\bootstrap-theme.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\jquery.fancybox.css" />
-    <Content Include="Content\css\Main.css" />
-    <Content Include="Content\css\media-queries.css" />
-    <Content Include="Content\css\Profile.css" />
+    <Content Include="Content\js\react\browser.js" />
+    <Content Include="Content\js\react\react-dom.js" />
+    <Content Include="Content\js\react\react.js" />
+    <Content Include="Content\js\vacancy-list.js" />
+    <Content Include="Content\less\base\base.less" />
+    <None Include="Content\less\bootstrap.less" />
+    <None Include="Content\less\jquery.fancybox.less" />
+    <Content Include="Content\less\layouts\footer.less" />
+    <Content Include="Content\less\layouts\header.less" />
+    <Content Include="Content\less\layouts\profile.less" />
+    <None Include="Content\less\media-queries.less" />
+    <Content Include="Content\less\modules\about.less" />
+    <Content Include="Content\less\modules\auth.less" />
+    <Content Include="Content\less\modules\list.less" />
+    <Content Include="Content\less\modules\pagination.less" />
+    <Content Include="Content\less\modules\survey.less" />
     <Content Include="Content\css\Style.css" />
     <Content Include="Content\css\Style.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -215,10 +258,6 @@
     <Content Include="Content\img\advans\3.png" />
     <Content Include="Content\img\advans\4.png" />
     <Content Include="Content\img\advans\5.png" />
-    <Content Include="Content\img\photo\1.jpg" />
-    <Content Include="Content\img\photo\2.jpg" />
-    <Content Include="Content\img\photo\3.jpg" />
-    <Content Include="Content\img\photo\4.jpg" />
     <Content Include="Content\img\photo\images\close.png" />
     <Content Include="Content\img\photo\images\loading.gif" />
     <Content Include="Content\img\photo\images\next.png" />
@@ -236,7 +275,6 @@
     <Content Include="Content\js\UserList.js" />
     <Content Include="Content\js\web-api.js" />
     <Content Include="Global.asax" />
-    <Content Include="Content\img\Socials.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\js\ai.0.22.9-build00167.js" />
     <Content Include="Content\js\ai.0.22.9-build00167.min.js" />
@@ -244,14 +282,11 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\css\bootstrap.min.css.map" />
-    <Content Include="Content\css\bootstrap.css.map" />
-    <Content Include="Content\css\bootstrap-theme.min.css.map" />
-    <Content Include="Content\css\bootstrap-theme.css.map" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="gulpfile.js" />
     <Content Include="Package.json" />
+    <Content Include="Content\less\states\state.less" />
     <None Include="Properties\PublishProfiles\Krappa.pubxml" />
     <None Include="Content\js\jquery-3.1.1.intellisense.js" />
     <Content Include="Content\js\jquery-3.1.1.js" />
@@ -349,13 +384,12 @@
     <Content Include="Views\Admin\EditVacancy.cshtml" />
     <Content Include="Views\Home\VacancyList.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
-    <Content Include="Views\Home\Advans.cshtml" />
     <Content Include="Views\Home\Relo.cshtml" />
     <Content Include="Views\Admin\SurveyList.cshtml" />
     <Content Include="Views\Admin\NewSurvey.cshtml" />
     <Content Include="Views\Admin\SurveyTemplates.cshtml" />
-    <Content Include="Views\Home\Photo.cshtml" />
     <Content Include="Views\Admin\GetUserById.cshtml" />
+    <Content Include="Views\Home\Advans.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -365,7 +399,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\less\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707051327056_InitialCreate.resx">

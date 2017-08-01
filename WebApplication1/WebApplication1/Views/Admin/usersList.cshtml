@@ -53,7 +53,7 @@
                                 <td data-name = "eMail">@Html.DisplayFor(modelItem => item.Email)</td>
                                 <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
                                 <td>
-                                    <a class="fancybox" data-fancybox data-type="ajax" data-src="/Admin/EditUser/(@Html.DisplayFor(modelItem => item.Id))" >
+                                    <a class="fancybox" data-fancybox data-type="ajax" data-src="/Admin/EditUser/(@Html.DisplayFor(modelItem => item.Id))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                                     <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">

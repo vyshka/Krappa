@@ -7,8 +7,8 @@ var gulp = require('gulp'),
     concatCss = require('gulp-concat-css'),
     cleanCSS = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
-    del = require('del'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    less = require('gulp-less');
 
 var jsDest = 'Content/js/',
     jsFiles = [
@@ -18,37 +18,19 @@ var jsDest = 'Content/js/',
             'Content/js/bootstrap.js',
             'Content/js/bootstrap-tabcollapse.js',
             'Content/js/jquery.fancybox.js'];
-    cssDest = './',
-    cssFiles = ['Content/css/Auth.css',
-                'Content/css/bootstrap.css',
-                'Content/css/Main.css',
-                'Content/css/Profile.css',
-                'Content/css/media-queries.css',
-                'Content/css/lightbox.css',
-                'Content/css/jquery.fancybox.css'],
-    cssOutFile = 'Content/css/Style.css',
+    cssDest = 'Content/css/',
+    lessFiles = ['Content/less/base/*.less',
+                'Content/less/layouts/*.less',
+                'Content/less/modules/*.less',
+                'Content/less/states/*.less',
+                'Content/less/*.less'],
+    cssOutFile = 'Style.css',
     jsOutFile = 'Content/js/script.js';
    
 
-gulp.task('minify-css', ['css'], () => {
-    return gulp.src(cssOutFile)
-      .pipe(cleanCSS())
-      .pipe(rename({
-            suffix: '.min'}))
-      .pipe(gulp.dest('Content/css/'));
-});
 
-gulp.task('css',['clean'], function () {
-    return gulp.src(cssFiles)
-        .pipe(concatCss(cssOutFile, { rebaseUrls: false }))
-        .pipe(gulp.dest(cssDest));
-});
 
-gulp.task('clean', function () {
-    return del(['Content/css/Style.css', 'Content/css/Style.min.css', 'Content/js/scripts.min.js', 'Content/js/scripts.js']);
-});
-
-gulp.task('scripts',['clean'], function () {
+gulp.task('scripts', function () {
     return gulp.src(jsFiles)
         .pipe(concat('scripts.js'))
         .pipe(gulp.dest(jsDest))
@@ -57,5 +39,20 @@ gulp.task('scripts',['clean'], function () {
         .pipe(gulp.dest(jsDest));
 });
 
+gulp.task('less', function() {
+    gulp.src(lessFiles)
+        .pipe(less())
+        .pipe(concatCss(cssOutFile, {rebaseUrls: false}))
+        .pipe(gulp.dest(cssDest));
+});
 
-gulp.task('default', ['clean', 'scripts', 'css', 'minify-css'], function () { });
+gulp.task('minify-css', ['less'], function() {
+    return gulp.src('Content/css/Style.css')
+      .pipe(cleanCSS())
+      .pipe(rename({
+            suffix: '.min'}))
+      .pipe(gulp.dest('Content/css/'));
+});
+
+gulp.task('default', ['scripts', 'less', 'minify-css'], function () { });
+

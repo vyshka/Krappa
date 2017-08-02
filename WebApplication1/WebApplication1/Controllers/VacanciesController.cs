@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         {
             Thread.Sleep(1500);
             var temp = db.Vacancies.ToList();
-            return (db.Vacancies.ToList());
+            return (temp);
             
         }
 

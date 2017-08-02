@@ -1,12 +1,15 @@
-﻿
+﻿using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-
+using System.Threading.Tasks;
 using Westwind.Web.Mvc;
-
+using System.Threading;
+using System.Web.Script.Serialization;
 
 namespace WebApplication1.Controllers
 {
@@ -19,6 +22,22 @@ namespace WebApplication1.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
+
+        public string getAllUsers()
+        {
+            Thread.Sleep(1500);
+            List<UsersList> list = new List<UsersList>();
+            foreach(var element in UserManager.Users)
+            {
+                UsersList item = new UsersList(element);
+                list.Add(item);
+            }
+            var jsonSerializer = new JavaScriptSerializer();
+            var JSONlist = jsonSerializer.Serialize(list);
+            return (JSONlist);
+        }
+
+
         public JsonResult GetUserByid(string id)
         {
             var user = UserManager.FindById(id);

@@ -171,9 +171,7 @@ span {
   text-align: center;
 }
 .search {
-  padding-bottom: 15px;
-  margin-left: 0px;
-  margin-right: 0px;
+  padding: 15px;
 }
 
 .table-borderless {

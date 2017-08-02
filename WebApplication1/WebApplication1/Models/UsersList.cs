@@ -13,6 +13,14 @@ namespace WebApplication1.Models
 
         public string Email { get; set; }
 
-        public DateTime registerTime { get; set; }
+        public string registerTime { get; set; }
+
+        public UsersList(ApplicationUser user)
+        {
+            this.Id = user.Id;
+            this.userName = user.UserName;
+            this.Email = user.Email;
+            this.registerTime = user.registerTime.ToString();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace WebApplication1
             Database.SetInitializer<MainDbContext>(null);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 

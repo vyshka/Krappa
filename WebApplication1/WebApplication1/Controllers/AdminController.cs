@@ -112,9 +112,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult GetUserById(string id)
         {
-            var idR = id.Substring(1, id.Length - 1);
-            idR = idR.Remove(idR.Length - 1, 1);
-            var user = UserManager.FindById(idR);
+            var user = UserManager.FindById(id);
             UserViewModel model = new UserViewModel();
             model.Email = user.Email;
             model.Id = user.Id;
@@ -186,32 +184,8 @@ namespace WebApplication1.Controllers
         }
 
 
-        public async Task<ActionResult> DeleteUser(string id)
-        {
-            var user = await UserManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            UserManager.Delete(user);
-            return RedirectToAction("UsersList");
-        }
 
-        public async Task<ActionResult> EditUser(string Id)
-        {
-            var idR = Id.Substring(1, Id.Length - 1);
-            idR = idR.Remove(idR.Length - 1, 1);
-            ApplicationUser user = await UserManager.FindByIdAsync(idR);
-            if (user != null)
-            {
-                AdminUserEditModel model = new AdminUserEditModel { userName = user.UserName, Email = user.Email, Id = user.Id };
-                return PartialView(model);
-            }
-            return View("UsersList");
-        }
-
-        [HttpPost]
-        public JsonResult EditUser(AdminUserEditModel model)
+        public ActionResult EditUser(AdminUserEditModel model)
         {
             ApplicationUser user = UserManager.FindById(model.Id);
             if (user != null)
@@ -224,7 +198,7 @@ namespace WebApplication1.Controllers
                     UserManager.RemovePassword(user.Id);
                     UserManager.AddPassword(user.Id, model.password);
                 }
-                return Json(user);
+                return View(user);
             }
             return null;
         }

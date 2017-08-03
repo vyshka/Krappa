@@ -26,8 +26,26 @@
         </div>
     }
 </div>
+<div id="content">
 
-        <div class="panel panel-default panel-table">
+</div>
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @*<div class="panel panel-default panel-table">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col col-xs-8">
@@ -38,52 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body" id="table">
-
-
-                <!-- <table class="table table-striped table-bordered table-list">
-                    <thead>
-                        <tr>
-                            <th>@Html.ActionLink("Имя", "UsersList", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                            <th>@Html.ActionLink("Email", "UsersList", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                            <th class="hidden-xs hidden-sm">@Html.ActionLink("Дата регистрации", "UsersList", new { sortOrder = ViewBag.RegisterTimeSortParm, currentFilter = ViewBag.CurrentFilter })</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr data-id = @Html.DisplayFor(modelItem => item.Id)>
-                                <td data-name = "userName">
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td data-name = "eMail">@Html.DisplayFor(modelItem => item.Email)</td>
-                                <td class="hidden-xs hidden-sm">@Html.DisplayFor(modelItem => item.registerTime)</td>
-                                <td>
-                                    <a class="fancybox" data-fancybox data-type="ajax" data-src="/Admin/EditUser/(@Html.DisplayFor(modelItem => item.Id))">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </a>
-                                    <a href="@Url.Action("DeleteUser", "Admin")/@Html.DisplayFor(modelItem => item.Id)" onclick="return confirm('Действительно хотите удалить?')">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </a>
-                                </td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table> -->
-
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col col-xs-6">
-                        Пользователей:@ViewBag.TotalCount
-                    </div>
-                    <div class="col col-xs-6 text-right">
-                        @Html.PagedListPager(Model, page => Url.Action("UsersList",
-                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div class="panel-body" id="table"> </div>
+            <div class="panel-footer"> </div>
+        </div>*@
 

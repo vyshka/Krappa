@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
+using System.IO;
 using WebApplication1.Models;
+using System.Net.Http.Headers;
 
 namespace WebApplication1.Controllers
 {
@@ -23,6 +25,12 @@ namespace WebApplication1.Controllers
             
         }
 
+        [HttpGet]
+        public Vacancies GetVacancyById(int id)
+        {
+            var vacancy = db.Vacancies.Find(id);
+            return vacancy;
+        }
 
         [HttpGet]
         public IEnumerable<Vacancies> GetAllVacanciesWithSearch(string searchString)
@@ -38,27 +46,25 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
-        public bool DeleteVacancy(int id)
+        public Vacancies DeleteVacancy(int id)
         {
-            Thread.Sleep(3000);
-            var r = new Random();
+            //Thread.Sleep(3000);
+            //var r = new Random();
+            //if (r.Next(10) % 3 == 0)
+            //{  }
 
-            if (r.Next(10)%3 == 0)
+
+            var model = db.Vacancies.Find(id);
+            if (model == null)
             {
-                var model = db.Vacancies.Find(id);
-                if (model == null)
-                {
-                    return false;
-                }
-                db.Vacancies.Remove(model);
-                db.SaveChanges();
-                return true;
-            } else
-            {
-                return false;
+                return null;
             }
+            db.Vacancies.Remove(model);
+            db.SaveChanges();
+            return model;
         }
 
+        [HttpPost]
         public bool UpdateVacancy(Vacancies item)
         {
             var original = db.Vacancies.Find(item.vacancyId);
@@ -73,8 +79,9 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        [HttpPost()]
-        public Vacancies CreateVacancy(Vacancies item)
+
+        [HttpPost]
+        public int CreateVacancy(Vacancies item)
         {
             if(ModelState.IsValid)
             {
@@ -85,11 +92,11 @@ namespace WebApplication1.Controllers
 
                 db.Vacancies.Add(dbVacancy);
                 db.SaveChanges();
-                return dbVacancy;
+                return dbVacancy.vacancyId;
             }
             else
             {
-                return null;
+                return 0;
             }
             
         }

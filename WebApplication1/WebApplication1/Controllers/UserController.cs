@@ -3,64 +3,96 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using WebApplication1.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
-using Westwind.Web.Mvc;
 using System.Threading;
 using System.Web.Script.Serialization;
+using System.Web.Http;
+using System.IO;
+using System.Web.Routing;
+using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
-    public class UserController : Controller
+    [System.Web.Mvc.Authorize(Roles = "Admin")]
+    public class UserController : ApiController
     {
+
         private ApplicationUserManager UserManager
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
 
-        public string getAllUsers()
+        public UsersList getUserById(string id)
+        {
+            UsersList user = new UsersList(UserManager.FindById(id));
+            string renderedHTML = RenderViewToString("Admin", "EditUser", user);
+            return user;
+        }
+
+        public IEnumerable<UsersList> getAllUsers()
         {
             Thread.Sleep(1500);
             List<UsersList> list = new List<UsersList>();
-            foreach(var element in UserManager.Users)
+            foreach (var element in UserManager.Users)
             {
                 UsersList item = new UsersList(element);
                 list.Add(item);
             }
-            var jsonSerializer = new JavaScriptSerializer();
-            var JSONlist = jsonSerializer.Serialize(list);
-            return (JSONlist);
+            return list;
         }
 
 
-        public JsonResult GetUserByid(string id)
+        public ApplicationUser DeleteUser(string id)
         {
             var user = UserManager.FindById(id);
-
-            string userHTML = ViewRenderer.RenderPartialView("Admin/GetUserById", user);
-            return Json(userHTML);
+            if (user == null)
+            {
+                return null;
+            }
+            UserManager.Delete(user);
+            return user;
         }
 
-        [HttpPost()]
-        public async void updateUser(AdminUserEditModel model)
+        public bool updateUser(AdminUserEditModel model)
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
+            ApplicationUser user = UserManager.FindById(model.Id);
             if (user != null)
             {
                 user.Email = model.Email;
                 user.UserName = model.userName;
-                var resultUpdate = await UserManager.UpdateAsync(user);
+                var resultUpdate = UserManager.Update(user);
                 if (resultUpdate.Succeeded && model.password != null)
                 {
-                    var resultRemovePassword = await UserManager.RemovePasswordAsync(user.Id);
-                    var resultAddPassword = await UserManager.AddPasswordAsync(user.Id, model.password);
+                    UserManager.RemovePassword(user.Id);
+                    UserManager.AddPassword(user.Id, model.password);
                 }
+                return true;
+            }
+            return false;
+        }
+
+        private static string RenderViewToString(string controllerName, string viewName, object viewData)
+        {
+            using (var writer = new StringWriter())
+            {
+                var routeData = new RouteData();
+                routeData.Values.Add("controller", controllerName);
+                var fakeControllerContext = new ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
+                var razorViewEngine = new RazorViewEngine();
+                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
+
+                var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
+                razorViewResult.View.Render(viewContext, writer);
+                return writer.ToString();
             }
         }
+
     }
+
+    public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
 }

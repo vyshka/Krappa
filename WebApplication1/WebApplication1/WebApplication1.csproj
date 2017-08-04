@@ -237,8 +237,10 @@
     <Content Include="Content\js\react\browser.js" />
     <Content Include="Content\js\react\react-dom.js" />
     <Content Include="Content\js\react\react.js" />
-    <Content Include="Content\js\vacancy-list.js" />
+    <Content Include="Content\js\react\user-list.js" />
+    <Content Include="Content\js\react\vacancy-list.js" />
     <Content Include="Content\less\base\base.less" />
+    <Content Include="Content\js\react\table.jsx" />
     <None Include="Content\less\bootstrap.less" />
     <None Include="Content\less\jquery.fancybox.less" />
     <Content Include="Content\less\layouts\footer.less" />
@@ -272,7 +274,6 @@
     <Content Include="Content\js\scripts.min.js" />
     <Content Include="Content\js\spin.min.js" />
     <Content Include="Content\js\tabs.js" />
-    <Content Include="Content\js\UserList.js" />
     <Content Include="Content\js\web-api.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
@@ -342,6 +343,10 @@
     <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.cs" />
     <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.Designer.cs">
       <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708040801251_updateVacancy.cs" />
+    <Compile Include="Migrations\201708040801251_updateVacancy.Designer.cs">
+      <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateViewModel.cs" />
@@ -418,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707100930399_VacancyModelCityAdded1.resx">
       <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708040801251_updateVacancy.resx">
+      <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

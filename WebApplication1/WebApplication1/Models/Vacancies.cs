@@ -10,15 +10,15 @@ namespace WebApplication1.Models
     public class Vacancies
     {
         [Key]
-        public int vacancyId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Название")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Город")]
         public string City { get; set; }
 
         [Display(Name = "Ссылка")]
-        public string vacancyUrl { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -144,7 +144,7 @@ namespace WebApplication1.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                list = list.Where(s => s.Name.Contains(searchString)
+                list = list.Where(s => s.name.Contains(searchString)
                                     || s.City.Contains(searchString)).ToList();
             }
 
@@ -154,12 +154,12 @@ namespace WebApplication1.Controllers
             {
                 case ("name"):
                     {
-                        list = list.OrderBy(s => s.Name).ToList();
+                        list = list.OrderBy(s => s.name).ToList();
                         break;
                     }
                 case ("name_desc"):
                     {
-                        list = list.OrderByDescending(s => s.Name).ToList();
+                        list = list.OrderByDescending(s => s.name).ToList();
                         break;
                     }
                 case ("City"):
@@ -262,8 +262,8 @@ namespace WebApplication1.Controllers
             if(ModelState.IsValid)
             {
                 var dbVacancy = db.Vacancies.Create();
-                dbVacancy.Name = vacancy.Name;
-                dbVacancy.Url = vacancy.Url;
+                dbVacancy.name = vacancy.name;
+                dbVacancy.vacancyUrl = vacancy.vacancyUrl;
                 dbVacancy.City = vacancy.City;
 
                 db.Vacancies.Add(dbVacancy);
@@ -282,11 +282,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult> EditVacancy(Vacancies vacancy)
         {
-            var original = await db.Vacancies.FindAsync(vacancy.Id);
+            var original = await db.Vacancies.FindAsync(vacancy.vacancyId);
             if (original != null)
             {
-                original.Name = vacancy.Name;
-                original.Url = vacancy.Url;
+                original.name = vacancy.name;
+                original.vacancyUrl = vacancy.vacancyUrl;
                 original.City = vacancy.City;
 
                 var resultupdate = await db.SaveChangesAsync();

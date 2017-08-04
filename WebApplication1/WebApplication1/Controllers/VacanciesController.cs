@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
             var list = db.Vacancies.ToList();
             if (!String.IsNullOrEmpty(searchString))
             {
-                list = list.Where(s => s.name.Contains(searchString)
+                list = list.Where(s => s.Name.Contains(searchString)
                                     || s.City.Contains(searchString)).ToList();
             }
             return (list);
@@ -67,11 +67,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public bool UpdateVacancy(Vacancies item)
         {
-            var original = db.Vacancies.Find(item.vacancyId);
+            var original = db.Vacancies.Find(item.Id);
             if(original != null)
             {
-                original.name = item.name;
-                original.vacancyUrl = item.vacancyUrl;
+                original.Name = item.Name;
+                original.Url = item.Url;
                 original.City = item.City;
                 db.SaveChanges();
                 return true;
@@ -86,13 +86,13 @@ namespace WebApplication1.Controllers
             if(ModelState.IsValid)
             {
                 var dbVacancy = db.Vacancies.Create();
-                dbVacancy.name = item.name;
-                dbVacancy.vacancyUrl = item.vacancyUrl;
+                dbVacancy.Name = item.Name;
+                dbVacancy.Url = item.Url;
                 dbVacancy.City = item.City;
 
                 db.Vacancies.Add(dbVacancy);
                 db.SaveChanges();
-                return dbVacancy.vacancyId;
+                return dbVacancy.Id;
             }
             else
             {

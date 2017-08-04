@@ -50,12 +50,12 @@ gulp.task('temp', () => {
 
 
 gulp.task('browserifyUser', ['temp'], function() {
-    return browserify('Content/js/out/user-list.js', 'Content/js/out/vacancy-list.js')
+    return browserify('Content/js/out/user-list.js')
         .transform(babelify.configure({
             presets: ["es2015"]
         }))
         .bundle()
-        .pipe(source('VacancyList.js'))
+        .pipe(source('UserList.js'))
         .pipe(gulp.dest('Content/js/'));
 });
 
@@ -66,7 +66,7 @@ gulp.task('browserifyVacancy', ['temp'], function() {
             presets: ["es2015"]
         }))
         .bundle()
-        .pipe(source('UserList.js'))
+        .pipe(source('VacancyList.js'))
         .pipe(gulp.dest('Content/js/'));
 });
 

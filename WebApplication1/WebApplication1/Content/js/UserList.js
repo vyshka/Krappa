@@ -236,9 +236,9 @@ var _table = require("./table");
 
 function run() {
   ReactDOM.render(React.createElement(_table.Table, {
-    url: "/api/vacancies/getallVacancies",
-    deleteUrl: "/api/vacancies/DeleteVacancy/",
-    editUrl: "/api/User/GetVacancyById"
+    url: "/api/User/getAllUsers",
+    deleteUrl: "/api/User/DeleteUser",
+    editUrl: "/api/User/getUserById"
   }), document.getElementById('tableContent'));
 }
 

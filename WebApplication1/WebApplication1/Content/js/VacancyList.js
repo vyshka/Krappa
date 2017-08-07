@@ -109,8 +109,7 @@ var AddUserForm = exports.AddUserForm = function (_React$Component2) {
                 data: JSON.stringify(AdminCreateUserModel),
                 success: function success(data) {
                     if (data != null) {
-                        AdminCreateUserModel.Id = data;
-                        addProp(AdminCreateUserModel);
+                        addProp(data);
                         document.getElementById("Email").value = "";
                         document.getElementById("userName").value = "";
                         document.getElementById("password").value = "";
@@ -119,8 +118,6 @@ var AddUserForm = exports.AddUserForm = function (_React$Component2) {
                     }
                 }
             });
-
-            console.log(AdminCreateUserModel);
         }
     }, {
         key: 'handleChange',
@@ -130,7 +127,7 @@ var AddUserForm = exports.AddUserForm = function (_React$Component2) {
     }, {
         key: 'render',
         value: function render() {
-            return _React2.default.createElement('form', { className: 'form-gorizontal' }, _React2.default.createElement('h3', null, '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u0418\u043C\u044F'), _React2.default.createElement('div', { className: 'col-md-10' }, _React2.default.createElement('input', { id: 'userName', className: 'form-control' }))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, 'Email'), _React2.default.createElement('div', { className: 'col-md-10' }, _React2.default.createElement('input', _defineProperty({ id: 'Email', className: 'form-control' }, 'id', 'Email')))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u041F\u0430\u0440\u043E\u043B\u044C'), _React2.default.createElement('div', { className: 'col-md-10' }, _React2.default.createElement('input', { type: 'password', id: 'password', className: 'form-control', name: 'password' }))), _React2.default.createElement('br', null), _React2.default.createElement('div', null, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u0420\u043E\u043B\u044C'), _React2.default.createElement('div', { className: 'col-md-10' }, _React2.default.createElement('select', { className: 'form-control', id: 'Role', onChange: this.handleChange }, _React2.default.createElement('option', { value: '0' }, '\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440'), _React2.default.createElement('option', { value: '1' }, '\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C')))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('div', { className: 'col-md-offset-2 col-md-10' }, _React2.default.createElement('button', { onClick: this.handleClick, type: 'button', id: 'createBtn', className: 'btn btn-default' }, '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C'))));
+            return _React2.default.createElement('form', { className: 'form-gorizontal' }, _React2.default.createElement('h3', null, '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u0418\u043C\u044F'), _React2.default.createElement('div', null, _React2.default.createElement('input', { id: 'userName', className: 'form-control' }))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, 'Email'), _React2.default.createElement('div', null, _React2.default.createElement('input', _defineProperty({ id: 'Email', className: 'form-control' }, 'id', 'Email')))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u041F\u0430\u0440\u043E\u043B\u044C'), _React2.default.createElement('div', null, _React2.default.createElement('input', { type: 'password', id: 'password', className: 'form-control', name: 'password' }))), _React2.default.createElement('br', null), _React2.default.createElement('div', null, _React2.default.createElement('label', { className: 'col-md-2 control-label' }, '\u0420\u043E\u043B\u044C'), _React2.default.createElement('div', null, _React2.default.createElement('select', { className: 'form-control', id: 'Role', onChange: this.handleChange }, _React2.default.createElement('option', { value: '0' }, '\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440'), _React2.default.createElement('option', { value: '1' }, '\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C')))), _React2.default.createElement('br', null), _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('div', { className: 'col-md-offset-2 col-md-10' }, _React2.default.createElement('button', { onClick: this.handleClick, type: 'button', id: 'createBtn', className: 'btn btn-default' }, '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C'))));
         }
     }]);
 
@@ -183,9 +180,7 @@ var Table = exports.Table = function (_React$Component) {
         key: 'addToState',
         value: function addToState(element) {
             var newData = this.state.data;
-            console.log(this.state.data);
             newData.push(element);
-            console.log(newData);
             this.setState({ data: newData });
         }
     }, {
@@ -226,11 +221,9 @@ var Table = exports.Table = function (_React$Component) {
             var addForm;
 
             if (this.props.isVacancy) {
-                console.log("vacnacy");
                 addForm = _React2.default.createElement(_addForm.AddVacancyForm, { add: this.addToState });
             }
             if (this.props.isUser) {
-                console.log("User");
                 addForm = _React2.default.createElement(_addForm.AddUserForm, { add: this.addToState });
             }
             return _React2.default.createElement('div', null, _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: this.state.keysList }), _React2.default.createElement(RowList, { edit: this.props.editUrl, 'delete': this.deleteFormState, data: this.state.data, url: this.props.url, deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
@@ -306,10 +299,9 @@ var Row = function (_React$Component4) {
     _createClass(Row, [{
         key: 'render',
         value: function render() {
-
             var rowColumns = [];
             for (var key in this.props.row) {
-                if (key != "Id") {
+                if (key != "Id" && key != "SelectedRoleId") {
                     rowColumns.push(_React2.default.createElement('td', { key: key }, this.props.row[key]));
                 }
             }

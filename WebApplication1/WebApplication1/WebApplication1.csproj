@@ -239,6 +239,8 @@
     <Content Include="Content\js\react\react.js" />
     <Content Include="Content\js\react\user-list.js" />
     <Content Include="Content\js\react\vacancy-list.js" />
+    <Content Include="Content\js\UserList.js" />
+    <Content Include="Content\js\VacancyList.js" />
     <Content Include="Content\less\base\base.less" />
     <Content Include="Content\js\react\table.jsx" />
     <None Include="Content\less\bootstrap.less" />
@@ -273,7 +275,6 @@
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\js\scripts.min.js" />
     <Content Include="Content\js\spin.min.js" />
-    <Content Include="Content\js\tabs.js" />
     <Content Include="Content\js\web-api.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
@@ -349,7 +350,7 @@
       <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AdminCreateViewModel.cs" />
+    <Compile Include="Models\AdminCreateUserModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />

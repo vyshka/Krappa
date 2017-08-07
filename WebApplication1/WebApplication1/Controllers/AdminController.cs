@@ -205,21 +205,15 @@ namespace WebApplication1.Controllers
 
         public ActionResult CreateUser()
         {
-            var model = new AdminCreateViewModel
+            var model = new AdminCreateUserModel
             {
-                SelectedRoleId = "0",
-                Roles = new SelectList(new[]
-                {
-                    new SelectListItem { Value = "0", Text = "Администратор" },
-                    new SelectListItem { Value = "1", Text = "Пользователь"}
-                }, "Value", "Text"
-                    )
+                SelectedRoleId = "0"
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser(AdminCreateViewModel model)
+        public async Task<ActionResult> CreateUser(AdminCreateUserModel model)
         {
             if (ModelState.IsValid)
             {
@@ -227,7 +221,7 @@ namespace WebApplication1.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    if(model.SelectedRoleId == "0")
+                    if (model.SelectedRoleId == "0")
                     {
                         await UserManager.AddToRoleAsync(user.Id, "Admin");
                     }
@@ -235,7 +229,7 @@ namespace WebApplication1.Controllers
                     {
                         await UserManager.AddToRoleAsync(user.Id, "User");
                     }
-                    
+
                     return RedirectToAction("UsersList");
                 }
                 else
@@ -249,7 +243,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("UsersList");
         }
 
-      
+
 
         public ActionResult CreateVacancy()
         {

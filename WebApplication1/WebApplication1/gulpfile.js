@@ -9,10 +9,10 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     less = require('gulp-less'),
-    react = require('gulp-react'),
     babel = require('gulp-babel'),
     browserify = require('browserify'),
     babelify = require('babelify'),
+    clean = require('gulp-clean'),
     source = require('vinyl-source-stream');
 
  
@@ -40,7 +40,7 @@ var jsDest = 'Content/js/',
 
 
 gulp.task('temp', () => {
-    return gulp.src(['Content/js/react/table.jsx', 'Content/js/react/user-list.js', 'Content/js/react/vacancy-list.js'])
+    return gulp.src(['Content/js/react/components/table.jsx', 'Content/js/react/components/addForm.jsx', 'Content/js/react/user-list.js', 'Content/js/react/vacancy-list.js'])
         .pipe(babel({
             plugins: ['transform-react-jsx']
         }))
@@ -70,8 +70,6 @@ gulp.task('browserifyVacancy', ['temp'], function() {
         .pipe(gulp.dest('Content/js/'));
 });
 
-
-
 gulp.task('scripts', function () {
     return gulp.src(jsFiles)
         .pipe(concat('scripts.js'))
@@ -96,7 +94,12 @@ gulp.task('minify-css', ['less'], function() {
       .pipe(gulp.dest('Content/css/'));
 });
 
+gulp.task('clean', ['browserifyVacancy', 'browserifyUser'], function() {
+    return gulp.src('Content/js/out', {read: false})
+        .pipe(clean());
+})
 
 
-gulp.task('default', ['scripts', 'less', 'minify-css', 'temp', 'browserifyVacancy', 'browserifyUser'], function () { });
+
+gulp.task('default', ['scripts', 'less', 'minify-css', 'temp', 'browserifyVacancy', 'browserifyUser', 'clean'], function () { });
 

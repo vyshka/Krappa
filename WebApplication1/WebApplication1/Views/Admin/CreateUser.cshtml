@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.AdminCreateViewModel
+﻿@model WebApplication1.Models.AdminCreateUserModel
 @{
     ViewBag.Title = "Создать пользователя";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -37,16 +37,6 @@
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.SelectedRoleId, Model.Roles, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Создать" class="btn btn-default" />

@@ -46,6 +46,29 @@ namespace WebApplication1.Controllers
             return list;
         }
 
+        public UsersList CreateUser(AdminCreateUserModel model)
+        {
+            ApplicationUser user = new ApplicationUser { UserName = model.userName, Email = model.Email, registerTime = DateTime.Now };
+            var IdentityResult =  UserManager.Create(user, model.Password);
+            UsersList userReturn = new UsersList(user);
+            if(IdentityResult.Succeeded)
+            {
+                if (model.SelectedRoleId == "0")
+                {
+                    UserManager.AddToRole(user.Id, "Admin");
+                }
+                else
+                {
+                    UserManager.AddToRole(user.Id, "User");
+                }
+                return userReturn;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
 
         public ApplicationUser DeleteUser(string id)
         {

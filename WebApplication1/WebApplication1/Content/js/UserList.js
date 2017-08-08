@@ -30,20 +30,41 @@ var AddVacancyForm = exports.AddVacancyForm = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (AddVacancyForm.__proto__ || Object.getPrototypeOf(AddVacancyForm)).call(this, props));
 
+        _this.state = {
+            name: "",
+            city: "",
+            url: ""
+        };
+
         _this.handleClick = _this.handleClick.bind(_this);
+        _this.change = _this.change.bind(_this);
+        _this.clearState = _this.clearState.bind(_this);
         return _this;
     }
 
     _createClass(AddVacancyForm, [{
+        key: "change",
+        value: function change(e) {
+            this.setState(_defineProperty({}, e.target.id, e.target.value));
+        }
+    }, {
+        key: "clearState",
+        value: function clearState() {
+            this.setState({
+                name: "",
+                city: "",
+                url: ""
+            });
+        }
+    }, {
         key: "handleClick",
         value: function handleClick() {
-            var addProp = this.props.add;
+            var self = this;
             var Vacancies = {
-                Url: document.getElementById("url").value,
-                City: document.getElementById("city").value,
-                name: document.getElementById("name").value
+                Url: this.state.url,
+                City: this.state.city,
+                name: this.state.name
             };
-
             $.ajax({
                 url: "/api/vacancies/CreateVacancy",
                 contentType: "application/json",
@@ -51,44 +72,46 @@ var AddVacancyForm = exports.AddVacancyForm = function (_React$Component) {
                 data: JSON.stringify(Vacancies),
                 success: function success(data) {
                     Vacancies.Id = data;
-                    addProp(Vacancies);
-                    document.getElementById("name").value = "";
-                    document.getElementById("city").value = "";
-                    document.getElementById("url").value = "";
+                    self.props.add(Vacancies);
+                    self.clearState();
                 }
             });
         }
     }, {
         key: "render",
         value: function render() {
-            return _React2.default.createElement("form", { className: "form-horizontal" }, _React2.default.createElement("h3", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E"), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"), _React2.default.createElement("div", { className: "col-md-10" }, _React2.default.createElement("input", { id: "name", className: "form-control" }))), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "\u0413\u043E\u0440\u043E\u0434"), _React2.default.createElement("div", { className: "col-md-10" }, _React2.default.createElement("input", { id: "city", className: "form-control" }))), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "Url"), _React2.default.createElement("div", { className: "col-md-10" }, _React2.default.createElement("input", { id: "url", className: "form-control" }))), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("div", { className: "col-md-offset-2 col-md-10" }, _React2.default.createElement("button", { onClick: this.handleClick, type: "button", id: "createBtn", className: "btn btn-default" }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))));
+            var _this2 = this;
+
+            return _React2.default.createElement("form", { className: "form-horizontal" }, _React2.default.createElement("h3", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E"), _React2.default.createElement(FormGroup, {
+                id: "name",
+                text: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435",
+                onChange: function onChange(e) {
+                    return _this2.change(e);
+                },
+                value: this.state.name
+            }), _React2.default.createElement(FormGroup, {
+                id: "city",
+                text: "\u0413\u043E\u0440\u043E\u0434",
+                onChange: function onChange(e) {
+                    return _this2.change(e);
+                },
+                value: this.state.city
+            }), _React2.default.createElement(FormGroup, {
+                id: "url",
+                text: "Url",
+                onChange: function onChange(e) {
+                    return _this2.change(e);
+                },
+                value: this.state.url
+            }), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("div", null, _React2.default.createElement("button", { onClick: this.handleClick, type: "button", id: "createBtn", className: "btn btn-default" }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))));
         }
     }]);
 
     return AddVacancyForm;
 }(_React2.default.Component);
 
-var ErrorText = function (_React$Component2) {
-    _inherits(ErrorText, _React$Component2);
-
-    function ErrorText() {
-        _classCallCheck(this, ErrorText);
-
-        return _possibleConstructorReturn(this, (ErrorText.__proto__ || Object.getPrototypeOf(ErrorText)).apply(this, arguments));
-    }
-
-    _createClass(ErrorText, [{
-        key: "render",
-        value: function render() {
-            return _React2.default.createElement("span", { className: "text-danger field-validation-error" }, this.props.text);
-        }
-    }]);
-
-    return ErrorText;
-}(_React2.default.Component);
-
-var AddUserForm = exports.AddUserForm = function (_React$Component3) {
-    _inherits(AddUserForm, _React$Component3);
+var AddUserForm = exports.AddUserForm = function (_React$Component2) {
+    _inherits(AddUserForm, _React$Component2);
 
     function AddUserForm(props) {
         _classCallCheck(this, AddUserForm);
@@ -110,10 +133,24 @@ var AddUserForm = exports.AddUserForm = function (_React$Component3) {
         _this3.handleChange = _this3.handleChange.bind(_this3);
         _this3.change = _this3.change.bind(_this3);
         _this3.validate = _this3.validate.bind(_this3);
+        _this3.clearState = _this3.clearState.bind(_this3);
         return _this3;
     }
 
     _createClass(AddUserForm, [{
+        key: "clearState",
+        value: function clearState() {
+            this.setState({
+                userName: "",
+                userNameError: "",
+                Email: "",
+                EmailError: "",
+                password: "",
+                passwordError: "",
+                SelectedRoleId: ""
+            });
+        }
+    }, {
         key: "validate",
         value: function validate() {
             var errors = {};
@@ -146,22 +183,20 @@ var AddUserForm = exports.AddUserForm = function (_React$Component3) {
     }, {
         key: "change",
         value: function change(e) {
-            this.setState(_defineProperty({}, e.target.name, e.target.value));
+            this.setState(_defineProperty({}, e.target.id, e.target.value));
         }
     }, {
         key: "handleClick",
         value: function handleClick() {
-            var addProp = this.props.add;
-
-            var err = this.validate();
-            if (!err) {
+            var self = this;
+            if (!self.validate()) {
                 var AdminCreateUserModel = {
                     Email: this.state.Email,
                     userName: this.state.userName,
                     Password: this.state.password,
                     SelectedRoleId: this.state.selectValue
                 };
-
+                var changeState = this.setState;
                 $.ajax({
                     url: "/api/user/CreateUser",
                     contentType: "application/json",
@@ -169,14 +204,10 @@ var AddUserForm = exports.AddUserForm = function (_React$Component3) {
                     data: JSON.stringify(AdminCreateUserModel),
                     success: function success(data) {
                         if (data != null) {
-                            addProp(data);
-                            setState({
-                                userName: "",
-                                Email: "",
-                                password: ""
-                            });
+                            self.props.add(data);
+                            self.clearState();
                         } else {
-                            console.log("error");
+                            alert("Ошибка при создании пользователя");
                         }
                     }
                 });
@@ -190,20 +221,101 @@ var AddUserForm = exports.AddUserForm = function (_React$Component3) {
     }, {
         key: "render",
         value: function render() {
-            var _this4 = this,
-                _React$createElement;
+            var _this4 = this;
 
-            return _React2.default.createElement("form", { className: "form-gorizontal" }, _React2.default.createElement("h3", null, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "\u0418\u043C\u044F"), _React2.default.createElement("div", null, _React2.default.createElement("input", { id: "userName", className: "form-control", value: this.state.userName, name: "userName", onChange: function onChange(e) {
+            return _React2.default.createElement("form", { className: "form-gorizontal" }, _React2.default.createElement("h3", null, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"), _React2.default.createElement(FormGroup, {
+                id: "userName",
+                text: "\u0418\u043C\u044F",
+                value: this.state.userName,
+                onChange: function onChange(e) {
                     return _this4.change(e);
-                } })), _React2.default.createElement(ErrorText, { text: this.state.userNameError })), _React2.default.createElement("br", null), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "Email"), _React2.default.createElement("div", null, _React2.default.createElement("input", (_React$createElement = { id: "Email", className: "form-control" }, _defineProperty(_React$createElement, "id", "Email"), _defineProperty(_React$createElement, "value", this.state.Email), _defineProperty(_React$createElement, "name", "Email"), _defineProperty(_React$createElement, "onChange", function onChange(e) {
-                return _this4.change(e);
-            }), _React$createElement))), _React2.default.createElement(ErrorText, { text: this.state.EmailError })), _React2.default.createElement("br", null), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "\u041F\u0430\u0440\u043E\u043B\u044C"), _React2.default.createElement("div", null, _React2.default.createElement("input", { type: "password", id: "password", className: "form-control", name: "password", value: this.state.password, onChange: function onChange(e) {
+                },
+                error: this.state.userNameError
+            }), _React2.default.createElement(FormGroup, {
+                id: "Email",
+                text: "Email",
+                value: this.state.Email,
+                onChange: function onChange(e) {
                     return _this4.change(e);
-                } })), _React2.default.createElement(ErrorText, { text: this.state.passwordError })), _React2.default.createElement("br", null), _React2.default.createElement("div", null, _React2.default.createElement("label", { className: "col-md-2 control-label" }, "\u0420\u043E\u043B\u044C"), _React2.default.createElement("div", null, _React2.default.createElement("select", { className: "form-control", id: "Role", onChange: this.handleChange, value: this.state.SelectedRoleId }, _React2.default.createElement("option", { value: "0" }, "\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440"), _React2.default.createElement("option", { value: "1" }, "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C")))), _React2.default.createElement("br", null), _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("div", null, _React2.default.createElement("button", { onClick: this.handleClick, type: "button", id: "createBtn", className: "btn btn-default" }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))));
+                },
+                error: this.state.EmailError
+            }), _React2.default.createElement(FormGroup, {
+                type: "password",
+                id: "password",
+                text: "\u041F\u0430\u0440\u043E\u043B\u044C",
+                value: this.state.password,
+                onChange: function onChange(e) {
+                    return _this4.change(e);
+                },
+                error: this.state.passwordError
+            }), _React2.default.createElement("div", null, _React2.default.createElement("label", { className: "control-label" }, "\u0420\u043E\u043B\u044C"), _React2.default.createElement("div", null, _React2.default.createElement("select", { className: "form-control", id: "SelectedRoleId", onChange: function onChange(e) {
+                    return _this4.change(e);
+                }, value: this.state.SelectedRoleId }, _React2.default.createElement("option", { value: "0" }, "\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440"), _React2.default.createElement("option", { value: "1" }, "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C")))), _React2.default.createElement(Button, {
+                handleClick: this.handleClick,
+                id: "createBtn",
+                text: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"
+            }));
         }
     }]);
 
     return AddUserForm;
+}(_React2.default.Component);
+
+var Button = function (_React$Component3) {
+    _inherits(Button, _React$Component3);
+
+    function Button() {
+        _classCallCheck(this, Button);
+
+        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+    }
+
+    _createClass(Button, [{
+        key: "render",
+        value: function render() {
+            return _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("button", { onClick: this.props.handleClick, type: "button", id: this.props.id, className: "btn btn-default" }, this.props.text));
+        }
+    }]);
+
+    return Button;
+}(_React2.default.Component);
+
+var FormGroup = function (_React$Component4) {
+    _inherits(FormGroup, _React$Component4);
+
+    function FormGroup() {
+        _classCallCheck(this, FormGroup);
+
+        return _possibleConstructorReturn(this, (FormGroup.__proto__ || Object.getPrototypeOf(FormGroup)).apply(this, arguments));
+    }
+
+    _createClass(FormGroup, [{
+        key: "render",
+        value: function render() {
+            return _React2.default.createElement("div", { className: "form-group" }, _React2.default.createElement("label", { className: "control-label" }, this.props.text), _React2.default.createElement("input", { type: this.props.type, className: "form-control", id: this.props.id, value: this.props.value, onChange: this.props.onChange }), _React2.default.createElement(ErrorText, { text: this.props.error }));
+        }
+    }]);
+
+    return FormGroup;
+}(_React2.default.Component);
+
+var ErrorText = function (_React$Component5) {
+    _inherits(ErrorText, _React$Component5);
+
+    function ErrorText() {
+        _classCallCheck(this, ErrorText);
+
+        return _possibleConstructorReturn(this, (ErrorText.__proto__ || Object.getPrototypeOf(ErrorText)).apply(this, arguments));
+    }
+
+    _createClass(ErrorText, [{
+        key: "render",
+        value: function render() {
+            return _React2.default.createElement("span", { className: "text-danger field-validation-error" }, this.props.text);
+        }
+    }]);
+
+    return ErrorText;
 }(_React2.default.Component);
 
 },{"React":157}],2:[function(require,module,exports){
@@ -252,13 +364,28 @@ var Table = exports.Table = function (_React$Component) {
         key: 'addToState',
         value: function addToState(element) {
             var newData = this.state.data;
+            console.log(element);
             newData.push(element);
             this.setState({ data: newData });
         }
     }, {
         key: 'deleteFormState',
         value: function deleteFormState(element) {
-            var index = this.state.data.indexOf(element);
+            var tempArray = [];
+            for (var i = 0; i < this.state.data.length; i++) {
+                var item = {
+                    Id: this.state.data[i].Id,
+                    number: i
+                };
+
+                tempArray.push(item);
+            }
+            var index;
+            for (var i = 0; i < tempArray.length; i++) {
+                if (element.Id == tempArray[i].Id) {
+                    index = tempArray[i].number;
+                }
+            }
             var newData = this.state.data;
             newData.splice(index, 1);
             this.setState({ data: newData });
@@ -424,6 +551,7 @@ var DeleteLink = function (_React$Component6) {
     }, {
         key: 'handleClick',
         value: function handleClick() {
+            //
             var deleteAct = this.props.delete;
             var deleteUrl = this.props.deleteUrl;
             if (confirm("Вы дейстивтельно хотите удалить?")) {

@@ -59,7 +59,7 @@ gulp.task('browserifySurvey', ['temp'], function() {
             presets: ["es2015"]
         }))
         .bundle()
-        .pipe(source('newSyrvey.js'))
+        .pipe(source('newSurvey.js'))
         .pipe(gulp.dest('Content/js/'));
 });
 

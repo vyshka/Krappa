@@ -425,7 +425,7 @@ var Table = exports.Table = function (_React$Component) {
             if (this.props.isUser) {
                 addForm = _React2.default.createElement(_addForm.AddUserForm, { add: this.addToState });
             }
-            return _React2.default.createElement('div', null, _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: this.state.keysList }), _React2.default.createElement(RowList, { edit: this.props.editUrl, 'delete': this.deleteFormState, data: this.state.data, url: this.props.url, deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
+            return _React2.default.createElement('div', null, _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: this.state.keysList }), _React2.default.createElement(RowList, { editUrl: this.props.editUrl, 'delete': this.deleteFormState, data: this.state.data, url: this.props.url, deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
         }
     }]);
 
@@ -551,7 +551,6 @@ var DeleteLink = function (_React$Component6) {
     }, {
         key: 'handleClick',
         value: function handleClick() {
-            //
             var deleteAct = this.props.delete;
             var deleteUrl = this.props.deleteUrl;
             if (confirm("Вы дейстивтельно хотите удалить?")) {
@@ -613,7 +612,7 @@ function run() {
   _ReactDOM2.default.render(_React2.default.createElement(_table.Table, {
     url: '/api/vacancies/getallVacancies',
     deleteUrl: '/api/vacancies/DeleteVacancy/',
-    editUrl: '/api/vacancies/GetVacancyById',
+    editUrl: '',
     isVacancy: true
   }), document.getElementById('tableContent'));
 }

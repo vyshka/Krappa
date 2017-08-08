@@ -234,6 +234,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\js\newSyrvey.js" />
     <Content Include="Content\js\react\browser.js" />
     <Content Include="Content\js\react\react-dom.js" />
     <Content Include="Content\js\react\react.js" />
@@ -242,12 +243,15 @@
     <Content Include="Content\js\UserList.js" />
     <Content Include="Content\js\VacancyList.js" />
     <Content Include="Content\less\base\base.less" />
-    <Content Include="Content\js\react\table.jsx" />
+    <Content Include="Content\js\react\components\addForm.jsx" />
+    <Content Include="Content\js\react\components\survey\editForm.jsx" />
+    <Content Include="Content\js\react\components\table.jsx" />
     <None Include="Content\less\bootstrap.less" />
     <None Include="Content\less\jquery.fancybox.less" />
     <Content Include="Content\less\layouts\footer.less" />
     <Content Include="Content\less\layouts\header.less" />
     <Content Include="Content\less\layouts\profile.less" />
+    <Content Include="Content\less\layouts\form-horizontal.less" />
     <None Include="Content\less\media-queries.less" />
     <Content Include="Content\less\modules\about.less" />
     <Content Include="Content\less\modules\auth.less" />

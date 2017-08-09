@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='default' />
+/// <binding />
 /// <reference path="Content/js/scripts.js" />
 /// <binding BeforeBuild='default' />
 // include plug-ins

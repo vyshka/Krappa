@@ -9,9 +9,12 @@ namespace WebApplication1
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext () : base("IdentityDb")
+        public MainDbContext () : base("")
         {
         }
         public DbSet<Vacancies> Vacancies { get; set; }
+
+        public DbSet<Survey> Surveys { get; set; }
+
     }
 }

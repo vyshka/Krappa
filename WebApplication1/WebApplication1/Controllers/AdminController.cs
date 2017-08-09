@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.Owin.Security;
 using PagedList;
 using System.Configuration;
+using System.Data.Entity.Validation;
 
 namespace WebApplication1.Controllers
 {
@@ -26,10 +27,22 @@ namespace WebApplication1.Controllers
             }
         }
 
-        private MainDbContext db = new MainDbContext();
+        private ApplicationContext db = new ApplicationContext();
 
         public ActionResult NewSurvey()
         {
+            using (var db = new ApplicationContext())
+            {
+                var name = "Опрос 2";
+
+                var q1 = new Question { Text = "Kappa or Krappa", Answers = "Kappa,Krappa" };
+                var q2 = new Question { Text = "Kkona or Kkomrade", Answers = "Kkona,Kkomrade" };
+                var survey = new Survey { name = name};
+                survey.Questions.Add(q1);
+                survey.Questions.Add(q2);
+                db.Surveys.Add(survey);
+                db.SaveChanges();
+            }
             return View();
         }
 
@@ -178,6 +191,7 @@ namespace WebApplication1.Controllers
             int pageNumber = (page ?? 1);
             return View(list.ToPagedList(pageNumber, pageSize));
         }
+
         public ActionResult Index()
         {
             return View();

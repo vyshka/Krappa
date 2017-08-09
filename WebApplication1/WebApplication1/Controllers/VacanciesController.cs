@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
     [Authorize(Roles ="Admin")]
     public class VacanciesController : ApiController
     {
-        private MainDbContext db = new MainDbContext();
+        private ApplicationContext db = new ApplicationContext();
 
         [HttpGet]
         public IEnumerable<Vacancies> GetAllVacancies()

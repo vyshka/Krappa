@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
 
-        private MainDbContext db = new MainDbContext();
+        private ApplicationContext db = new ApplicationContext();
 
         // GET: Home
         public ActionResult Index()

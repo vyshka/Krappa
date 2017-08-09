@@ -27,22 +27,115 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var QuestionForm = exports.QuestionForm = function (_React$Component) {
     _inherits(QuestionForm, _React$Component);
 
-    function QuestionForm() {
+    function QuestionForm(props) {
         _classCallCheck(this, QuestionForm);
 
-        return _possibleConstructorReturn(this, (QuestionForm.__proto__ || Object.getPrototypeOf(QuestionForm)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (QuestionForm.__proto__ || Object.getPrototypeOf(QuestionForm)).call(this, props));
+
+        _this.state = {
+            questions: _this.props.list
+        };
+
+        _this.addEditForm = _this.addEditForm.bind(_this);
+        _this.chekState = _this.chekState.bind(_this);
+
+        _this.changeA = _this.changeA.bind(_this);
+        _this.changeQ = _this.changeQ.bind(_this);
+        _this.deleteA = _this.deleteA.bind(_this);
+        _this.deleteQ = _this.deleteQ.bind(_this);
+        return _this;
     }
 
     _createClass(QuestionForm, [{
+        key: 'chekState',
+        value: function chekState() {
+            console.log(this.state);
+        }
+    }, {
+        key: 'changeQ',
+        value: function changeQ(e) {
+            var newData = this.state.questions;
+            var index = e.target.parentNode.getAttribute("data-id");
+            newData[index].question = e.target.value;
+            this.setState({
+                questions: newData
+            });
+        }
+    }, {
+        key: 'changeA',
+        value: function changeA(e) {
+            var indexA = e.target.getAttribute('data-id');
+            var indexQ = e.target.getAttribute('data-qid');
+            var newData = this.state.questions;
+            newData[indexQ].answers[indexA] = e.target.value;
+            this.setState({
+                questions: newData
+            });
+        }
+    }, {
+        key: 'deleteA',
+        value: function deleteA(e) {
+            var indexA = e.target.getAttribute('data-id');
+            var indexQ = e.target.getAttribute('data-qid');
+            var newData = this.state.questions;
+            newData[indexQ].answers.splice(indexA, 1);
+            this.setState({
+                questions: newData
+            });
+        }
+    }, {
+        key: 'deleteQ',
+        value: function deleteQ(e) {
+            var indexQ = e.target.getAttribute('data-qid');
+            var newData = this.state.questions;
+            newData.splice(indexQ, 1);
+            this.setState({
+                questions: newData
+            });
+        }
+    }, {
+        key: 'addEditForm',
+        value: function addEditForm() {
+            var newData = this.state.questions;
+            var question = {
+                question: "Вопрос",
+                answers: ["Ответ 1", "Ответ 2"]
+            };
+            newData.push(question);
+            this.setState({
+                questions: newData
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var questionList = this.props.list.map(function (element, index) {
+            var _this2 = this;
+
+            var self = this;
+            var questionList = this.state.questions.map(function (element, index) {
+                //question
                 return _React2.default.createElement(EditForm, {
                     key: index,
-                    question: element
+                    question: self.state.questions[index].question,
+                    answers: self.state.questions[index].answers,
+                    index: index,
+                    changeA: self.changeA,
+                    changeQ: self.changeQ,
+                    deleteA: self.deleteA,
+                    deleteQ: self.deleteQ
                 });
             });
-            return _React2.default.createElement('div', null, questionList);
+            return _React2.default.createElement('div', null, questionList, _React2.default.createElement(BtnAddA, {
+                AddAction: function AddAction(e) {
+                    return _this2.addEditForm(e);
+                },
+                text: '\u0432\u043E\u043F\u0440\u043E\u0441'
+            }), _React2.default.createElement(BtnAddA, {
+                AddAction: function AddAction(e) {
+                    return _this2.chekState(e);
+                },
+                text: 'temp'
+            }));
         }
     }]);
 
@@ -55,40 +148,18 @@ var EditForm = function (_React$Component2) {
     function EditForm(props) {
         _classCallCheck(this, EditForm);
 
-        var _this2 = _possibleConstructorReturn(this, (EditForm.__proto__ || Object.getPrototypeOf(EditForm)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (EditForm.__proto__ || Object.getPrototypeOf(EditForm)).call(this, props));
 
-        _this2.state = {
-            answers: _this2.props.question.answers,
-            question: _this2.props.question.text
+        _this3.state = {
+            answers: _this3.props.answers,
+            question: _this3.props.question
         };
 
-        _this2.addAnswer = _this2.addAnswer.bind(_this2);
-        _this2.changeA = _this2.changeA.bind(_this2);
-        _this2.changeQ = _this2.changeQ.bind(_this2);
-        return _this2;
+        _this3.addAnswer = _this3.addAnswer.bind(_this3);
+        return _this3;
     }
 
     _createClass(EditForm, [{
-        key: 'changeQ',
-        value: function changeQ(e) {
-            this.setState({
-                question: e.target.value
-            });
-        }
-    }, {
-        key: 'changeA',
-        value: function changeA(e) {
-            console.log();
-            var index = e.target.getAttribute('data-id');
-            console.log(this.state.answers);
-            console.log(this.state.answers[index]);
-            var newData = this.state.answers;
-            newData[index] = e.target.value;
-            this.setState({
-                answers: newData
-            });
-        }
-    }, {
         key: 'addAnswer',
         value: function addAnswer() {
             var newData = this.state.answers;
@@ -100,20 +171,40 @@ var EditForm = function (_React$Component2) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var self = this;
             var Answers = this.state.answers.map(function (element, index) {
-                return _React2.default.createElement('input', { 'data-id': index, key: index, className: 'form-control', value: self.state.answers[index], onChange: self.changeA });
+                return _React2.default.createElement('div', { className: 'input-del', key: index }, _React2.default.createElement('input', {
+                    placeholder: '\u041E\u0442\u0432\u0435\u0442',
+                    className: 'form-control',
+                    value: self.state.answers[index],
+                    onChange: self.props.changeA,
+                    'data-qid': self.props.index,
+                    'data-id': index,
+                    key: index
+                }), _React2.default.createElement('a', null, _React2.default.createElement('span', {
+                    'data-qid': self.props.index,
+                    key: index,
+                    onClick: self.props.deleteA,
+                    className: 'glyphicon glyphicon-trash'
+                })));
             });
 
-            return _React2.default.createElement('div', { className: 'form-horizontal' }, _React2.default.createElement(Question, {
-                qText: this.state.question,
-                onChange: this.changeQ
-            }), _React2.default.createElement('label', { className: 'control-label' }, '\u041E\u0442\u0432\u0435\u0442\u044B'), _React2.default.createElement('div', { className: 'form-group' }, Answers), _React2.default.createElement(BtnAddA, {
+            return _React2.default.createElement('div', { className: 'edit-form' }, _React2.default.createElement('div', { className: 'input-del' }, _React2.default.createElement(Question, {
+                question: this.props.question,
+                index: this.props.index,
+                onChange: this.props.changeQ
+            }), _React2.default.createElement('a', null, _React2.default.createElement('span', {
+                'data-qid': self.props.index,
+                key: self.props.index,
+                onClick: self.props.deleteQ,
+                className: 'glyphicon glyphicon-trash'
+            }))), _React2.default.createElement('label', { className: 'control-label' }, '\u041E\u0442\u0432\u0435\u0442\u044B'), _React2.default.createElement('div', { className: 'form-group' }, Answers), _React2.default.createElement(BtnAddA, {
                 AddAction: function AddAction(e) {
-                    return _this3.addAnswer(e);
-                }
+                    return _this4.addAnswer(e);
+                },
+                text: '\u043E\u0442\u0432\u0435\u0442'
             }));
         }
     }]);
@@ -133,7 +224,7 @@ var BtnAddA = function (_React$Component3) {
     _createClass(BtnAddA, [{
         key: 'render',
         value: function render() {
-            return _React2.default.createElement('button', { className: 'btn btn-default', onClick: this.props.AddAction, id: 'btnAddA' }, '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043E\u0442\u0432\u0435\u0442');
+            return _React2.default.createElement('button', { className: 'btn btn-default', onClick: this.props.AddAction, id: 'btnAddA' }, '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C ', this.props.text);
         }
     }]);
 
@@ -152,7 +243,7 @@ var Question = function (_React$Component4) {
     _createClass(Question, [{
         key: 'render',
         value: function render() {
-            return _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'control-label' }, '\u0412\u043E\u043F\u0440\u043E\u0441 '), _React2.default.createElement('input', { onChange: this.props.onChange, className: 'form-control', value: this.props.qText }));
+            return _React2.default.createElement('div', { className: 'form-group' }, _React2.default.createElement('label', { className: 'control-label' }, this.props.index + 1, ' \u0432\u043E\u043F\u0440\u043E\u0441'), _React2.default.createElement('input', { 'data-id': this.props.index, onChange: this.props.onChange, className: 'form-control', value: this.props.question }));
         }
     }]);
 
@@ -195,12 +286,12 @@ if (loadedStates.includes(document.readyState) && document.body) {
 }
 
 var question1 = {
-    text: "Kappa or Krappa",
+    question: "Kappa or Krappa",
     answers: ["Kappa", "Krappa"]
 };
 
 var question2 = {
-    text: "KappaGold or KappaG",
+    question: "KappaGold or KappaG",
     answers: ["KappaGold", "KappaG"]
 };
 

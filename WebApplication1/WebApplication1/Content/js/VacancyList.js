@@ -364,7 +364,6 @@ var Table = exports.Table = function (_React$Component) {
         key: 'addToState',
         value: function addToState(element) {
             var newData = this.state.data;
-            console.log(element);
             newData.push(element);
             this.setState({ data: newData });
         }

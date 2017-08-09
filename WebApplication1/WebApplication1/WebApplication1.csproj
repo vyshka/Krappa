@@ -253,6 +253,7 @@
     <Content Include="Content\less\layouts\profile.less" />
     <Content Include="Content\less\layouts\form-horizontal.less" />
     <None Include="Content\less\media-queries.less" />
+    <None Include="Content\less\layouts\question.less" />
     <Content Include="Content\less\modules\about.less" />
     <Content Include="Content\less\modules\auth.less" />
     <Content Include="Content\less\modules\list.less" />
@@ -353,6 +354,14 @@
     <Compile Include="Migrations\201708040801251_updateVacancy.Designer.cs">
       <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708091507398_temp.cs" />
+    <Compile Include="Migrations\201708091507398_temp.Designer.cs">
+      <DependentUpon>201708091507398_temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708091612153_1.cs" />
+    <Compile Include="Migrations\201708091612153_1.Designer.cs">
+      <DependentUpon>201708091612153_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateUserModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
@@ -362,7 +371,9 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Question.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\SurveyCreateModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UsersList.cs" />
@@ -431,6 +442,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708040801251_updateVacancy.resx">
       <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091507398_temp.resx">
+      <DependentUpon>201708091507398_temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091612153_1.resx">
+      <DependentUpon>201708091612153_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

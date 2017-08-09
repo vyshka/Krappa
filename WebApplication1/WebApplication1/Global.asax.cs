@@ -14,7 +14,6 @@ namespace WebApplication1
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<MainDbContext>(null);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             

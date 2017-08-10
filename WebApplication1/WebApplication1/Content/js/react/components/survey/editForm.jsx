@@ -6,7 +6,10 @@ export class QuestionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questions: this.props.list
+            Survey: {
+                Questions: [],
+                name: ""
+            }
         }
 
         this.addEditForm = this.addEditForm.bind(this);
@@ -16,34 +19,60 @@ export class QuestionForm extends React.Component {
         this.changeQ = this.changeQ.bind(this);
         this.deleteA = this.deleteA.bind(this);
         this.deleteQ = this.deleteQ.bind(this);
-
+        this.updateSurvey = this.updateSurvey.bind(this);
     }
 
-    chekState() {
+    componentDidMount() {
+        $.ajax({
+            url: "/api/Survey/GetSurveyById/1",
+            dataType: 'JSON',
+            success: function(data) {
+                this.setState({
+                    Survey: data
+                })
+            }.bind(this)
+        })
+    }
+
+    updateSurvey () {
+        $.ajax({
+            url: "api/Survey/UpdateSurvey",
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(this.state),
+            success: function(data) {
+                console.log(data);
+            }
+
+        })
+    }
+
+
+    chekState () {
         console.log(this.state)
     }
 
-    changeQ(e) { 
-        var newData = this.state.questions;
-        var index = e.target.parentNode.getAttribute("data-id")
-        newData[index].question = e.target.value
+    changeQ (e){ 
+        var newData = this.state.Survey;
+        var index = e.target.parentNode.getAttribute("data-id");
+        newData.Question[index].question = e.target.value
         this.setState({
-            questions: newData
+            Survey: newData
         });
         
     };
 
-    changeA(e) {
+    changeA (e) {
         var indexA = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
-        var newData = this.state.questions;
-        newData[indexQ].answers[indexA] = e.target.value;
+        var newData = this.state.Survey;
+        newData.Question[index].answers[indexA] = e.target.value;
         this.setState({
-            questions: newData
+            Survey: newData
         });
     };
 
-    deleteA(e) {
+    deleteA (e) {
         var indexA = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.questions;
@@ -53,7 +82,7 @@ export class QuestionForm extends React.Component {
         })
     }
 
-    deleteQ(e) {
+    deleteQ (e) {
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.questions;
         newData.splice(indexQ, 1);
@@ -62,7 +91,9 @@ export class QuestionForm extends React.Component {
         })
     }
 
-    addEditForm() {
+    
+
+    addEditForm () {
         var newData = this.state.questions;
         var question = {
             question: "Вопрос",
@@ -76,12 +107,20 @@ export class QuestionForm extends React.Component {
     }
     render() {
         var self = this;
-        var questionList = this.state.questions.map(function(element, index) { //question
+        // console.log(this.state.Survey.Questions);
+        // this.state.Survey.Questions.map(function(element, index) {
+        //     console.log(element);
+        // })
+        // return(
+        //     <div />
+        // )
+        
+        var questionList = this.state.Survey.Questions.map(function(element, index) { //question
                 return(
                     <EditForm 
                         key = {index}
-                        question = {self.state.questions[index].question}
-                        answers = {self.state.questions[index].answers}
+                        question = {self.state.Survey.Questions[index].Text}
+                        answers = {self.state.Survey.Questions[index].Answers}
                         index = {index}
                         changeA = {self.changeA}
                         changeQ = {self.changeQ}
@@ -93,19 +132,24 @@ export class QuestionForm extends React.Component {
         return(
             <div>
                 {questionList}
-                <BtnAddA
-                    AddAction={e => this.addEditForm(e)}
-                    text="вопрос"
+                <Btn
+                    Action={e => this.addEditForm(e)}
+                    text="Добавить вопрос"
                 />
 
-                <BtnAddA 
-                    AddAction={e => this.chekState(e)}
+                <Btn 
+                    Action={e => this.chekState(e)}
                     text="temp"
                 />
+                <Btn
+                    Action={e => this.updateSurvey(e)}
+                    text="Сохранить"
+                 />
             </div>
         )
     }
 }
+
 
 
 class EditForm extends React.Component {
@@ -120,7 +164,7 @@ class EditForm extends React.Component {
         this.addAnswer = this.addAnswer.bind(this);
     }
 
-    addAnswer() { 
+    addAnswer () { 
         var newData = this.state.answers;
         newData.push("");
         this.setState({
@@ -130,6 +174,7 @@ class EditForm extends React.Component {
 
     render() {
         let self = this;
+        console.log(this.props)
         var Answers = this.state.answers.map(function(element, index) {
                 return(
                     <div className = "input-del" key={index}>
@@ -175,19 +220,19 @@ class EditForm extends React.Component {
                 <div className="form-group">
                     {Answers}
                 </div>
-                <BtnAddA
+                <Btn
                     AddAction={e => this.addAnswer(e)}
-                    text="ответ"
+                    text="Добавить ответ"
                 />
             </div>
         )
     }
 }
 
-class BtnAddA extends React.Component {
+class Btn extends React.Component {
     render() {
         return(
-            <button className="btn btn-default" onClick={this.props.AddAction} id = "btnAddA">Добавить {this.props.text}</button>
+            <button className="btn btn-default" onClick={this.props.Action} >{this.props.text}</button>
         )
     }
 }

@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WebApplication1.Models
+{
+    public class Survey
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string name { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+
+        public Survey()
+        {
+            Questions = new List<Question>();
+        }
+
+        public Survey(SurveyOutModel model)
+        {
+            this.Id = model.Id;
+            this.name = model.name;
+            Questions = new List<Question>();
+            foreach(var question in model.Questions)
+            {
+                Questions.Add(new Question(question));
+            }
+        }
+
+    }
+}

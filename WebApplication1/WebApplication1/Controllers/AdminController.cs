@@ -31,18 +31,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult NewSurvey()
         {
-            using (var db = new ApplicationContext())
-            {
-                var name = "Опрос 2";
-
-                var q1 = new Question { Text = "Kappa or Krappa", Answers = "Kappa,Krappa" };
-                var q2 = new Question { Text = "Kkona or Kkomrade", Answers = "Kkona,Kkomrade" };
-                var survey = new Survey { name = name};
-                survey.Questions.Add(q1);
-                survey.Questions.Add(q2);
-                db.Surveys.Add(survey);
-                db.SaveChanges();
-            }
             return View();
         }
 

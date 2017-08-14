@@ -18,6 +18,7 @@ export class QuestionForm extends React.Component {
             
         this.changeA = this.changeA.bind(this);
         this.changeQ = this.changeQ.bind(this);
+        this.changeN = this.changeN.bind(this);
         this.deleteA = this.deleteA.bind(this);
         this.deleteQ = this.deleteQ.bind(this);
         this.updateSurvey = this.updateSurvey.bind(this);
@@ -37,7 +38,7 @@ export class QuestionForm extends React.Component {
 
     componentDidMount() {
         $.ajax({
-            url: "/api/Survey/GetSurveyById/2",
+            url: "/api/Survey/GetSurveyById/3",
             dataType: 'JSON',
             success: function(data) {
                 this.setState({
@@ -84,6 +85,15 @@ export class QuestionForm extends React.Component {
         newAnswers[indexA] = e.target.value;
         newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
         
+        this.setState({
+            model: newData
+        });
+    };
+
+    changeN (e) {
+
+        var newData = this.state.model;
+        newData.name = e.target.value;        
         this.setState({
             model: newData
         });
@@ -151,15 +161,16 @@ export class QuestionForm extends React.Component {
             });
         return(
             <div>
+                <input 
+                    placeholder="Название опроса" 
+                    className="form-control" 
+                    value={this.state.model.name} 
+                    onChange={this.changeN}
+                />                
                 {questionList}
                 <Btn
                     Action={e => this.addEditForm(e)}
                     text="Добавить вопрос"
-                />
-
-                <Btn 
-                    Action={e => this.chekState(e)}
-                    text="temp"
                 />
                 <Btn
                     Action={e => this.updateSurvey(e)}

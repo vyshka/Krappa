@@ -259,10 +259,8 @@ var DeleteLink = function (_React$Component6) {
                     type: 'DELETE',
                     success: function success(result) {
                         if (result == false) {
-                            console.log(result);
                             alert("Ошибка при удалении");
                         } else {
-                            console.log(result);
                             deleteAct(result);
                         }
                     }

@@ -44,6 +44,7 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
 
         _this.changeA = _this.changeA.bind(_this);
         _this.changeQ = _this.changeQ.bind(_this);
+        _this.changeN = _this.changeN.bind(_this);
         _this.deleteA = _this.deleteA.bind(_this);
         _this.deleteQ = _this.deleteQ.bind(_this);
         _this.updateSurvey = _this.updateSurvey.bind(_this);
@@ -67,7 +68,7 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             $.ajax({
-                url: "/api/Survey/GetSurveyById/2",
+                url: "/api/Survey/GetSurveyById/3",
                 dataType: 'JSON',
                 success: function (data) {
                     this.setState({
@@ -117,6 +118,16 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
             newAnswers[indexA] = e.target.value;
             newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
 
+            this.setState({
+                model: newData
+            });
+        }
+    }, {
+        key: 'changeN',
+        value: function changeN(e) {
+
+            var newData = this.state.model;
+            newData.name = e.target.value;
             this.setState({
                 model: newData
             });
@@ -187,16 +198,16 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
                     addA: self.addAnswer
                 });
             });
-            return _React2.default.createElement('div', null, questionList, _React2.default.createElement(Btn, {
+            return _React2.default.createElement('div', null, _React2.default.createElement('input', {
+                placeholder: '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043E\u043F\u0440\u043E\u0441\u0430',
+                className: 'form-control',
+                value: this.state.model.name,
+                onChange: this.changeN
+            }), questionList, _React2.default.createElement(Btn, {
                 Action: function Action(e) {
                     return _this2.addEditForm(e);
                 },
                 text: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u043E\u043F\u0440\u043E\u0441'
-            }), _React2.default.createElement(Btn, {
-                Action: function Action(e) {
-                    return _this2.chekState(e);
-                },
-                text: 'temp'
             }), _React2.default.createElement(Btn, {
                 Action: function Action(e) {
                     return _this2.updateSurvey(e);

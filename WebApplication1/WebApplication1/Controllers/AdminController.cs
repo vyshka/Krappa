@@ -29,8 +29,9 @@ namespace WebApplication1.Controllers
 
         private ApplicationContext db = new ApplicationContext();
 
-        public ActionResult NewSurvey()
+        public ActionResult EditSurvey(int id)
         {
+            var Survey = db.Surveys.Find(id);
             return View();
         }
 

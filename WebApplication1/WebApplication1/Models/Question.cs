@@ -17,6 +17,8 @@ namespace WebApplication1.Models
 
         public virtual Survey Survey { get; set; }
 
+        public Question() { }
+
         public Question(QuestionOutModel model)
         {
             string ans="";

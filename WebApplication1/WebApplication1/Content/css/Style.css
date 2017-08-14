@@ -84,6 +84,7 @@ span {
   display: block;
   font-size: 20px;
   line-height: normal;
+  float: right;
 }
 .becomebtn {
   margin-top: 20px;

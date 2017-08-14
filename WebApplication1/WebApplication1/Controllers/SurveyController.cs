@@ -7,6 +7,7 @@ using WebApplication1.Models;
 using System.Web.Http;
 using RefactorThis.GraphDiff;
 using System.Data.Entity;
+using System.Threading;
 
 namespace WebApplication1.Controllers
 {
@@ -16,8 +17,22 @@ namespace WebApplication1.Controllers
         private ApplicationContext db = new ApplicationContext();
         
 
+        public bool DeleteSurvey(int id)
+        {
+            var survey = db.Surveys.Find(id);
+            if(survey == null)
+            {
+                return false;
+            }
+            db.Questions.RemoveRange(db.Questions.Where(x => x.Survey.Id == survey.Id));
+            db.Surveys.Remove(survey);
+            db.SaveChanges();
+            return true;
+        }
+
         public IEnumerable<Survey> GetAllSurveys()
         {
+            Thread.Sleep(1500);
             var Qlist = db.Surveys.ToList();
             var Alist = Qlist.SelectMany(p => p.Questions).ToList();
 
@@ -27,8 +42,6 @@ namespace WebApplication1.Controllers
 
         public Survey GetSurveyById(int id)
         {
-
-            //retrun 
             var survey = db.Surveys.Find(id);
             return survey;
         }

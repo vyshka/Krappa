@@ -319,13 +319,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VacanciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MainDbContext.cs" />
     <Compile Include="Migrations\201707051327056_InitialCreate.cs" />
     <Compile Include="Migrations\201707051327056_InitialCreate.Designer.cs">
       <DependentUpon>201707051327056_InitialCreate.cs</DependentUpon>
@@ -362,6 +362,62 @@
     <Compile Include="Migrations\201708091612153_1.Designer.cs">
       <DependentUpon>201708091612153_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708091640440_tempo.cs" />
+    <Compile Include="Migrations\201708091640440_tempo.Designer.cs">
+      <DependentUpon>201708091640440_tempo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708091650032_questionupdate.cs" />
+    <Compile Include="Migrations\201708091650032_questionupdate.Designer.cs">
+      <DependentUpon>201708091650032_questionupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708091652276_questionupdate1.cs" />
+    <Compile Include="Migrations\201708091652276_questionupdate1.Designer.cs">
+      <DependentUpon>201708091652276_questionupdate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708091654412_questionupdate2.cs" />
+    <Compile Include="Migrations\201708091654412_questionupdate2.Designer.cs">
+      <DependentUpon>201708091654412_questionupdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100907424_InitialMigrations2.cs" />
+    <Compile Include="Migrations\201708100907424_InitialMigrations2.Designer.cs">
+      <DependentUpon>201708100907424_InitialMigrations2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100911472_12.cs" />
+    <Compile Include="Migrations\201708100911472_12.Designer.cs">
+      <DependentUpon>201708100911472_12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100913446_temp1.cs" />
+    <Compile Include="Migrations\201708100913446_temp1.Designer.cs">
+      <DependentUpon>201708100913446_temp1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100935396_dropSurveysQuestions.cs" />
+    <Compile Include="Migrations\201708100935396_dropSurveysQuestions.Designer.cs">
+      <DependentUpon>201708100935396_dropSurveysQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100937448_init.cs" />
+    <Compile Include="Migrations\201708100937448_init.Designer.cs">
+      <DependentUpon>201708100937448_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100950057_IdentityKeyUpdate.cs" />
+    <Compile Include="Migrations\201708100950057_IdentityKeyUpdate.Designer.cs">
+      <DependentUpon>201708100950057_IdentityKeyUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100952373_IdentityKeyUpdate2.cs" />
+    <Compile Include="Migrations\201708100952373_IdentityKeyUpdate2.Designer.cs">
+      <DependentUpon>201708100952373_IdentityKeyUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100956370_IdentityKeyUpdate3.cs" />
+    <Compile Include="Migrations\201708100956370_IdentityKeyUpdate3.Designer.cs">
+      <DependentUpon>201708100956370_IdentityKeyUpdate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708101006532_IdentityKeyUpdate4.cs" />
+    <Compile Include="Migrations\201708101006532_IdentityKeyUpdate4.Designer.cs">
+      <DependentUpon>201708101006532_IdentityKeyUpdate4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708101021031_addreftoQ.cs" />
+    <Compile Include="Migrations\201708101021031_addreftoQ.Designer.cs">
+      <DependentUpon>201708101021031_addreftoQ.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateUserModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
@@ -372,9 +428,11 @@
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionOutModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\SurveyCreateModel.cs" />
+    <Compile Include="Models\SurveyOutModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UsersList.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -407,10 +465,10 @@
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Home\Relo.cshtml" />
     <Content Include="Views\Admin\SurveyList.cshtml" />
-    <Content Include="Views\Admin\NewSurvey.cshtml" />
     <Content Include="Views\Admin\SurveyTemplates.cshtml" />
     <Content Include="Views\Admin\GetUserById.cshtml" />
     <Content Include="Views\Home\Advans.cshtml" />
+    <Content Include="Views\Admin\EditSurvey.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -448,6 +506,48 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708091612153_1.resx">
       <DependentUpon>201708091612153_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091640440_tempo.resx">
+      <DependentUpon>201708091640440_tempo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091650032_questionupdate.resx">
+      <DependentUpon>201708091650032_questionupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091652276_questionupdate1.resx">
+      <DependentUpon>201708091652276_questionupdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091654412_questionupdate2.resx">
+      <DependentUpon>201708091654412_questionupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100907424_InitialMigrations2.resx">
+      <DependentUpon>201708100907424_InitialMigrations2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100911472_12.resx">
+      <DependentUpon>201708100911472_12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100913446_temp1.resx">
+      <DependentUpon>201708100913446_temp1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100935396_dropSurveysQuestions.resx">
+      <DependentUpon>201708100935396_dropSurveysQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100937448_init.resx">
+      <DependentUpon>201708100937448_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100950057_IdentityKeyUpdate.resx">
+      <DependentUpon>201708100950057_IdentityKeyUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100952373_IdentityKeyUpdate2.resx">
+      <DependentUpon>201708100952373_IdentityKeyUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100956370_IdentityKeyUpdate3.resx">
+      <DependentUpon>201708100956370_IdentityKeyUpdate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101006532_IdentityKeyUpdate4.resx">
+      <DependentUpon>201708101006532_IdentityKeyUpdate4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101021031_addreftoQ.resx">
+      <DependentUpon>201708101021031_addreftoQ.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

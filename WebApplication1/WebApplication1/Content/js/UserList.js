@@ -504,6 +504,7 @@ var Row = function (_React$Component4) {
                     rowColumns.push(_React2.default.createElement('td', { key: key }, this.props.row[key]));
                 }
             }
+            console.log(rowColumns);
             return _React2.default.createElement('tr', null, rowColumns, _React2.default.createElement(Links, { editUrl: this.props.editUrl, deleteUrl: this.props.deleteUrl, 'delete': this.props.delete, id: this.props.row.Id }));
         }
     }]);

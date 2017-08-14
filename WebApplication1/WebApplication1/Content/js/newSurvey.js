@@ -33,7 +33,10 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (QuestionForm.__proto__ || Object.getPrototypeOf(QuestionForm)).call(this, props));
 
         _this.state = {
-            questions: _this.props.list
+            model: {
+                Questions: [],
+                name: ""
+            }
         };
 
         _this.addEditForm = _this.addEditForm.bind(_this);
@@ -43,10 +46,51 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
         _this.changeQ = _this.changeQ.bind(_this);
         _this.deleteA = _this.deleteA.bind(_this);
         _this.deleteQ = _this.deleteQ.bind(_this);
+        _this.updateSurvey = _this.updateSurvey.bind(_this);
+        _this.addAnswer = _this.addAnswer.bind(_this);
+        _this.arrToString = _this.arrToString.bind(_this);
+        _this.stringToArr = _this.stringToArr.bind(_this);
         return _this;
     }
 
     _createClass(QuestionForm, [{
+        key: 'addAnswer',
+        value: function addAnswer(e) {
+            var index = e.target.getAttribute('data-index');
+            var newData = this.state.model;
+            newData.Questions[index].Answers += ","; //edit 
+            this.setState({
+                model: newData
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            $.ajax({
+                url: "/api/Survey/GetSurveyById/2",
+                dataType: 'JSON',
+                success: function (data) {
+                    this.setState({
+                        model: data
+                    });
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'updateSurvey',
+        value: function updateSurvey() {
+            $.ajax({
+                url: "/api/Survey/UpdateSurvey",
+                contentType: "application/json",
+                type: "POST",
+                data: JSON.stringify(this.state.model),
+                success: function success(data) {
+                    console.log("success");
+                }
+
+            });
+        }
+    }, {
         key: 'chekState',
         value: function chekState() {
             console.log(this.state);
@@ -54,11 +98,13 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
     }, {
         key: 'changeQ',
         value: function changeQ(e) {
-            var newData = this.state.questions;
-            var index = e.target.parentNode.getAttribute("data-id");
-            newData[index].question = e.target.value;
+            var newData = this.state.model;
+            var index = e.target.getAttribute("data-id");
+            console.log(index);
+            console.log(newData);
+            newData.Questions[index].Text = e.target.value;
             this.setState({
-                questions: newData
+                model: newData
             });
         }
     }, {
@@ -66,44 +112,59 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
         value: function changeA(e) {
             var indexA = e.target.getAttribute('data-id');
             var indexQ = e.target.getAttribute('data-qid');
-            var newData = this.state.questions;
-            newData[indexQ].answers[indexA] = e.target.value;
+            var newData = this.state.model;
+            var newAnswers = this.stringToArr(newData.Questions[indexQ].Answers);
+            newAnswers[indexA] = e.target.value;
+            newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
+
             this.setState({
-                questions: newData
+                model: newData
             });
+        }
+    }, {
+        key: 'arrToString',
+        value: function arrToString(arr) {
+            return arr.join(',');
+        }
+    }, {
+        key: 'stringToArr',
+        value: function stringToArr(string) {
+            return string.split(',');
         }
     }, {
         key: 'deleteA',
         value: function deleteA(e) {
             var indexA = e.target.getAttribute('data-id');
             var indexQ = e.target.getAttribute('data-qid');
-            var newData = this.state.questions;
-            newData[indexQ].answers.splice(indexA, 1);
+            var newData = this.state.model;
+            var newAnswers = this.stringToArr(newData.Questions[indexQ].Answers);
+            newAnswers.splice(indexA, 1);
+            newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
             this.setState({
-                questions: newData
+                model: newData
             });
         }
     }, {
         key: 'deleteQ',
         value: function deleteQ(e) {
             var indexQ = e.target.getAttribute('data-qid');
-            var newData = this.state.questions;
-            newData.splice(indexQ, 1);
+            var newData = this.state.model;
+            newData.Questions.splice(indexQ, 1);
             this.setState({
-                questions: newData
+                model: newData
             });
         }
     }, {
         key: 'addEditForm',
         value: function addEditForm() {
-            var newData = this.state.questions;
+            var newData = this.state.model;
             var question = {
-                question: "Вопрос",
-                answers: ["Ответ 1", "Ответ 2"]
+                Text: "Вопрос",
+                Answers: "Ответ 1,Ответ 2"
             };
-            newData.push(question);
+            newData.Questions.push(question);
             this.setState({
-                questions: newData
+                model: newData
             });
         }
     }, {
@@ -112,29 +173,35 @@ var QuestionForm = exports.QuestionForm = function (_React$Component) {
             var _this2 = this;
 
             var self = this;
-            var questionList = this.state.questions.map(function (element, index) {
+            var questionList = this.state.model.Questions.map(function (element, index) {
                 //question
                 return _React2.default.createElement(EditForm, {
                     key: index,
-                    question: self.state.questions[index].question,
-                    answers: self.state.questions[index].answers,
+                    question: self.state.model.Questions[index].Text,
+                    answers: self.state.model.Questions[index].Answers,
                     index: index,
                     changeA: self.changeA,
                     changeQ: self.changeQ,
                     deleteA: self.deleteA,
-                    deleteQ: self.deleteQ
+                    deleteQ: self.deleteQ,
+                    addA: self.addAnswer
                 });
             });
-            return _React2.default.createElement('div', null, questionList, _React2.default.createElement(BtnAddA, {
-                AddAction: function AddAction(e) {
+            return _React2.default.createElement('div', null, questionList, _React2.default.createElement(Btn, {
+                Action: function Action(e) {
                     return _this2.addEditForm(e);
                 },
-                text: '\u0432\u043E\u043F\u0440\u043E\u0441'
-            }), _React2.default.createElement(BtnAddA, {
-                AddAction: function AddAction(e) {
+                text: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u043E\u043F\u0440\u043E\u0441'
+            }), _React2.default.createElement(Btn, {
+                Action: function Action(e) {
                     return _this2.chekState(e);
                 },
                 text: 'temp'
+            }), _React2.default.createElement(Btn, {
+                Action: function Action(e) {
+                    return _this2.updateSurvey(e);
+                },
+                text: '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C'
             }));
         }
     }]);
@@ -148,42 +215,29 @@ var EditForm = function (_React$Component2) {
     function EditForm(props) {
         _classCallCheck(this, EditForm);
 
-        var _this3 = _possibleConstructorReturn(this, (EditForm.__proto__ || Object.getPrototypeOf(EditForm)).call(this, props));
-
-        _this3.state = {
-            answers: _this3.props.answers,
-            question: _this3.props.question
-        };
-
-        _this3.addAnswer = _this3.addAnswer.bind(_this3);
-        return _this3;
+        return _possibleConstructorReturn(this, (EditForm.__proto__ || Object.getPrototypeOf(EditForm)).call(this, props));
     }
 
     _createClass(EditForm, [{
-        key: 'addAnswer',
-        value: function addAnswer() {
-            var newData = this.state.answers;
-            newData.push("");
-            this.setState({
-                answers: newData
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this4 = this;
 
             var self = this;
-            var Answers = this.state.answers.map(function (element, index) {
+            console.log(this.props);
+            var answerslist = this.props.answers.split(',');
+
+            var Answers = answerslist.map(function (element, index) {
                 return _React2.default.createElement('div', { className: 'input-del', key: index }, _React2.default.createElement('input', {
                     placeholder: '\u041E\u0442\u0432\u0435\u0442',
                     className: 'form-control',
-                    value: self.state.answers[index],
+                    value: element,
                     onChange: self.props.changeA,
                     'data-qid': self.props.index,
                     'data-id': index,
                     key: index
                 }), _React2.default.createElement('a', null, _React2.default.createElement('span', {
+                    'data-id': index,
                     'data-qid': self.props.index,
                     key: index,
                     onClick: self.props.deleteA,
@@ -200,11 +254,12 @@ var EditForm = function (_React$Component2) {
                 key: self.props.index,
                 onClick: self.props.deleteQ,
                 className: 'glyphicon glyphicon-trash'
-            }))), _React2.default.createElement('label', { className: 'control-label' }, '\u041E\u0442\u0432\u0435\u0442\u044B'), _React2.default.createElement('div', { className: 'form-group' }, Answers), _React2.default.createElement(BtnAddA, {
-                AddAction: function AddAction(e) {
-                    return _this4.addAnswer(e);
+            }))), _React2.default.createElement('label', { className: 'control-label' }, '\u041E\u0442\u0432\u0435\u0442\u044B'), _React2.default.createElement('div', { className: 'form-group' }, Answers), _React2.default.createElement(Btn, {
+                Action: function Action(e) {
+                    return _this4.props.addA(e);
                 },
-                text: '\u043E\u0442\u0432\u0435\u0442'
+                index: this.props.index,
+                text: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043E\u0442\u0432\u0435\u0442'
             }));
         }
     }]);
@@ -212,23 +267,23 @@ var EditForm = function (_React$Component2) {
     return EditForm;
 }(_React2.default.Component);
 
-var BtnAddA = function (_React$Component3) {
-    _inherits(BtnAddA, _React$Component3);
+var Btn = function (_React$Component3) {
+    _inherits(Btn, _React$Component3);
 
-    function BtnAddA() {
-        _classCallCheck(this, BtnAddA);
+    function Btn() {
+        _classCallCheck(this, Btn);
 
-        return _possibleConstructorReturn(this, (BtnAddA.__proto__ || Object.getPrototypeOf(BtnAddA)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Btn.__proto__ || Object.getPrototypeOf(Btn)).apply(this, arguments));
     }
 
-    _createClass(BtnAddA, [{
+    _createClass(Btn, [{
         key: 'render',
         value: function render() {
-            return _React2.default.createElement('button', { className: 'btn btn-default', onClick: this.props.AddAction, id: 'btnAddA' }, '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C ', this.props.text);
+            return _React2.default.createElement('button', { 'data-index': this.props.index, className: 'btn btn-default', onClick: this.props.Action }, this.props.text);
         }
     }]);
 
-    return BtnAddA;
+    return Btn;
 }(_React2.default.Component);
 
 var Question = function (_React$Component4) {
@@ -272,30 +327,16 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function run() {
-    _ReactDOM2.default.render(_React2.default.createElement(_editForm.QuestionForm, {
-        list: questionList
-    }), document.getElementById('root'));
+  _ReactDOM2.default.render(_React2.default.createElement(_editForm.QuestionForm, null), document.getElementById('root'));
 }
 
 var loadedStates = ['complete', 'loaded', 'interactive'];
 
 if (loadedStates.includes(document.readyState) && document.body) {
-    run();
+  run();
 } else {
-    window.addEventListener('DOMContentLoaded', run, false);
+  window.addEventListener('DOMContentLoaded', run, false);
 }
-
-var question1 = {
-    question: "Kappa or Krappa",
-    answers: ["Kappa", "Krappa"]
-};
-
-var question2 = {
-    question: "KappaGold or KappaG",
-    answers: ["KappaGold", "KappaG"]
-};
-
-var questionList = [question1, question2];
 
 },{"./editForm":1,"React":156,"React-DOM":3,"babel-core":160}],3:[function(require,module,exports){
 'use strict';

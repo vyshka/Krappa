@@ -42,9 +42,11 @@ var jsDest = 'Content/js/',
 gulp.task('temp', () => {
     return gulp.src([
             'Content/js/react/components/table.jsx', 
+            'Content/js/react/components/surveyTable.jsx', 
             'Content/js/react/components/addForm.jsx', 
             'Content/js/react/components/survey/editForm.jsx', 
             'Content/js/react/user-list.js', 
+            'Content/js/react/survey-list.js',
             'Content/js/react/vacancy-list.js',
             'Content/js/react/newSurvey.js'])
         .pipe(babel({
@@ -53,7 +55,7 @@ gulp.task('temp', () => {
         .pipe(gulp.dest('Content/js/out/'))
 } )
 
-gulp.task('browserifySurvey', ['temp'], function() {
+gulp.task('browserifyNewSurvey', ['temp'], function() {
     return browserify('Content/js/out/newSurvey.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -63,6 +65,16 @@ gulp.task('browserifySurvey', ['temp'], function() {
         .pipe(gulp.dest('Content/js/'));
 });
 
+
+gulp.task('browserifySurvey', ['temp'], function() {
+    return browserify('Content/js/out/survey-list.js')
+        .transform(babelify.configure({
+            presets: ["es2015"]
+        }))
+        .bundle()
+        .pipe(source('SurveyList.js'))
+        .pipe(gulp.dest('Content/js/'));
+});
 
 gulp.task('browserifyUser', ['temp'], function() {
     return browserify('Content/js/out/user-list.js')
@@ -119,7 +131,7 @@ gulp.task('cleanSurvey', ['browserifySurvey'], function() {
         .pipe(clean());
 })
 
-gulp.task('browserify', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey'], function() { })
+gulp.task('browserify', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifyNewSurvey'], function() { })
 
 
 gulp.task('default', ['scripts', 'less', 'minify-css', 'temp', 'browserify', 'clean'], function () { });

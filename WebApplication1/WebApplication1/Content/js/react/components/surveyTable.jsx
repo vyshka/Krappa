@@ -52,7 +52,10 @@ export class SurveyTable extends React.Component{
 
     render() {
         var thList = ["Название", "Вопросов", "Действия"]
+
         return(
+            <div>
+                <a href="/Admin/CreateSurvey" className="btn btn-default">Создать</a>
                 <div className="panel panel-default panel-table">
                     <div className="panel-body" id="table">
                         <table className='table table-striped table-bordered table-list'>
@@ -67,6 +70,7 @@ export class SurveyTable extends React.Component{
                         </table>
                     </div>
                 </div> 
+            </div> 
         )
     }
 }
@@ -175,7 +179,7 @@ class DeleteLink extends React.Component{
                     if(result == false) {
                         alert("Ошибка при удалении")
                     } else {
-                        deleteAct(result)
+                        deleteAct(id)
                     }
                     
                 }

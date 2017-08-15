@@ -31,9 +31,16 @@ namespace WebApplication1.Controllers
 
         public ActionResult EditSurvey(int id)
         {
-            var Survey = db.Surveys.Find(id);
             return View();
         }
+        public ActionResult CreateSurvey()
+        {
+            var newSurvey = db.Surveys.Create();
+            db.Surveys.Add(newSurvey);
+            db.SaveChanges();
+            return RedirectToAction("EditSurvey", new { id = newSurvey.Id });
+        }
+
 
         public ActionResult SurveyList()
         {

@@ -50,6 +50,7 @@ namespace WebApplication1.Controllers
                 Survey.name = model.name;
                 Survey.Questions = model.Questions;
                 db.Surveys.Add(Survey);
+                db.SaveChanges();
                 return Survey.Id;
             }
             else

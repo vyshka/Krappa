@@ -1,11 +1,11 @@
-import {QuestionForm} from './editForm'
+import {SurveyForm} from './SurveyForm'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 import * as babel from 'babel-core'
 
 function run() {
     ReactDOM.render(
-    <QuestionForm/>,
+    <SurveyForm/>,
     document.getElementById('root'))
 }
 

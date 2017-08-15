@@ -3,7 +3,7 @@ import ReactDOM from 'React-DOM'
 
 
 
-export class QuestionForm extends React.Component {
+export class SurveyForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +14,6 @@ export class QuestionForm extends React.Component {
         }
 
         this.addEditForm = this.addEditForm.bind(this);
-        this.chekState = this.chekState.bind(this);
             
         this.changeA = this.changeA.bind(this);
         this.changeQ = this.changeQ.bind(this);
@@ -37,8 +36,11 @@ export class QuestionForm extends React.Component {
     }
 
     componentDidMount() {
+
+        var parts = window.location.href.split('/');
+        var id = parts.pop() || parts.pop();
         $.ajax({
-            url: "/api/Survey/GetSurveyById/3",
+            url: "/api/Survey/GetSurveyById/" + id,
             dataType: 'JSON',
             success: function(data) {
                 this.setState({
@@ -54,27 +56,16 @@ export class QuestionForm extends React.Component {
             contentType: "application/json",
             type: "POST",
             data: JSON.stringify(this.state.model),
-            success: function(data) {
-                console.log("success")
-            }
-
         })
-    }
-
-    chekState () {
-        console.log(this.state)
     }
 
     changeQ (e){ 
         var newData = this.state.model;
         var index = e.target.getAttribute("data-id");
-        console.log(index);
-        console.log(newData);
         newData.Questions[index].Text = e.target.value
         this.setState({
             model: newData
         });
-        
     };
 
     changeA (e) {
@@ -102,6 +93,7 @@ export class QuestionForm extends React.Component {
     arrToString(arr) {
         return arr.join(',')
     }
+
     stringToArr(string) {
         return string.split(',')
     }
@@ -161,12 +153,16 @@ export class QuestionForm extends React.Component {
             });
         return(
             <div>
-                <input 
-                    placeholder="Название опроса" 
-                    className="form-control" 
-                    value={this.state.model.name} 
-                    onChange={this.changeN}
-                />                
+                <div className="form-group">
+                    <label className="control-label">Название опроса</label>
+                    <input 
+                        placeholder="Название опроса" 
+                        className="form-control" 
+                        value={this.state.model.name} 
+                        onChange={this.changeN}
+                    />     
+                </div>
+                           
                 {questionList}
                 <Btn
                     Action={e => this.addEditForm(e)}
@@ -192,7 +188,6 @@ class EditForm extends React.Component {
 
     render() {
         let self = this;
-        console.log(this.props);
         var answerslist = this.props.answers.split(',');
         
         var Answers = answerslist.map(function(element, index) {

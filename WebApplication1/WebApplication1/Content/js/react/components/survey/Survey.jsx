@@ -13,17 +13,30 @@ export class Survey extends React.Component{
         }
 
         this.onChange = this.onChange.bind(this)
+        this.compliteSurvey = this.compliteSurvey.bind(this)
     }
 
-    compliteSurvey(e) {
-        
+    compliteSurvey() {
+        var ResultModel = {
+            surveyId: this.state.Survey.Id,
+            AnswersQuestions: this.state.results
+        }
+        console.log(ResultModel)
+        $.ajax({
+            url: "/api/Result/SaveResult",
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(ResultModel),
+            success: function() {
+                console.log("Complete")
+            }
+        })
     }
 
     onChange(e) {
-        var indexq = e.target.getAttribute('data-qid')
-        var indexa = e.target.getAttribute('data-aid')
+        var indexq = parseInt(e.target.getAttribute('data-qid'))
+        var indexa = parseInt(e.target.getAttribute('data-aid'))
         var newResults = this.state.results
-        
         newResults.some(function(element) {
             if(element.questionId == indexq) {
                 element.answerId = indexa
@@ -47,8 +60,9 @@ export class Survey extends React.Component{
             success: function(data) {
                 var results = data.Questions.map(function(element) {
                     return {
+                        
                         questionId: element.Id,
-                        answerId: 0
+                        answerId: undefined
                     }
                 })
                 this.setState({
@@ -66,7 +80,7 @@ export class Survey extends React.Component{
         var questionsList = this.state.Survey.Questions.map(function(element, index) {
             return(
                 <Question 
-                    key = {index}
+                    key = {element.Id}
                     question = {element}  
                     onChange = {self.onChange}  
                 />
@@ -75,6 +89,10 @@ export class Survey extends React.Component{
         return(
             <div>
                 {questionsList}
+                <Btn 
+                    Action = {this.compliteSurvey}
+                    text = "Завершить"
+                />
             </div>
 
         )
@@ -86,14 +104,13 @@ export class Survey extends React.Component{
 class Question extends React.Component {
     render() {
         var self = this
-        var answerslist = this.props.question.Answers.split(',');
-        var Answers = answerslist.map(function(element, index) {
+        var Answers = this.props.question.Answers.map(function(element, index) {
             return(
                 <FormCheck 
                     key = {index}
-                    Text = {element}
+                    Text = {element.Text}
                     name = {self.props.question.Text}
-                    aid = {index}
+                    aid = {element.Id}
                     qid = {self.props.question.Id}
                     onChange = {self.props.onChange}
                 />
@@ -120,12 +137,20 @@ class FormCheck extends React.Component {
                     type = "radio" 
                     className = "form-check-input" 
                     name = {this.props.name}
-                    onChange = {this.props.onChange}
+                    onClick = {this.props.onChange}
                 />
                 {this.props.Text}
             </label>
         </div>
         )
         
+    }
+}
+
+class Btn extends React.Component {
+    render() {
+        return(
+            <button data-index={this.props.index} className="btn btn-default" onClick={this.props.Action} >{this.props.text}</button>
+        )
     }
 }

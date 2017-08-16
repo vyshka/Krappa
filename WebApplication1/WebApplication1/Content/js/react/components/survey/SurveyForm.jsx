@@ -85,6 +85,9 @@ export class SurveyForm extends React.Component {
             contentType: "application/json",
             type: "POST",
             data: JSON.stringify(this.state.model),
+            success: function() {
+
+            }
         })
     }
 
@@ -206,10 +209,12 @@ export class SurveyForm extends React.Component {
                     Action={e => this.addEditForm(e)}
                     text="Добавить вопрос"
                 />
-                <Btn
-                    Action={e => this.updateSurvey(e)}
-                    text="Сохранить"
-                 />
+                <a href="/Admin/SurveyList">
+                    <Btn
+                        Action={e => this.updateSurvey(e)}
+                        text="Сохранить"
+                    />
+                 </a>
             </div>
         )
     }

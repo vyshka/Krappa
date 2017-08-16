@@ -51,7 +51,7 @@ export class SurveyTable extends React.Component{
 
 
     render() {
-        var thList = ["Название", "Вопросов", "Действия"]
+        var thList = ["Название", "Вопросов", "Изменён", "Действия"]
 
         return(
             <div>
@@ -121,6 +121,7 @@ class Row extends React.Component {
         var rowColumns = [];
         rowColumns.push(<td key = {this.props.row.name} >{this.props.row.name}</td>);
         rowColumns.push(<td key = {this.props.row.Questions} >{this.props.row.Questions.length}</td>);
+        rowColumns.push(<td key = {this.props.row.updateTime} >{this.props.row.updateTime}</td>);
         return(
             <tr>
                 {rowColumns}

@@ -23,7 +23,11 @@ namespace WebApplication1.Models
 
         public DbSet<Question> Questions { get; set; }
 
-        
+        public DbSet<Answer> Answers { get; set; }
+
+        public DbSet<Result> Results { get; set; }
+
+        public DbSet<AnswerQuestionResult> AnswerQuestionResults { get; set; }
 
     }
 }

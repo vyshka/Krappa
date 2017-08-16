@@ -13,19 +13,13 @@ namespace WebApplication1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Text { get; set; }
-        public string Answers { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
 
         public virtual Survey Survey { get; set; }
 
-        public Question() { }
-
-        public Question(QuestionOutModel model)
+        public Question()
         {
-            string ans="";
-            foreach(var answer in model.Answers)
-            {
-                ans += "," + answer;
-            }
+            this.Answers = new List<Answer>();
         }
 
     }

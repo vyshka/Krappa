@@ -27,12 +27,41 @@ export class SurveyForm extends React.Component {
     }
 
     addAnswer (e) { 
-        var index = e.target.getAttribute('data-index')
+        var id = e.target.getAttribute('data-index')
         var newData = this.state.model;
-        newData.Questions[index].Answers += ","; //edit 
-        this.setState({
-            model: newData
-        })
+        newData.Questions.forEach(function(element, indexQ) {
+            if(element.Id == id) {
+                $.ajax({
+                    url: "/api/Answer/CreateAnswer/" + id,
+                    dataType: 'JSON',
+                    success: function(data) {
+                        newData.Questions[indexQ].Answers.push({
+                            Id: data.Id,
+                            Text: data.Text
+                        })
+                        this.setState({
+                            model: newData
+                        })
+                    }.bind(this)
+                })
+            }
+        }, this);
+    }
+
+    addEditForm () {
+        var newData = this.state.model;
+        var id = this.state.model.Id
+
+        $.ajax({
+            url: "/api/Question/CreateQuestion/" + id,
+            dataType: 'JSON',
+            success: function(data) {
+                newData.Questions.push(data)
+                this.setState({
+                    model: newData
+                })
+            }.bind(this)
+        })        
     }
 
     componentDidMount() {
@@ -62,7 +91,12 @@ export class SurveyForm extends React.Component {
     changeQ (e){ 
         var newData = this.state.model;
         var index = e.target.getAttribute("data-id");
-        newData.Questions[index].Text = e.target.value
+        newData.Questions.forEach(function(element, questionIndex) {
+            if(element.Id == index) {
+                element.Text = e.target.value
+            }
+            
+        }, this);
         this.setState({
             model: newData
         });
@@ -72,10 +106,16 @@ export class SurveyForm extends React.Component {
         var indexA = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.model;
-        var newAnswers = this.stringToArr(newData.Questions[indexQ].Answers);
-        newAnswers[indexA] = e.target.value;
-        newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
-        
+        newData.Questions.forEach(function(element, questionIndex) {
+            if(element.Id == indexQ) {
+                element.Answers.forEach(function(answer, asnwerIndex) {
+                    if(answer.Id == indexA) {
+                        answer.Text = e.target.value;
+                    }
+                }, this);
+            }
+            
+        }, this);
         this.setState({
             model: newData
         });
@@ -102,9 +142,18 @@ export class SurveyForm extends React.Component {
         var indexA = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.model;
-        var newAnswers = this.stringToArr(newData.Questions[indexQ].Answers);
-        newAnswers.splice(indexA, 1);
-        newData.Questions[indexQ].Answers = this.arrToString(newAnswers);
+        newData.Questions.forEach(function(element, questionIndex) {
+            if(element.Id == indexQ) {
+                element.Answers.forEach(function(answer, asnwerIndex) {
+                    if(answer.Id == indexA) {
+                        element.Answers.splice(asnwerIndex, 1)
+                    }
+                }, this);
+            }
+            
+        }, this);
+
+
         this.setState({
             model: newData
         })
@@ -119,18 +168,7 @@ export class SurveyForm extends React.Component {
         })
     }
 
-    addEditForm () {
-        var newData = this.state.model;
-        var question = {
-            Text: "Вопрос",
-            Answers: "Ответ 1,Ответ 2"
-        }
-        newData.Questions.push(question);
-        this.setState({
-            model: newData
-        })
-        
-    }
+    
 
 
 
@@ -140,7 +178,7 @@ export class SurveyForm extends React.Component {
                 return(
                     <EditForm 
                         key = {index}
-                        question = {self.state.model.Questions[index].Text}
+                        question = {self.state.model.Questions[index]}
                         answers = {self.state.model.Questions[index].Answers}
                         index = {index}
                         changeA = {self.changeA}
@@ -188,24 +226,22 @@ class EditForm extends React.Component {
 
     render() {
         let self = this;
-        var answerslist = this.props.answers.split(',');
-        
-        var Answers = answerslist.map(function(element, index) {
+        var Answers = this.props.answers.map(function(element, index) {
                 return(
                     <div className = "input-del" key={index}>
                         <input 
                             placeholder="Ответ" 
                             className="form-control" 
-                            value={element} 
+                            value={element.Text} 
                             onChange={self.props.changeA}
-                            data-qid = {self.props.index} 
-                            data-id={index} 
+                            data-qid = {self.props.question.Id} 
+                            data-id={element.Id} 
                             key={index}
                         />
                         <a>
                             <span 
-                                data-id={index} 
-                                data-qid = {self.props.index} 
+                                data-id={element.Id} 
+                                data-qid = {self.props.question.Id} 
                                 key={index}                       
                                 onClick = {self.props.deleteA}      
                                 className = 'glyphicon glyphicon-trash' 
@@ -219,7 +255,8 @@ class EditForm extends React.Component {
             <div className = "edit-form">
                 <div className="input-del">
                     <Question 
-                        question = {this.props.question}    
+                        question = {this.props.question.Text}    
+                        indexQ = {this.props.question.Id}
                         index = {this.props.index}
                         onChange = {this.props.changeQ}
                     />
@@ -238,7 +275,7 @@ class EditForm extends React.Component {
                 </div>
                 <Btn
                     Action={e => this.props.addA(e)}
-                    index = {this.props.index}
+                    index = {this.props.question.Id}
                     text="Добавить ответ"
                 />
             </div>
@@ -259,7 +296,7 @@ class Question extends React.Component {
         return(
             <div className="form-group">
                 <label className="control-label">{this.props.index + 1} вопрос</label>
-                <input data-id={this.props.index} onChange = {this.props.onChange} className = "form-control" value = {this.props.question}/> 
+                <input data-id={this.props.indexQ} onChange = {this.props.onChange} className = "form-control" value = {this.props.question}/> 
             </div>
         )
     }

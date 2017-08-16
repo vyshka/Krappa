@@ -1,16 +1,13 @@
-import {Table} from './table'
+import {Survey} from './survey'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 
+
 function run() {
     ReactDOM.render(
-    <Table
-        url = "/api/User/getAllUsers"
-        deleteUrl = "/api/User/DeleteUser/"
-        editUrl = ""
-        isUser = {true}
-         />,
-    document.getElementById('tableContent'))
+        <Survey/>,
+        document.getElementById('root')
+    )
 }
 
 

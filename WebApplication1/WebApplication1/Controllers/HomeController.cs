@@ -33,5 +33,11 @@ namespace WebApplication1.Controllers
         {
             return PartialView(db.Vacancies.ToList());
         }
+
+
+        public ActionResult Survey(int id)
+        {
+            return View();
+        }
     }
 }

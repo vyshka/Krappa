@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual string User { get; set; }
 
         public virtual Survey Survey { get; set; }
 

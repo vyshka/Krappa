@@ -41,14 +41,9 @@ var jsDest = 'Content/js/',
 
 gulp.task('temp', () => {
     return gulp.src([
-            'Content/js/react/components/table.jsx', 
-            'Content/js/react/components/surveyTable.jsx', 
-            'Content/js/react/components/addForm.jsx', 
-            'Content/js/react/components/survey/editForm.jsx', 
-            'Content/js/react/user-list.js', 
-            'Content/js/react/survey-list.js',
-            'Content/js/react/vacancy-list.js',
-            'Content/js/react/newSurvey.js'])
+            'Content/js/react/components/*.jsx', 
+            'Content/js/react/components/survey/*.jsx', 
+            'Content/js/react/*js'])
         .pipe(babel({
             plugins: ['transform-react-jsx']
         }))
@@ -65,8 +60,18 @@ gulp.task('browserifyNewSurvey', ['temp'], function() {
         .pipe(gulp.dest('Content/js/'));
 });
 
-
 gulp.task('browserifySurvey', ['temp'], function() {
+    return browserify('Content/js/out/surveyC.js')
+        .transform(babelify.configure({
+            presets: ["es2015"]
+        }))
+        .bundle()
+        .pipe(source('surveyC.js'))
+        .pipe(gulp.dest('Content/js/'));
+});
+
+
+gulp.task('browserifySurveyList', ['temp'], function() {
     return browserify('Content/js/out/survey-list.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -121,7 +126,7 @@ gulp.task('minify-css', ['less'], function() {
       .pipe(gulp.dest('Content/css/'));
 });
 
-gulp.task('clean', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey'], function() {
+gulp.task('clean', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifySurveyList', 'browserifyNewSurvey'], function() {
     return gulp.src('Content/js/out', {read: false})
         .pipe(clean());
 })
@@ -131,7 +136,7 @@ gulp.task('cleanSurvey', ['browserifySurvey'], function() {
         .pipe(clean());
 })
 
-gulp.task('browserify', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifyNewSurvey'], function() { })
+gulp.task('browserify', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifySurveyList', 'browserifyNewSurvey'], function() { })
 
 
 gulp.task('default', ['scripts', 'less', 'minify-css', 'temp', 'browserify', 'clean'], function () { });

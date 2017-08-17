@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Главная";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@section Scripts
+{
+    <script src="~/Content/js/surveyC.js"></script>
+}
+
+<div id="root">
+
+</div>

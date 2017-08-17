@@ -33,6 +33,11 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        public ActionResult Stat(int id)
+        {
+            return View();
+        }
         public ActionResult CreateSurvey()
         {
             var newSurvey = db.Surveys.Create();

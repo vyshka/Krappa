@@ -85,6 +85,9 @@ span {
   line-height: normal;
   float: right;
 }
+.table-margin-topbot {
+  margin: 20px 0px;
+}
 .becomebtn {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -272,6 +275,12 @@ used to vertically center elements, may need modification if you're not using de
 .inactive {
   cursor: default;
   color: gray;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 100% !important;
+  }
 }
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -9606,6 +9615,10 @@ button.close {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  .contrainer {
+    width: 100%;
+  }
+
   .nav-tabs {
     display: inline-flex;
     flex-direction: row;

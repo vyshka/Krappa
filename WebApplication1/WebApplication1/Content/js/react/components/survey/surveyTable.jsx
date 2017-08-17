@@ -11,6 +11,7 @@ export class SurveyTable extends React.Component{
         }
 
         this.deleteFromState = this.deleteFromState.bind(this)
+        this.loadcount = this.loadcount.bind(this)
     }
 
     componentDidMount() {
@@ -32,9 +33,32 @@ export class SurveyTable extends React.Component{
         })
     }
 
+    loadcount() {
+        $.ajax({
+            url: "/api/Result/GetResultsCount",
+            dataType: 'JSON',
+            success: function(data) {
+                var newData = this.state.data
+                newData.forEach(function(element) {                  
+                    data.forEach(function(listElement) {
+                        if(element.Id == listElement.SurveyId) {                            
+                            element.ResultCount = listElement.Count
+                        }
+                    })
+                    
+                }, this);
+                this.setState({
+                    data: newData
+                })
+            }.bind(this)
+        })
+
+    }
+
     loadList() {
-        var spinner = new Spinner({ top:"30%" });
+        var spinner = new Spinner({ top:"100%" });
         var table = document.getElementById("table");
+        var self = this
         $.ajax({
             url: this.props.url,
             dataType: 'JSON',
@@ -44,14 +68,14 @@ export class SurveyTable extends React.Component{
             success: function(list) {
                 spinner.stop();
                 this.setState({data: list});
+                this.loadcount();
             }.bind(this)
         })
-
     }
 
 
     render() {
-        var thList = ["Название", "Вопросов", "Изменён", "Действия"]
+        var thList = ["Название", "Ответов", "Ссылка на опрос", "Изменён", "Результаты", "Действия"]
 
         return(
             <div>
@@ -86,7 +110,7 @@ class THead extends React.Component {
         })
         return(
             <thead>
-                <tr>
+                <tr >
                     {thList}
                 </tr>
             </thead>
@@ -120,10 +144,23 @@ class Row extends React.Component {
     render() {
         var rowColumns = [];
         rowColumns.push(<td key = {this.props.row.name} >{this.props.row.name}</td>);
-        rowColumns.push(<td key = {this.props.row.Questions} >{this.props.row.Questions.length}</td>);
+        rowColumns.push(<td key = {this.props.row.ResultCount} >{this.props.row.ResultCount}</td>);
+        rowColumns.push(<td key = {this.props.row.Id} >
+                            <a href={"/Home/Survey/" + this.props.row.Id}> 
+                                Ссылка
+                            </a>
+                        </td>);
         rowColumns.push(<td key = {this.props.row.updateTime} >{this.props.row.updateTime}</td>);
+        rowColumns.push(
+            <td key = {"/Admin/Stat/" + this.props.row.Id}>
+                <a href= {"/Admin/Stat/" + this.props.row.Id}>
+                    Результаты
+                </a>
+            </td>
+        )
+        
         return(
-            <tr>
+            <tr key = {this.props.row.Id}>
                 {rowColumns}
                 <Links 
                     deleteUrl = {this.props.deleteUrl}

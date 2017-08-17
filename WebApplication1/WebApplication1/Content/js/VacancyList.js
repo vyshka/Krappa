@@ -424,7 +424,12 @@ var Table = exports.Table = function (_React$Component) {
             if (this.props.isUser) {
                 addForm = _React2.default.createElement(_addForm.AddUserForm, { add: this.addToState });
             }
-            return _React2.default.createElement('div', null, _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: this.state.keysList }), _React2.default.createElement(RowList, { editUrl: this.props.editUrl, 'delete': this.deleteFormState, data: this.state.data, url: this.props.url, deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
+            return _React2.default.createElement('div', null, _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: this.state.keysList }), _React2.default.createElement(RowList, {
+                editUrl: this.props.editUrl,
+                'delete': this.deleteFormState,
+                data: this.state.data,
+                url: this.props.url,
+                deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
         }
     }]);
 
@@ -439,16 +444,37 @@ Table.defaultProps = {
 var THead = function (_React$Component2) {
     _inherits(THead, _React$Component2);
 
-    function THead() {
+    function THead(props) {
         _classCallCheck(this, THead);
 
-        return _possibleConstructorReturn(this, (THead.__proto__ || Object.getPrototypeOf(THead)).apply(this, arguments));
+        var _this2 = _possibleConstructorReturn(this, (THead.__proto__ || Object.getPrototypeOf(THead)).call(this, props));
+
+        _this2.renameTh = _this2.renameTh.bind(_this2);
+        return _this2;
     }
 
     _createClass(THead, [{
+        key: 'renameTh',
+        value: function renameTh(element) {
+            switch (element) {
+                case 'userName':
+                case 'Name':
+                    element = 'Имя';
+                    break;
+                case 'registerTime':
+                    element = 'Время регистрации';
+                    break;
+                case 'City':
+                    element = 'Город';
+            }
+            return element;
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var self = this;
             var thList = this.props.th.map(function (element, index) {
+                element = self.renameTh(element);
                 return _React2.default.createElement('th', { key: element }, element);
             });
             if (this.props.th.length != 0) {
@@ -504,7 +530,6 @@ var Row = function (_React$Component4) {
                     rowColumns.push(_React2.default.createElement('td', { key: key }, this.props.row[key]));
                 }
             }
-            console.log(rowColumns);
             return _React2.default.createElement('tr', null, rowColumns, _React2.default.createElement(Links, { editUrl: this.props.editUrl, deleteUrl: this.props.deleteUrl, 'delete': this.props.delete, id: this.props.row.Id }));
         }
     }]);

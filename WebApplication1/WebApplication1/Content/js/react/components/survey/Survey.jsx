@@ -21,15 +21,11 @@ export class Survey extends React.Component{
             surveyId: this.state.Survey.Id,
             AnswersQuestions: this.state.results
         }
-        console.log(ResultModel)
         $.ajax({
             url: "/api/Result/SaveResult",
             contentType: "application/json",
             type: "POST",
-            data: JSON.stringify(ResultModel),
-            success: function() {
-                console.log("Complete")
-            }
+            data: JSON.stringify(ResultModel)
         })
     }
 
@@ -76,6 +72,7 @@ export class Survey extends React.Component{
     }
 
     render() {
+
         var self = this
         var questionsList = this.state.Survey.Questions.map(function(element, index) {
             return(
@@ -88,10 +85,12 @@ export class Survey extends React.Component{
         })
         return(
             <div>
+                <h3>{this.state.Survey.name}</h3>
                 {questionsList}
                 <Btn 
                     Action = {this.compliteSurvey}
                     text = "Завершить"
+                    href = "/"
                 />
             </div>
 
@@ -150,7 +149,9 @@ class FormCheck extends React.Component {
 class Btn extends React.Component {
     render() {
         return(
-            <button data-index={this.props.index} className="btn btn-default" onClick={this.props.Action} >{this.props.text}</button>
+            <a href={this.props.href}>
+                <button data-index={this.props.index} className="btn btn-default" onClick={this.props.Action}>{this.props.text}</button>
+            </a>
         )
     }
 }

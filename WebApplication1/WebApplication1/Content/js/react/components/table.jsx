@@ -82,7 +82,12 @@ export class Table extends React.Component{
                     <div className="panel-body" id="table">
                         <table className='table table-striped table-bordered table-list'>
                             <THead th = {this.state.keysList}/> 
-                            <RowList editUrl = {this.props.editUrl} delete = {this.deleteFormState} data = {this.state.data} url = {this.props.url} deleteUrl = {this.props.deleteUrl}/>   
+                            <RowList 
+                                editUrl = {this.props.editUrl} 
+                                delete = {this.deleteFormState} 
+                                data = {this.state.data} 
+                                url = {this.props.url} 
+                                deleteUrl = {this.props.deleteUrl}/>   
                         </table>
                     </div>
                 </div>
@@ -101,8 +106,30 @@ Table.defaultProps = {
 }
 
 class THead extends React.Component{
+    constructor(props) {
+        super(props)
+        this.renameTh = this.renameTh.bind(this)
+    }
+    renameTh(element) {
+        switch(element) {
+            case 'userName':
+            case 'Name':
+                element = 'Имя'
+                break;
+            case 'registerTime':
+                element = 'Время регистрации'
+                break;
+            case 'City':
+                element = 'Город'
+        }  
+        return element;
+    }
+
+
     render() {
+        var self = this
         var thList = this.props.th.map(function(element, index) {
+            element = self.renameTh(element)
                 return(
                     <th key = {element} >
                         {element}
@@ -149,7 +176,6 @@ class Row extends React.Component{
                 rowColumns.push(<td key = {key}>{this.props.row[key]}</td>)
             }
         }
-        console.log(rowColumns)
         return(
             <tr>                
                 {rowColumns}

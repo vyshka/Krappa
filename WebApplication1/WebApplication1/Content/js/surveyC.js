@@ -48,15 +48,11 @@ var Survey = exports.Survey = function (_React$Component) {
                 surveyId: this.state.Survey.Id,
                 AnswersQuestions: this.state.results
             };
-            console.log(ResultModel);
             $.ajax({
                 url: "/api/Result/SaveResult",
                 contentType: "application/json",
                 type: "POST",
-                data: JSON.stringify(ResultModel),
-                success: function success() {
-                    console.log("Complete");
-                }
+                data: JSON.stringify(ResultModel)
             });
         }
     }, {
@@ -102,6 +98,7 @@ var Survey = exports.Survey = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
+
             var self = this;
             var questionsList = this.state.Survey.Questions.map(function (element, index) {
                 return _React2.default.createElement(Question, {
@@ -110,9 +107,10 @@ var Survey = exports.Survey = function (_React$Component) {
                     onChange: self.onChange
                 });
             });
-            return _React2.default.createElement("div", null, questionsList, _React2.default.createElement(Btn, {
+            return _React2.default.createElement("div", null, _React2.default.createElement("h3", null, this.state.Survey.name), questionsList, _React2.default.createElement(Btn, {
                 Action: this.compliteSurvey,
-                text: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C"
+                text: "\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C",
+                href: "/"
             }));
         }
     }]);
@@ -189,7 +187,7 @@ var Btn = function (_React$Component4) {
     _createClass(Btn, [{
         key: "render",
         value: function render() {
-            return _React2.default.createElement("button", { "data-index": this.props.index, className: "btn btn-default", onClick: this.props.Action }, this.props.text);
+            return _React2.default.createElement("a", { href: this.props.href }, _React2.default.createElement("button", { "data-index": this.props.index, className: "btn btn-default", onClick: this.props.Action }, this.props.text));
         }
     }]);
 

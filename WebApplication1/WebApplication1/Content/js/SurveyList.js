@@ -30,7 +30,7 @@ if (loadedStates.includes(document.readyState) && document.body) {
 }
 
 },{"./surveyTable":2,"React":156,"React-DOM":3}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -39,7 +39,7 @@ exports.SurveyTable = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = require("React");
+var _React = require('React');
 
 var _React2 = _interopRequireDefault(_React);
 
@@ -64,16 +64,17 @@ var SurveyTable = exports.SurveyTable = function (_React$Component) {
         };
 
         _this.deleteFromState = _this.deleteFromState.bind(_this);
+        _this.loadcount = _this.loadcount.bind(_this);
         return _this;
     }
 
     _createClass(SurveyTable, [{
-        key: "componentDidMount",
+        key: 'componentDidMount',
         value: function componentDidMount() {
             this.loadList();
         }
     }, {
-        key: "deleteFromState",
+        key: 'deleteFromState',
         value: function deleteFromState(elementId) {
             var newData = this.state.data;
             var deleteIndex;
@@ -88,10 +89,32 @@ var SurveyTable = exports.SurveyTable = function (_React$Component) {
             });
         }
     }, {
-        key: "loadList",
+        key: 'loadcount',
+        value: function loadcount() {
+            $.ajax({
+                url: "/api/Result/GetResultsCount",
+                dataType: 'JSON',
+                success: function (data) {
+                    var newData = this.state.data;
+                    newData.forEach(function (element) {
+                        data.forEach(function (listElement) {
+                            if (element.Id == listElement.SurveyId) {
+                                element.ResultCount = listElement.Count;
+                            }
+                        });
+                    }, this);
+                    this.setState({
+                        data: newData
+                    });
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'loadList',
         value: function loadList() {
-            var spinner = new Spinner({ top: "30%" });
+            var spinner = new Spinner({ top: "100%" });
             var table = document.getElementById("table");
+            var self = this;
             $.ajax({
                 url: this.props.url,
                 dataType: 'JSON',
@@ -101,17 +124,18 @@ var SurveyTable = exports.SurveyTable = function (_React$Component) {
                 success: function (list) {
                     spinner.stop();
                     this.setState({ data: list });
+                    this.loadcount();
                 }.bind(this)
             });
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
-            var thList = ["Название", "Вопросов", "Изменён", "Действия"];
+            var thList = ["Название", "Ответов", "Ссылка на опрос", "Изменён", "Результаты", "Действия"];
 
-            return _React2.default.createElement("div", null, _React2.default.createElement("a", { href: "/Admin/CreateSurvey", className: "btn btn-default" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"), _React2.default.createElement("div", { className: "panel panel-default panel-table" }, _React2.default.createElement("div", { className: "panel-body", id: "table" }, _React2.default.createElement("table", { className: "table table-striped table-bordered table-list" }, _React2.default.createElement(THead, { th: thList }), _React2.default.createElement(RowList, {
+            return _React2.default.createElement('div', null, _React2.default.createElement('a', { href: '/Admin/CreateSurvey', className: 'btn btn-default' }, '\u0421\u043E\u0437\u0434\u0430\u0442\u044C'), _React2.default.createElement('div', { className: 'panel panel-default panel-table' }, _React2.default.createElement('div', { className: 'panel-body', id: 'table' }, _React2.default.createElement('table', { className: 'table table-striped table-bordered table-list' }, _React2.default.createElement(THead, { th: thList }), _React2.default.createElement(RowList, {
                 editUrl: this.props.editUrl,
-                "delete": this.deleteFromState,
+                'delete': this.deleteFromState,
                 data: this.state.data,
                 url: this.props.url,
                 deleteUrl: this.props.deleteUrl
@@ -132,12 +156,12 @@ var THead = function (_React$Component2) {
     }
 
     _createClass(THead, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var thList = this.props.th.map(function (element) {
-                return _React2.default.createElement("th", { key: element }, element);
+                return _React2.default.createElement('th', { key: element }, element);
             });
-            return _React2.default.createElement("thead", null, _React2.default.createElement("tr", null, thList));
+            return _React2.default.createElement('thead', null, _React2.default.createElement('tr', null, thList));
         }
     }]);
 
@@ -154,19 +178,19 @@ var RowList = function (_React$Component3) {
     }
 
     _createClass(RowList, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var self = this;
             var rowNodes = this.props.data.map(function (element) {
                 return _React2.default.createElement(Row, {
                     editUrl: self.props.editUrl,
-                    "delete": self.props.delete,
+                    'delete': self.props.delete,
                     deleteUrl: self.props.deleteUrl,
                     key: element.Id,
                     row: element
                 });
             });
-            return _React2.default.createElement("tbody", null, rowNodes);
+            return _React2.default.createElement('tbody', null, rowNodes);
         }
     }]);
 
@@ -183,15 +207,18 @@ var Row = function (_React$Component4) {
     }
 
     _createClass(Row, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var rowColumns = [];
-            rowColumns.push(_React2.default.createElement("td", { key: this.props.row.name }, this.props.row.name));
-            rowColumns.push(_React2.default.createElement("td", { key: this.props.row.Questions }, this.props.row.Questions.length));
-            rowColumns.push(_React2.default.createElement("td", { key: this.props.row.updateTime }, this.props.row.updateTime));
-            return _React2.default.createElement("tr", null, rowColumns, _React2.default.createElement(Links, {
+            rowColumns.push(_React2.default.createElement('td', { key: this.props.row.name }, this.props.row.name));
+            rowColumns.push(_React2.default.createElement('td', { key: this.props.row.ResultCount }, this.props.row.ResultCount));
+            rowColumns.push(_React2.default.createElement('td', { key: this.props.row.Id }, _React2.default.createElement('a', { href: "/Home/Survey/" + this.props.row.Id }, '\u0421\u0441\u044B\u043B\u043A\u0430')));
+            rowColumns.push(_React2.default.createElement('td', { key: this.props.row.updateTime }, this.props.row.updateTime));
+            rowColumns.push(_React2.default.createElement('td', { key: "/Admin/Stat/" + this.props.row.Id }, _React2.default.createElement('a', { href: "/Admin/Stat/" + this.props.row.Id }, '\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B')));
+
+            return _React2.default.createElement('tr', { key: this.props.row.Id }, rowColumns, _React2.default.createElement(Links, {
                 deleteUrl: this.props.deleteUrl,
-                "delete": this.props.delete,
+                'delete': this.props.delete,
                 editUrl: this.props.editUrl,
                 id: this.props.row.Id }));
         }
@@ -210,11 +237,11 @@ var Links = function (_React$Component5) {
     }
 
     _createClass(Links, [{
-        key: "render",
+        key: 'render',
         value: function render() {
-            return _React2.default.createElement("td", null, _React2.default.createElement(DeleteLink, {
+            return _React2.default.createElement('td', null, _React2.default.createElement(DeleteLink, {
                 deleteUrl: this.props.deleteUrl,
-                "delete": this.props.delete,
+                'delete': this.props.delete,
                 id: this.props.id
             }), _React2.default.createElement(EditLink, {
                 editUrl: this.props.editUrl,
@@ -239,12 +266,12 @@ var DeleteLink = function (_React$Component6) {
     }
 
     _createClass(DeleteLink, [{
-        key: "render",
+        key: 'render',
         value: function render() {
-            return _React2.default.createElement("a", { onClick: this.handleClick }, _React2.default.createElement("span", { className: "glyphicon glyphicon-trash" }));
+            return _React2.default.createElement('a', { onClick: this.handleClick }, _React2.default.createElement('span', { className: 'glyphicon glyphicon-trash' }));
         }
     }, {
-        key: "handleClick",
+        key: 'handleClick',
         value: function handleClick() {
             var deleteAct = this.props.delete;
             var deleteUrl = this.props.deleteUrl;
@@ -278,9 +305,9 @@ var EditLink = function (_React$Component7) {
     }
 
     _createClass(EditLink, [{
-        key: "render",
+        key: 'render',
         value: function render() {
-            return _React2.default.createElement("a", { href: this.props.editUrl + this.props.id }, _React2.default.createElement("span", { className: "glyphicon glyphicon-edit" }));
+            return _React2.default.createElement('a', { href: this.props.editUrl + this.props.id }, _React2.default.createElement('span', { className: 'glyphicon glyphicon-edit' }));
         }
     }]);
 

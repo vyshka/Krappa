@@ -50,6 +50,7 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
         _this.addAnswer = _this.addAnswer.bind(_this);
         _this.arrToString = _this.arrToString.bind(_this);
         _this.stringToArr = _this.stringToArr.bind(_this);
+        _this.deleteSurvey = _this.deleteSurvey.bind(_this);
         return _this;
     }
 
@@ -118,6 +119,14 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                 type: "POST",
                 data: JSON.stringify(this.state.model),
                 success: function success() {}
+            });
+        }
+    }, {
+        key: 'deleteSurvey',
+        value: function deleteSurvey() {
+            $.ajax({
+                url: "/api/Survey/DeleteSurvey/" + parseInt(this.state.model.Id),
+                method: 'POST'
             });
         }
     }, {
@@ -238,6 +247,11 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                     return _this2.updateSurvey(e);
                 },
                 text: '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C'
+            })), _React2.default.createElement('a', { href: '/Admin/SurveyList' }, _React2.default.createElement(Btn, {
+                Action: function Action(e) {
+                    return _this2.deleteSurvey();
+                },
+                text: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C'
             })));
         }
     }]);

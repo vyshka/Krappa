@@ -24,6 +24,7 @@ export class SurveyForm extends React.Component {
         this.addAnswer = this.addAnswer.bind(this);
         this.arrToString = this.arrToString.bind(this);
         this.stringToArr = this.stringToArr.bind(this);
+        this.deleteSurvey = this.deleteSurvey.bind(this);
     }
 
     addAnswer (e) { 
@@ -88,6 +89,13 @@ export class SurveyForm extends React.Component {
             success: function() {
 
             }
+        })
+    }
+
+    deleteSurvey () {
+        $.ajax({
+            url: "/api/Survey/DeleteSurvey/" + parseInt(this.state.model.Id),
+            method: 'POST',
         })
     }
 
@@ -196,7 +204,7 @@ export class SurveyForm extends React.Component {
             <div>
                 <div className="form-group">
                     <label className="control-label">Название опроса</label>
-                    <input 
+                    <input
                         placeholder="Название опроса" 
                         className="form-control" 
                         value={this.state.model.name} 
@@ -214,7 +222,15 @@ export class SurveyForm extends React.Component {
                         Action={e => this.updateSurvey(e)}
                         text="Сохранить"
                     />
+                </a>
+
+                <a href="/Admin/SurveyList">
+                    <Btn
+                        Action={e => this.deleteSurvey()}
+                        text="Удалить"
+                    />
                  </a>
+
             </div>
         )
     }

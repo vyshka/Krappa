@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     babelify = require('babelify'),
     clean = require('gulp-clean'),
-    source = require('vinyl-source-stream');
+    source = require('vinyl-source-stream'),
+    gulpsync = require('gulp-sync')(gulp);
 
  
 
@@ -50,7 +51,7 @@ gulp.task('temp', () => {
         .pipe(gulp.dest('Content/js/out/'))
 } )
 
-gulp.task('browserifyNewSurvey', ['temp'], function() {
+gulp.task('browserifyNewSurvey', function() {
     return browserify('Content/js/out/newSurvey.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -60,7 +61,7 @@ gulp.task('browserifyNewSurvey', ['temp'], function() {
         .pipe(gulp.dest('Content/js/'));
 });
 
-gulp.task('browserifySurvey', ['temp'], function() {
+gulp.task('browserifySurvey', function() {
     return browserify('Content/js/out/surveyC.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -71,7 +72,17 @@ gulp.task('browserifySurvey', ['temp'], function() {
 });
 
 
-gulp.task('browserifySurveyList', ['temp'], function() {
+gulp.task('browserifyStat', function() {
+    return browserify('Content/js/out/stat.js')
+        .transform(babelify.configure({
+            presets: ["es2015"]
+        }))
+        .bundle()
+        .pipe(source('stat.js'))
+        .pipe(gulp.dest('Content/js/'));
+})
+
+gulp.task('browserifySurveyList',  function() {
     return browserify('Content/js/out/survey-list.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -81,7 +92,7 @@ gulp.task('browserifySurveyList', ['temp'], function() {
         .pipe(gulp.dest('Content/js/'));
 });
 
-gulp.task('browserifyUser', ['temp'], function() {
+gulp.task('browserifyUser', function() {
     return browserify('Content/js/out/user-list.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -92,7 +103,7 @@ gulp.task('browserifyUser', ['temp'], function() {
 });
 
 
-gulp.task('browserifyVacancy', ['temp'], function() {
+gulp.task('browserifyVacancy', function() {
     return browserify('Content/js/out/vacancy-list.js')
         .transform(babelify.configure({
             presets: ["es2015"]
@@ -126,7 +137,7 @@ gulp.task('minify-css', ['less'], function() {
       .pipe(gulp.dest('Content/css/'));
 });
 
-gulp.task('clean', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifySurveyList', 'browserifyNewSurvey'], function() {
+gulp.task('clean', ['browserify'], function() {
     return gulp.src('Content/js/out', {read: false})
         .pipe(clean());
 })
@@ -136,7 +147,7 @@ gulp.task('cleanSurvey', ['browserifySurvey'], function() {
         .pipe(clean());
 })
 
-gulp.task('browserify', ['browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifySurveyList', 'browserifyNewSurvey'], function() { })
+gulp.task('browserify', gulpsync.sync(['temp', 'browserifyStat','browserifyVacancy', 'browserifyUser', 'browserifySurvey', 'browserifySurveyList', 'browserifyNewSurvey']))
 
 
 gulp.task('default', ['scripts', 'less', 'minify-css', 'temp', 'browserify', 'clean'], function () { });

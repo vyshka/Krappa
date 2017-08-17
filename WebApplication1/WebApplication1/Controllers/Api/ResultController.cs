@@ -38,5 +38,29 @@ namespace WebApplication1.Controllers
             db.Results.Add(result);
             db.SaveChanges();
         }
+
+
+        public List<ReturnResultsList> GetResultsCount ()
+        {
+            var ResultsCount =
+                db.Results
+                    .GroupBy(r => r.Survey.Id)
+                    .Select(g => new ReturnResultsList
+                    {
+                        SurveyId = g.Key,
+                        Count = g.Select(r => r.Survey).Count()
+                    });
+            var ret = ResultsCount.ToList();
+            return ret; 
+        }
+
+        public class ReturnResultsList
+        {
+            public int SurveyId { get; set; }
+            public int Count { get; set; }
+        }
+        
+
+        
     }
 }

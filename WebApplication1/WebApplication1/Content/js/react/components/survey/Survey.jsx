@@ -107,6 +107,7 @@ class Question extends React.Component {
             return(
                 <FormCheck 
                     key = {index}
+                    index = {index}
                     Text = {element.Text}
                     name = {self.props.question.Text}
                     aid = {element.Id}
@@ -117,10 +118,14 @@ class Question extends React.Component {
         });
 
         return(
-            <fieldset className="form-group">
-                <legend>{this.props.question.Text}</legend>
-                {Answers}
-            </fieldset>
+            <div className = "panel panel-default">
+                <div className = "panel-body">
+                    <fieldset className="form-group">
+                        <legend>{this.props.question.Text}</legend>
+                        {Answers}
+                    </fieldset>
+                </div>
+            </div>
         )
     }
 }
@@ -131,12 +136,13 @@ class FormCheck extends React.Component {
         <div className="form-check">
             <label className="form-check-label">
                 <input
+                    defaultChecked = {this.props.index == 0}
                     data-aid = {this.props.aid}
                     data-qid = {this.props.qid}
                     type = "radio" 
                     className = "form-check-input" 
                     name = {this.props.name}
-                    onClick = {this.props.onChange}
+                    onChange = {this.props.onChange}
                 />
                 {this.props.Text}
             </label>

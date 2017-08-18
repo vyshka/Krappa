@@ -38,6 +38,11 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        public ActionResult UserStat(string id)
+        {
+            return View();
+        }
         public ActionResult CreateSurvey()
         {
             var newSurvey = db.Surveys.Create();
@@ -46,6 +51,11 @@ namespace WebApplication1.Controllers
             return RedirectToAction("EditSurvey", new { id = newSurvey.Id });
         }
 
+
+        public ActionResult UserResults(string Id)
+        {
+            return View();
+        }
 
         public ActionResult SurveyList()
         {

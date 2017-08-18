@@ -19,6 +19,8 @@ namespace WebApplication1.Models
 
         public virtual ICollection<AnswerQuestionResult> AnswerQuestionResult { get; set; }
 
+        public string CompliteTime { get; set; }
+
         public Result()
         {
             this.AnswerQuestionResult = new List<AnswerQuestionResult>();

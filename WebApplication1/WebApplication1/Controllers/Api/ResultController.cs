@@ -14,6 +14,39 @@ namespace WebApplication1.Controllers
     public class ResultController : ApiController
     {
         ApplicationContext db = new ApplicationContext();
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
+
+        public UserResults GetResultsByUserId(string Id)
+        {
+            var results = db.Results.Where(r => r.User == Id).ToList();
+            var user = UserManager.FindById(Id);
+
+            var Result = new UserResults();
+            Result.UserName = user.UserName;
+
+            List<SurveyResult> ResultsList = new List<SurveyResult>();
+            
+            foreach(var result in results)
+            {
+                var survey = db.Surveys.Find(result.Survey.Id);
+                SurveyResult r = new SurveyResult
+                {
+                    CompliteTime = result.CompliteTime,
+                    SurveyName = survey.name,
+                };
+                ResultsList.Add(r);
+            }
+            Result.Results = ResultsList;
+
+            return Result;
+        }
 
         public void SaveResult([FromBody] ResultModel model)
         {
@@ -23,6 +56,7 @@ namespace WebApplication1.Controllers
 
             result.Survey = survey;
             result.User = user;
+            result.CompliteTime = DateTime.Now.ToString();
 
             foreach(var answerResult in model.AnswersQuestions)
             {

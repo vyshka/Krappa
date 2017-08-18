@@ -132,7 +132,7 @@ var Question = function (_React$Component3) {
                     answer: element
                 });
             });
-            return _React2.default.createElement('div', null, _React2.default.createElement('lable', null, this.props.question.Text), answersList);
+            return _React2.default.createElement('div', { className: 'panel panel-default' }, _React2.default.createElement('div', { className: 'panel-header' }, this.props.question.Text), _React2.default.createElement('div', { className: 'panel-body' }, answersList));
         }
     }]);
 

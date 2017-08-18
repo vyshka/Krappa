@@ -134,6 +134,7 @@ var Question = function (_React$Component2) {
             var Answers = this.props.question.Answers.map(function (element, index) {
                 return _React2.default.createElement(FormCheck, {
                     key: index,
+                    index: index,
                     Text: element.Text,
                     name: self.props.question.Text,
                     aid: element.Id,
@@ -142,7 +143,7 @@ var Question = function (_React$Component2) {
                 });
             });
 
-            return _React2.default.createElement("fieldset", { className: "form-group" }, _React2.default.createElement("legend", null, this.props.question.Text), Answers);
+            return _React2.default.createElement("div", { className: "panel panel-default" }, _React2.default.createElement("div", { className: "panel-body" }, _React2.default.createElement("fieldset", { className: "form-group" }, _React2.default.createElement("legend", null, this.props.question.Text), Answers)));
         }
     }]);
 
@@ -162,12 +163,13 @@ var FormCheck = function (_React$Component3) {
         key: "render",
         value: function render() {
             return _React2.default.createElement("div", { className: "form-check" }, _React2.default.createElement("label", { className: "form-check-label" }, _React2.default.createElement("input", {
+                defaultChecked: this.props.index == 0,
                 "data-aid": this.props.aid,
                 "data-qid": this.props.qid,
                 type: "radio",
                 className: "form-check-input",
                 name: this.props.name,
-                onClick: this.props.onChange
+                onChange: this.props.onChange
             }), this.props.Text));
         }
     }]);

@@ -15,6 +15,8 @@ namespace WebApplication1.Models
 
         public string registerTime { get; set; }
 
+        public int SurveyCount { get; set; }
+
         public UsersList(ApplicationUser user)
         {
             this.Id = user.Id;

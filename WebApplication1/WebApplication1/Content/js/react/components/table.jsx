@@ -69,7 +69,6 @@ export class Table extends React.Component{
 
     render() {
         var addForm;
-        
         if(this.props.isVacancy) {
             addForm = <AddVacancyForm add = {this.addToState} />
         }
@@ -87,7 +86,9 @@ export class Table extends React.Component{
                                 delete = {this.deleteFormState} 
                                 data = {this.state.data} 
                                 url = {this.props.url} 
-                                deleteUrl = {this.props.deleteUrl}/>   
+                                deleteUrl = {this.props.deleteUrl}
+                                isUser = {this.props.isUser}    
+                            />   
                         </table>
                     </div>
                 </div>
@@ -121,6 +122,9 @@ class THead extends React.Component{
                 break;
             case 'City':
                 element = 'Город'
+                break;
+            case 'SurveyCount':
+                element = 'Опросов'
         }  
         return element;
     }
@@ -152,12 +156,20 @@ class THead extends React.Component{
 class RowList extends React.Component{
     
     render() {
+        let self = this
         var deleteProp = this.props.delete;
         var deleteUrl = this.props.deleteUrl;
-        var editUrl = this.props.editUrl;
+        let editUrl = this.props.editUrl;
         var rowNodes = this.props.data.map(function(element) { 
             return (
-                <Row editUrl = {editUrl} deleteUrl = {deleteUrl} delete = {deleteProp} key = {element.Id} row = {element} />
+                <Row
+                    editUrl = {self.props.editUrl} 
+                    deleteUrl = {self.props.deleteUrl} 
+                    delete = {self.props.delete} 
+                    key = {element.Id} 
+                    row = {element} 
+                    isUser = {self.props.isUser}
+                />
             );
         });
         return(

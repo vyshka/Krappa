@@ -27,6 +27,8 @@ namespace WebApplication1.Controllers
             }
         }
 
+        private ApplicationContext db = new ApplicationContext();
+
         public UsersList getUserById(string id)
         {
             UsersList user = new UsersList(UserManager.FindById(id));
@@ -41,9 +43,19 @@ namespace WebApplication1.Controllers
             foreach (var element in UserManager.Users)
             {
                 UsersList item = new UsersList(element);
+                item.SurveyCount = GetSurveyCount(item.Id);
                 list.Add(item);
+
             }
             return list;
+        }
+
+        private int GetSurveyCount(string Id)
+        {
+            var count = db.Results.Where(r => r.User == Id).Count();
+
+
+            return count;
         }
 
         public UsersList CreateUser(AdminCreateUserModel model)

@@ -417,7 +417,6 @@ var Table = exports.Table = function (_React$Component) {
         key: 'render',
         value: function render() {
             var addForm;
-
             if (this.props.isVacancy) {
                 addForm = _React2.default.createElement(_addForm.AddVacancyForm, { add: this.addToState });
             }
@@ -429,7 +428,9 @@ var Table = exports.Table = function (_React$Component) {
                 'delete': this.deleteFormState,
                 data: this.state.data,
                 url: this.props.url,
-                deleteUrl: this.props.deleteUrl })))), _React2.default.createElement('br', null), addForm);
+                deleteUrl: this.props.deleteUrl,
+                isUser: this.props.isUser
+            })))), _React2.default.createElement('br', null), addForm);
         }
     }]);
 
@@ -466,6 +467,9 @@ var THead = function (_React$Component2) {
                     break;
                 case 'City':
                     element = 'Город';
+                    break;
+                case 'SurveyCount':
+                    element = 'Опросов';
             }
             return element;
         }
@@ -499,11 +503,19 @@ var RowList = function (_React$Component3) {
     _createClass(RowList, [{
         key: 'render',
         value: function render() {
+            var self = this;
             var deleteProp = this.props.delete;
             var deleteUrl = this.props.deleteUrl;
             var editUrl = this.props.editUrl;
             var rowNodes = this.props.data.map(function (element) {
-                return _React2.default.createElement(Row, { editUrl: editUrl, deleteUrl: deleteUrl, 'delete': deleteProp, key: element.Id, row: element });
+                return _React2.default.createElement(Row, {
+                    editUrl: self.props.editUrl,
+                    deleteUrl: self.props.deleteUrl,
+                    'delete': self.props.delete,
+                    key: element.Id,
+                    row: element,
+                    isUser: self.props.isUser
+                });
             });
             return _React2.default.createElement('tbody', null, rowNodes);
         }

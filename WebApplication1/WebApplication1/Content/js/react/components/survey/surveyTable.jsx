@@ -7,7 +7,7 @@ export class SurveyTable extends React.Component{
         super(props)
 
         this.state = {
-            data: []
+            data: [ ]
         }
 
         this.deleteFromState = this.deleteFromState.bind(this)
@@ -39,7 +39,8 @@ export class SurveyTable extends React.Component{
             dataType: 'JSON',
             success: function(data) {
                 var newData = this.state.data
-                newData.forEach(function(element) {                  
+                newData.forEach(function(element) {     
+                    element.ResultCount = 0;
                     data.forEach(function(listElement) {
                         if(element.Id == listElement.SurveyId) {                            
                             element.ResultCount = listElement.Count
@@ -144,8 +145,8 @@ class Row extends React.Component {
     render() {
         var rowColumns = [];
         rowColumns.push(<td key = {this.props.row.name} >{this.props.row.name}</td>);
-        rowColumns.push(<td key = {this.props.row.ResultCount} >{this.props.row.ResultCount}</td>);
-        rowColumns.push(<td key = {this.props.row.Id} >
+        rowColumns.push(<td key = {"ResultCount" + this.props.row.ResultCount} >{this.props.row.ResultCount}</td>);
+        rowColumns.push(<td key = {"/Home/Survey/" + this.props.row.Id} >
                             <a href={"/Home/Survey/" + this.props.row.Id}> 
                                 Ссылка
                             </a>

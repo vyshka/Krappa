@@ -1,6 +1,5 @@
 import React from 'React'
 
-
 export class AddVacancyForm extends React.Component{
     constructor(props) {
         super(props);

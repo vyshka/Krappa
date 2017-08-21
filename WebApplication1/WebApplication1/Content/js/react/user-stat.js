@@ -1,7 +1,6 @@
-// import {Table} from './table'
 import React from 'React'
 import ReactDOM from 'React-DOM'
-import {UserResults} from './UserResults'
+import {UserResults} from './components/user/UserResults.jsx'
 
 function run() {
     ReactDOM.render(

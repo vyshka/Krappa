@@ -1,11 +1,10 @@
-import {Table} from './table'
+import {DisplayTable} from './components/table.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
-import * as babel from 'babel-core';
 
 function run() {
     ReactDOM.render(
-    <Table
+    <DisplayTable
         url = "/api/vacancies/getallVacancies"
         deleteUrl = "/api/vacancies/DeleteVacancy/"
         editUrl = ""

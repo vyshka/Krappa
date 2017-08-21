@@ -1,10 +1,10 @@
-import {AddVacancyForm} from './addForm'
-import {AddUserForm} from './addForm'
 import React from 'React'
 
+import {AddVacancyForm, AddUserForm} from './survey/addForm.jsx'
 
 
-export class Table extends React.Component{  
+
+export class DisplayTable extends React.Component{  
     constructor(props) {
         super(props);
 
@@ -101,7 +101,7 @@ export class Table extends React.Component{
     
 }
 
-Table.defaultProps = {
+DisplayTable.defaultProps = {
     isUser: false,
     isVacancy: false
 }

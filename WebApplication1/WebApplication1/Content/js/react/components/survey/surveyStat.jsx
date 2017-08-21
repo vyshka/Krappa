@@ -36,8 +36,6 @@ export class Stat extends React.Component {
                 />
             )
         })
-
-
         return(
             <div>
                 <h3>
@@ -69,11 +67,13 @@ class Question extends React.Component {
             )
         })
         return(
-            <div>
-                <lable>
+            <div className = "panel panel-default">
+                <div className = "panel-header">
                     {this.props.question.Text}
-                </lable>
-                {answersList}
+                </div>
+                <div className = "panel-body">
+                    {answersList}
+                </div>
             </div>
 
         )

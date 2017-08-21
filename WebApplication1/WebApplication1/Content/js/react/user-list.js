@@ -1,10 +1,10 @@
-import {Table} from './table'
+import {DisplayTable} from './components/table.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 
 function run() {
     ReactDOM.render(
-    <Table
+    <DisplayTable
         url = "/api/User/getAllUsers"
         deleteUrl = "/api/User/DeleteUser/"
         editUrl = ""

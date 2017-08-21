@@ -1,7 +1,6 @@
-import {SurveyForm} from './SurveyForm'
+import {SurveyForm} from './components/survey/SurveyForm.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
-import * as babel from 'babel-core'
 
 function run() {
     ReactDOM.render(

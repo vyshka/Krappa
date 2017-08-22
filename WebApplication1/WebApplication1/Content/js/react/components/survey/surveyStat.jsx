@@ -32,6 +32,7 @@ export class Stat extends React.Component {
         var questionList = this.state.model.QuestionStat.map(function(element) {
             return(
                 <Question 
+                    key = {element.Text}
                     question = {element}
                 />
             )
@@ -69,12 +70,13 @@ class Question extends React.Component {
         var answersList = this.props.question.AnswersStat.map(function(element) {
             return(
                 <Answer
+                    key = {element.Text}
                     answer = {element}
                 />
             )
         })
         return(
-            <div key={this.props.question.Text} className = "panel panel-default">
+            <div className = "panel panel-default">
                 <div className = "panel-header">
                     {this.props.question.Text}
                 </div>

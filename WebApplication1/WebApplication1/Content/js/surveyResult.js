@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 481);
+/******/ 	return __webpack_require__(__webpack_require__.s = 565);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -26938,836 +26938,12 @@ var Button = exports.Button = function (_React$Component) {
 /* 317 */,
 /* 318 */,
 /* 319 */,
-/* 320 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.DisplayTable = undefined;
-
-var _keys = __webpack_require__(321);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _getPrototypeOf = __webpack_require__(98);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(100);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(101);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(102);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(109);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _React = __webpack_require__(67);
-
-var _React2 = _interopRequireDefault(_React);
-
-var _addForm = __webpack_require__(324);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DisplayTable = exports.DisplayTable = function (_React$Component) {
-    (0, _inherits3.default)(DisplayTable, _React$Component);
-
-    function DisplayTable(props) {
-        (0, _classCallCheck3.default)(this, DisplayTable);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (DisplayTable.__proto__ || (0, _getPrototypeOf2.default)(DisplayTable)).call(this, props));
-
-        _this.state = {
-            data: [],
-            keysList: []
-        };
-
-        _this.deleteFormState = _this.deleteFormState.bind(_this);
-        _this.addToState = _this.addToState.bind(_this);
-        return _this;
-    }
-
-    (0, _createClass3.default)(DisplayTable, [{
-        key: 'addToState',
-        value: function addToState(element) {
-            var newData = this.state.data;
-            newData.push(element);
-            this.setState({ data: newData });
-        }
-    }, {
-        key: 'deleteFormState',
-        value: function deleteFormState(element) {
-            var tempArray = [];
-            for (var i = 0; i < this.state.data.length; i++) {
-                var item = {
-                    Id: this.state.data[i].Id,
-                    number: i
-                };
-
-                tempArray.push(item);
-            }
-            var index;
-            for (var i = 0; i < tempArray.length; i++) {
-                if (element.Id == tempArray[i].Id) {
-                    index = tempArray[i].number;
-                }
-            }
-            var newData = this.state.data;
-            newData.splice(index, 1);
-            this.setState({ data: newData });
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.loadList();
-        }
-    }, {
-        key: 'loadList',
-        value: function loadList() {
-            var spinner = new Spinner({ top: "30%" });
-            var table = document.getElementById("table");
-            $.ajax({
-                url: this.props.url,
-                dataType: 'JSON',
-                beforeSend: function beforeSend() {
-                    spinner.spin(table);
-                },
-                success: function (list) {
-                    spinner.stop();
-                    var keyList = (0, _keys2.default)(list[0]);
-                    keyList.shift();
-                    this.setState({ data: list, keysList: keyList });
-                }.bind(this)
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var addForm;
-            if (this.props.isVacancy) {
-                addForm = _React2.default.createElement(_addForm.AddVacancyForm, { add: this.addToState });
-            }
-            if (this.props.isUser) {
-                addForm = _React2.default.createElement(_addForm.AddUserForm, { add: this.addToState });
-            }
-            return _React2.default.createElement(
-                'div',
-                null,
-                _React2.default.createElement(
-                    'div',
-                    { className: 'panel panel-default panel-table' },
-                    _React2.default.createElement(
-                        'div',
-                        { className: 'panel-body', id: 'table' },
-                        _React2.default.createElement(
-                            'table',
-                            { className: 'table table-striped table-bordered table-list' },
-                            _React2.default.createElement(THead, { th: this.state.keysList }),
-                            _React2.default.createElement(RowList, {
-                                editUrl: this.props.editUrl,
-                                'delete': this.deleteFormState,
-                                data: this.state.data,
-                                url: this.props.url,
-                                deleteUrl: this.props.deleteUrl,
-                                isUser: this.props.isUser
-                            })
-                        )
-                    )
-                ),
-                _React2.default.createElement('br', null),
-                addForm
-            );
-        }
-    }]);
-    return DisplayTable;
-}(_React2.default.Component);
-
-DisplayTable.defaultProps = {
-    isUser: false,
-    isVacancy: false
-};
-
-var THead = function (_React$Component2) {
-    (0, _inherits3.default)(THead, _React$Component2);
-
-    function THead(props) {
-        (0, _classCallCheck3.default)(this, THead);
-
-        var _this2 = (0, _possibleConstructorReturn3.default)(this, (THead.__proto__ || (0, _getPrototypeOf2.default)(THead)).call(this, props));
-
-        _this2.renameTh = _this2.renameTh.bind(_this2);
-        return _this2;
-    }
-
-    (0, _createClass3.default)(THead, [{
-        key: 'renameTh',
-        value: function renameTh(element) {
-            switch (element) {
-                case 'userName':
-                case 'Name':
-                    element = 'Имя';
-                    break;
-                case 'registerTime':
-                    element = 'Время регистрации';
-                    break;
-                case 'City':
-                    element = 'Город';
-                    break;
-                case 'SurveyCount':
-                    element = 'Опросов';
-            }
-            return element;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var self = this;
-            var thList = this.props.th.map(function (element, index) {
-                element = self.renameTh(element);
-                return _React2.default.createElement(
-                    'th',
-                    { key: element },
-                    element
-                );
-            });
-            if (this.props.th.length != 0) {
-                thList.push(_React2.default.createElement(
-                    'th',
-                    { key: "operations" },
-                    '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F'
-                ));
-            }
-            return _React2.default.createElement(
-                'thead',
-                null,
-                _React2.default.createElement(
-                    'tr',
-                    null,
-                    thList
-                )
-            );
-        }
-    }]);
-    return THead;
-}(_React2.default.Component);
-
-var RowList = function (_React$Component3) {
-    (0, _inherits3.default)(RowList, _React$Component3);
-
-    function RowList() {
-        (0, _classCallCheck3.default)(this, RowList);
-        return (0, _possibleConstructorReturn3.default)(this, (RowList.__proto__ || (0, _getPrototypeOf2.default)(RowList)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(RowList, [{
-        key: 'render',
-        value: function render() {
-            var self = this;
-            var deleteProp = this.props.delete;
-            var deleteUrl = this.props.deleteUrl;
-            var editUrl = this.props.editUrl;
-            var rowNodes = this.props.data.map(function (element) {
-                return _React2.default.createElement(Row, {
-                    editUrl: self.props.editUrl,
-                    deleteUrl: self.props.deleteUrl,
-                    'delete': self.props.delete,
-                    key: element.Id,
-                    row: element,
-                    isUser: self.props.isUser
-                });
-            });
-            return _React2.default.createElement(
-                'tbody',
-                null,
-                rowNodes
-            );
-        }
-    }]);
-    return RowList;
-}(_React2.default.Component);
-
-var Row = function (_React$Component4) {
-    (0, _inherits3.default)(Row, _React$Component4);
-
-    function Row() {
-        (0, _classCallCheck3.default)(this, Row);
-        return (0, _possibleConstructorReturn3.default)(this, (Row.__proto__ || (0, _getPrototypeOf2.default)(Row)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(Row, [{
-        key: 'render',
-        value: function render() {
-            var rowColumns = [];
-            for (var key in this.props.row) {
-                if (key != "Id" && key != "SelectedRoleId") {
-                    rowColumns.push(_React2.default.createElement(
-                        'td',
-                        { key: key },
-                        this.props.row[key]
-                    ));
-                }
-            }
-            return _React2.default.createElement(
-                'tr',
-                null,
-                rowColumns,
-                _React2.default.createElement(Links, { editUrl: this.props.editUrl, deleteUrl: this.props.deleteUrl, 'delete': this.props.delete, id: this.props.row.Id })
-            );
-        }
-    }]);
-    return Row;
-}(_React2.default.Component);
-
-var Links = function (_React$Component5) {
-    (0, _inherits3.default)(Links, _React$Component5);
-
-    function Links() {
-        (0, _classCallCheck3.default)(this, Links);
-        return (0, _possibleConstructorReturn3.default)(this, (Links.__proto__ || (0, _getPrototypeOf2.default)(Links)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(Links, [{
-        key: 'render',
-        value: function render() {
-            return _React2.default.createElement(
-                'td',
-                null,
-                _React2.default.createElement(DeleteLink, { deleteUrl: this.props.deleteUrl, 'delete': this.props.delete, id: this.props.id }),
-                _React2.default.createElement(EditLink, { editUrl: this.props.editUrl, id: this.props.id })
-            );
-        }
-    }]);
-    return Links;
-}(_React2.default.Component);
-
-var DeleteLink = function (_React$Component6) {
-    (0, _inherits3.default)(DeleteLink, _React$Component6);
-
-    function DeleteLink(props) {
-        (0, _classCallCheck3.default)(this, DeleteLink);
-
-        var _this6 = (0, _possibleConstructorReturn3.default)(this, (DeleteLink.__proto__ || (0, _getPrototypeOf2.default)(DeleteLink)).call(this, props));
-
-        _this6.handleClick = _this6.handleClick.bind(_this6);
-        return _this6;
-    }
-
-    (0, _createClass3.default)(DeleteLink, [{
-        key: 'render',
-        value: function render() {
-            return _React2.default.createElement(
-                'a',
-                { onClick: this.handleClick },
-                _React2.default.createElement('span', { className: 'glyphicon glyphicon-trash' })
-            );
-        }
-    }, {
-        key: 'handleClick',
-        value: function handleClick() {
-            var deleteAct = this.props.delete;
-            var deleteUrl = this.props.deleteUrl;
-            if (confirm("Вы дейстивтельно хотите удалить?")) {
-                $.ajax({
-                    url: deleteUrl + this.props.id,
-                    type: 'DELETE',
-                    success: function success(result) {
-                        deleteAct(result);
-                    }
-                });
-            }
-        }
-    }]);
-    return DeleteLink;
-}(_React2.default.Component);
-
-var EditLink = function (_React$Component7) {
-    (0, _inherits3.default)(EditLink, _React$Component7);
-
-    function EditLink() {
-        (0, _classCallCheck3.default)(this, EditLink);
-        return (0, _possibleConstructorReturn3.default)(this, (EditLink.__proto__ || (0, _getPrototypeOf2.default)(EditLink)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(EditLink, [{
-        key: 'render',
-        value: function render() {
-            return _React2.default.createElement(
-                'a',
-                { className: 'fancybox', 'data-fancybox': true, 'data-type': 'ajax', 'data-src': this.props.editUrl + this.props.id },
-                _React2.default.createElement('span', { className: 'glyphicon glyphicon-edit' })
-            );
-        }
-    }]);
-    return EditLink;
-}(_React2.default.Component);
-
-/***/ }),
-/* 321 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(322), __esModule: true };
-
-/***/ }),
-/* 322 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(323);
-module.exports = __webpack_require__(14).Object.keys;
-
-/***/ }),
-/* 323 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(89)
-  , $keys    = __webpack_require__(40);
-
-__webpack_require__(146)('keys', function(){
-  return function keys(it){
-    return $keys(toObject(it));
-  };
-});
-
-/***/ }),
-/* 324 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.AddUserForm = exports.AddVacancyForm = undefined;
-
-var _stringify = __webpack_require__(302);
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _defineProperty2 = __webpack_require__(325);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _getPrototypeOf = __webpack_require__(98);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(100);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(101);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(102);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(109);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _React = __webpack_require__(67);
-
-var _React2 = _interopRequireDefault(_React);
-
-var _Button = __webpack_require__(304);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AddVacancyForm = exports.AddVacancyForm = function (_React$Component) {
-    (0, _inherits3.default)(AddVacancyForm, _React$Component);
-
-    function AddVacancyForm(props) {
-        (0, _classCallCheck3.default)(this, AddVacancyForm);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (AddVacancyForm.__proto__ || (0, _getPrototypeOf2.default)(AddVacancyForm)).call(this, props));
-
-        _this.state = {
-            name: "",
-            city: "",
-            url: ""
-        };
-
-        _this.handleClick = _this.handleClick.bind(_this);
-        _this.change = _this.change.bind(_this);
-        _this.clearState = _this.clearState.bind(_this);
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(AddVacancyForm, [{
-        key: 'change',
-        value: function change(e) {
-            this.setState((0, _defineProperty3.default)({}, e.target.id, e.target.value));
-        }
-    }, {
-        key: 'clearState',
-        value: function clearState() {
-            this.setState({
-                name: "",
-                city: "",
-                url: ""
-            });
-        }
-    }, {
-        key: 'handleClick',
-        value: function handleClick() {
-            var self = this;
-            var Vacancies = {
-                Url: this.state.url,
-                City: this.state.city,
-                name: this.state.name
-            };
-            $.ajax({
-                url: "/api/vacancies/CreateVacancy",
-                contentType: "application/json",
-                type: "POST",
-                data: (0, _stringify2.default)(Vacancies),
-                success: function success(data) {
-                    Vacancies.Id = data;
-                    self.props.add(Vacancies);
-                    self.clearState();
-                }
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return _React2.default.createElement(
-                'form',
-                { className: 'form-horizontal' },
-                _React2.default.createElement(
-                    'h3',
-                    null,
-                    '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432\u0430\u043A\u0430\u043D\u0441\u0438\u044E'
-                ),
-                _React2.default.createElement(FormGroup, {
-                    id: 'name',
-                    text: '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435',
-                    onChange: function onChange(e) {
-                        return _this2.change(e);
-                    },
-                    value: this.state.name
-                }),
-                _React2.default.createElement(FormGroup, {
-                    id: 'city',
-                    text: '\u0413\u043E\u0440\u043E\u0434',
-                    onChange: function onChange(e) {
-                        return _this2.change(e);
-                    },
-                    value: this.state.city
-                }),
-                _React2.default.createElement(FormGroup, {
-                    id: 'url',
-                    text: 'Url',
-                    onChange: function onChange(e) {
-                        return _this2.change(e);
-                    },
-                    value: this.state.url
-                }),
-                _React2.default.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    _React2.default.createElement(
-                        'div',
-                        null,
-                        _React2.default.createElement(
-                            'button',
-                            { onClick: this.handleClick, type: 'button', id: 'createBtn', className: 'btn btn-default' },
-                            '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C'
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-    return AddVacancyForm;
-}(_React2.default.Component);
-
-var AddUserForm = exports.AddUserForm = function (_React$Component2) {
-    (0, _inherits3.default)(AddUserForm, _React$Component2);
-
-    function AddUserForm(props) {
-        (0, _classCallCheck3.default)(this, AddUserForm);
-
-        var _this3 = (0, _possibleConstructorReturn3.default)(this, (AddUserForm.__proto__ || (0, _getPrototypeOf2.default)(AddUserForm)).call(this, props));
-
-        _this3.state = {
-            selectValue: 0,
-            userName: "",
-            userNameError: "",
-            Email: "",
-            EmailError: "",
-            password: "",
-            passwordError: "",
-            SelectedRoleId: ""
-
-        };
-        _this3.handleClick = _this3.handleClick.bind(_this3);
-        _this3.handleChange = _this3.handleChange.bind(_this3);
-        _this3.change = _this3.change.bind(_this3);
-        _this3.validate = _this3.validate.bind(_this3);
-        _this3.clearState = _this3.clearState.bind(_this3);
-        return _this3;
-    }
-
-    (0, _createClass3.default)(AddUserForm, [{
-        key: 'clearState',
-        value: function clearState() {
-            this.setState({
-                userName: "",
-                userNameError: "",
-                Email: "",
-                EmailError: "",
-                password: "",
-                passwordError: "",
-                SelectedRoleId: ""
-            });
-        }
-    }, {
-        key: 'validate',
-        value: function validate() {
-            var errors = {};
-            var isError = false;
-            if (this.state.password.length < 6) {
-                isError = true;
-                errors.passwordError = "Пароль должен быть как минимум 6 символов";
-            }
-
-            if (this.state.userName == "") {
-                isError = true;
-                errors.userNameError = "Поле Имя обязательно для заполнения";
-            }
-
-            var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (!reg.test(this.state.Email)) {
-                isError = true;
-                errors.EmailError = "Неверный форма Email";
-            }
-
-            if (isError) {
-                this.setState({
-                    passwordError: errors.passwordError,
-                    userNameError: errors.userNameError,
-                    EmailError: errors.EmailError
-                });
-            }
-            return isError;
-        }
-    }, {
-        key: 'change',
-        value: function change(e) {
-            this.setState((0, _defineProperty3.default)({}, e.target.id, e.target.value));
-        }
-    }, {
-        key: 'handleClick',
-        value: function handleClick() {
-            var self = this;
-            if (!self.validate()) {
-                var AdminCreateUserModel = {
-                    Email: this.state.Email,
-                    userName: this.state.userName,
-                    Password: this.state.password,
-                    SelectedRoleId: this.state.selectValue
-                };
-                var changeState = this.setState;
-                $.ajax({
-                    url: "/api/user/CreateUser",
-                    contentType: "application/json",
-                    type: "POST",
-                    data: (0, _stringify2.default)(AdminCreateUserModel),
-                    success: function success(data) {
-                        if (data != null) {
-                            self.props.add(data);
-                            self.clearState();
-                        } else {
-                            alert("Ошибка при создании пользователя");
-                        }
-                    }
-                });
-            }
-        }
-    }, {
-        key: 'handleChange',
-        value: function handleChange(event) {
-            this.setState({ selectValue: event.target.value });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this4 = this;
-
-            return _React2.default.createElement(
-                'form',
-                { className: 'form-gorizontal' },
-                _React2.default.createElement(
-                    'h3',
-                    null,
-                    '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'
-                ),
-                _React2.default.createElement(FormGroup, {
-                    id: 'userName',
-                    text: '\u0418\u043C\u044F',
-                    value: this.state.userName,
-                    onChange: function onChange(e) {
-                        return _this4.change(e);
-                    },
-                    error: this.state.userNameError
-                }),
-                _React2.default.createElement(FormGroup, {
-                    id: 'Email',
-                    text: 'Email',
-                    value: this.state.Email,
-                    onChange: function onChange(e) {
-                        return _this4.change(e);
-                    },
-                    error: this.state.EmailError
-                }),
-                _React2.default.createElement(FormGroup, {
-                    type: 'password',
-                    id: 'password',
-                    text: '\u041F\u0430\u0440\u043E\u043B\u044C',
-                    value: this.state.password,
-                    onChange: function onChange(e) {
-                        return _this4.change(e);
-                    },
-                    error: this.state.passwordError
-                }),
-                _React2.default.createElement(
-                    'div',
-                    null,
-                    _React2.default.createElement(
-                        'label',
-                        { className: 'control-label' },
-                        '\u0420\u043E\u043B\u044C'
-                    ),
-                    _React2.default.createElement(
-                        'div',
-                        null,
-                        _React2.default.createElement(
-                            'select',
-                            { className: 'form-control', id: 'SelectedRoleId', onChange: function onChange(e) {
-                                    return _this4.change(e);
-                                }, value: this.state.SelectedRoleId },
-                            _React2.default.createElement(
-                                'option',
-                                { value: '0' },
-                                '\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440'
-                            ),
-                            _React2.default.createElement(
-                                'option',
-                                { value: '1' },
-                                '\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C'
-                            )
-                        )
-                    )
-                ),
-                _React2.default.createElement(_Button.Button, {
-                    Action: this.handleClick,
-                    id: 'createBtn',
-                    text: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C'
-                })
-            );
-        }
-    }]);
-    return AddUserForm;
-}(_React2.default.Component);
-
-var FormGroup = function (_React$Component3) {
-    (0, _inherits3.default)(FormGroup, _React$Component3);
-
-    function FormGroup() {
-        (0, _classCallCheck3.default)(this, FormGroup);
-        return (0, _possibleConstructorReturn3.default)(this, (FormGroup.__proto__ || (0, _getPrototypeOf2.default)(FormGroup)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(FormGroup, [{
-        key: 'render',
-        value: function render() {
-            return _React2.default.createElement(
-                'div',
-                { className: 'form-group' },
-                _React2.default.createElement(
-                    'label',
-                    { className: 'control-label' },
-                    this.props.text
-                ),
-                _React2.default.createElement('input', { type: this.props.type, className: 'form-control', id: this.props.id, value: this.props.value, onChange: this.props.onChange }),
-                _React2.default.createElement(ErrorText, { text: this.props.error })
-            );
-        }
-    }]);
-    return FormGroup;
-}(_React2.default.Component);
-
-var ErrorText = function (_React$Component4) {
-    (0, _inherits3.default)(ErrorText, _React$Component4);
-
-    function ErrorText() {
-        (0, _classCallCheck3.default)(this, ErrorText);
-        return (0, _possibleConstructorReturn3.default)(this, (ErrorText.__proto__ || (0, _getPrototypeOf2.default)(ErrorText)).apply(this, arguments));
-    }
-
-    (0, _createClass3.default)(ErrorText, [{
-        key: 'render',
-        value: function render() {
-            return _React2.default.createElement(
-                'span',
-                { className: 'text-danger field-validation-error' },
-                this.props.text
-            );
-        }
-    }]);
-    return ErrorText;
-}(_React2.default.Component);
-
-/***/ }),
-/* 325 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(147);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (obj, key, value) {
-  if (key in obj) {
-    (0, _defineProperty2.default)(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-/***/ }),
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
 /* 326 */,
 /* 327 */,
 /* 328 */,
@@ -27923,13 +27099,97 @@ exports.default = function (obj, key, value) {
 /* 478 */,
 /* 479 */,
 /* 480 */,
-/* 481 */
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */,
+/* 489 */,
+/* 490 */,
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */,
+/* 495 */,
+/* 496 */,
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */,
+/* 501 */,
+/* 502 */,
+/* 503 */,
+/* 504 */,
+/* 505 */,
+/* 506 */,
+/* 507 */,
+/* 508 */,
+/* 509 */,
+/* 510 */,
+/* 511 */,
+/* 512 */,
+/* 513 */,
+/* 514 */,
+/* 515 */,
+/* 516 */,
+/* 517 */,
+/* 518 */,
+/* 519 */,
+/* 520 */,
+/* 521 */,
+/* 522 */,
+/* 523 */,
+/* 524 */,
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
+/* 530 */,
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */,
+/* 541 */,
+/* 542 */,
+/* 543 */,
+/* 544 */,
+/* 545 */,
+/* 546 */,
+/* 547 */,
+/* 548 */,
+/* 549 */,
+/* 550 */,
+/* 551 */,
+/* 552 */,
+/* 553 */,
+/* 554 */,
+/* 555 */,
+/* 556 */,
+/* 557 */,
+/* 558 */,
+/* 559 */,
+/* 560 */,
+/* 561 */,
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _table = __webpack_require__(320);
+var _SurveyResult = __webpack_require__(566);
 
 var _React = __webpack_require__(67);
 
@@ -27942,21 +27202,365 @@ var _ReactDOM2 = _interopRequireDefault(_ReactDOM);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function run() {
-  _ReactDOM2.default.render(_React2.default.createElement(_table.DisplayTable, {
-    url: '/api/User/getAllUsers',
-    deleteUrl: '/api/User/DeleteUser/',
-    editUrl: '',
-    isUser: true
-  }), document.getElementById('tableContent'));
+    _ReactDOM2.default.render(_React2.default.createElement(_SurveyResult.SurveyResult, null), document.getElementById('root'));
 }
 
 var loadedStates = ['complete', 'loaded', 'interactive'];
 
 if (loadedStates.includes(document.readyState) && document.body) {
-  run();
+    run();
 } else {
-  window.addEventListener('DOMContentLoaded', run, false);
+    window.addEventListener('DOMContentLoaded', run, false);
 }
+
+/***/ }),
+/* 566 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SurveyResult = undefined;
+
+var _getPrototypeOf = __webpack_require__(98);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(100);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(101);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(102);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(109);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _React = __webpack_require__(67);
+
+var _React2 = _interopRequireDefault(_React);
+
+var _Survey = __webpack_require__(567);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SurveyResult = exports.SurveyResult = function (_React$Component) {
+    (0, _inherits3.default)(SurveyResult, _React$Component);
+
+    function SurveyResult(props) {
+        (0, _classCallCheck3.default)(this, SurveyResult);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (SurveyResult.__proto__ || (0, _getPrototypeOf2.default)(SurveyResult)).call(this, props));
+
+        _this.state = {
+            model: {
+                AnswerQuestionResult: [],
+                Survey: {
+                    name: ""
+                }
+            }
+        };
+        return _this;
+    }
+
+    (0, _createClass3.default)(SurveyResult, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var parts = window.location.href.split('/');
+            var id = parts.pop() || parts.pop();
+
+            $.ajax({
+                url: "/api/Result/GetResultById/" + id,
+                dataType: 'JSON',
+                success: function (data) {
+                    this.setState({
+                        model: data
+                    });
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var resultList = this.state.model.AnswerQuestionResult.map(function (element, index) {
+                return _React2.default.createElement(
+                    'div',
+                    { key: element.Id, className: 'panel panel-defaul' },
+                    _React2.default.createElement(
+                        'div',
+                        { className: 'panel-body' },
+                        _React2.default.createElement(
+                            'fieldset',
+                            { className: 'form-group' },
+                            _React2.default.createElement(
+                                'legend',
+                                null,
+                                element.Answer.Text
+                            ),
+                            element.Question.Text
+                        )
+                    )
+                );
+            });
+            return _React2.default.createElement(
+                'div',
+                null,
+                _React2.default.createElement(
+                    'h3',
+                    null,
+                    '\u041E\u043F\u0440\u043E\u0441 ',
+                    this.state.model.Survey.name,
+                    ', \u043F\u0440\u043E\u0439\u0434\u0435\u043D ',
+                    this.state.model.CompliteTime
+                ),
+                resultList
+            );
+        }
+    }]);
+    return SurveyResult;
+}(_React2.default.Component);
+
+/***/ }),
+/* 567 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Question = exports.Survey = undefined;
+
+var _stringify = __webpack_require__(302);
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _getPrototypeOf = __webpack_require__(98);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(100);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(101);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(102);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(109);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _React = __webpack_require__(67);
+
+var _React2 = _interopRequireDefault(_React);
+
+var _Button = __webpack_require__(304);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Survey = exports.Survey = function (_React$Component) {
+    (0, _inherits3.default)(Survey, _React$Component);
+
+    function Survey(props) {
+        (0, _classCallCheck3.default)(this, Survey);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Survey.__proto__ || (0, _getPrototypeOf2.default)(Survey)).call(this, props));
+
+        _this.state = {
+            Survey: {
+                Questions: [],
+                name: ""
+            },
+            results: []
+        };
+
+        _this.onChange = _this.onChange.bind(_this);
+        _this.compliteSurvey = _this.compliteSurvey.bind(_this);
+        return _this;
+    }
+
+    (0, _createClass3.default)(Survey, [{
+        key: 'compliteSurvey',
+        value: function compliteSurvey() {
+            var ResultModel = {
+                surveyId: this.state.Survey.Id,
+                AnswersQuestions: this.state.results
+            };
+            $.ajax({
+                url: "/api/Result/SaveResult",
+                contentType: "application/json",
+                type: "POST",
+                data: (0, _stringify2.default)(ResultModel),
+                success: function success() {
+                    window.location.pathname = '/Admin/SurveyList';
+                }
+            });
+        }
+    }, {
+        key: 'onChange',
+        value: function onChange(e) {
+            var indexq = parseInt(e.target.getAttribute('data-qid'));
+            var indexa = parseInt(e.target.getAttribute('data-aid'));
+            var newResults = this.state.results;
+            newResults.some(function (element) {
+                if (element.questionId == indexq) {
+                    element.answerId = indexa;
+                    return true;
+                }
+            });
+
+            this.setState({
+                results: newResults
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var parts = window.location.href.split('/');
+            var id = parts.pop() || parts.pop();
+            $.ajax({
+                url: "/api/Survey/GetSurveyById/" + id,
+                dataType: 'JSON',
+                success: function (data) {
+                    var results = data.Questions.map(function (element, index) {
+                        return {
+                            questionId: element.Id,
+                            answerId: element.Answers[0].Id
+                        };
+                    });
+                    this.setState({
+                        Survey: data,
+                        results: results
+                    });
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var self = this;
+            var questionsList = this.state.Survey.Questions.map(function (element, index) {
+                return _React2.default.createElement(Question, {
+                    key: element.Id,
+                    question: element,
+                    onChange: self.onChange
+                });
+            });
+            return _React2.default.createElement(
+                'div',
+                null,
+                _React2.default.createElement(
+                    'h3',
+                    null,
+                    this.state.Survey.name
+                ),
+                questionsList,
+                _React2.default.createElement(_Button.Button, {
+                    Action: this.compliteSurvey,
+                    text: '\u0417\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C'
+                })
+            );
+        }
+    }]);
+    return Survey;
+}(_React2.default.Component);
+
+var Question = exports.Question = function (_React$Component2) {
+    (0, _inherits3.default)(Question, _React$Component2);
+
+    function Question() {
+        (0, _classCallCheck3.default)(this, Question);
+        return (0, _possibleConstructorReturn3.default)(this, (Question.__proto__ || (0, _getPrototypeOf2.default)(Question)).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(Question, [{
+        key: 'render',
+        value: function render() {
+            var self = this;
+            var Answers = this.props.question.Answers.map(function (element, index) {
+                return _React2.default.createElement(FormCheck, {
+                    key: index,
+                    index: index,
+                    Text: element.Text,
+                    name: self.props.question.Text,
+                    aid: element.Id,
+                    qid: self.props.question.Id,
+                    onChange: self.props.onChange
+
+                });
+            });
+
+            return _React2.default.createElement(
+                'div',
+                { className: 'panel panel-default' },
+                _React2.default.createElement(
+                    'div',
+                    { className: 'panel-body' },
+                    _React2.default.createElement(
+                        'fieldset',
+                        { className: 'form-group' },
+                        _React2.default.createElement(
+                            'legend',
+                            null,
+                            this.props.question.Text
+                        ),
+                        Answers
+                    )
+                )
+            );
+        }
+    }]);
+    return Question;
+}(_React2.default.Component);
+
+var FormCheck = function (_React$Component3) {
+    (0, _inherits3.default)(FormCheck, _React$Component3);
+
+    function FormCheck() {
+        (0, _classCallCheck3.default)(this, FormCheck);
+        return (0, _possibleConstructorReturn3.default)(this, (FormCheck.__proto__ || (0, _getPrototypeOf2.default)(FormCheck)).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(FormCheck, [{
+        key: 'render',
+        value: function render() {
+            return _React2.default.createElement(
+                'div',
+                { className: 'form-check' },
+                _React2.default.createElement(
+                    'label',
+                    { className: 'form-check-label' },
+                    _React2.default.createElement('input', {
+                        defaultChecked: this.props.index == 0,
+                        'data-aid': this.props.aid,
+                        'data-qid': this.props.qid,
+                        type: 'radio',
+                        className: 'form-check-input',
+                        name: this.props.name,
+                        onChange: this.props.onChange
+                    }),
+                    this.props.Text
+                )
+            );
+        }
+    }]);
+    return FormCheck;
+}(_React2.default.Component);
 
 /***/ })
 /******/ ]);

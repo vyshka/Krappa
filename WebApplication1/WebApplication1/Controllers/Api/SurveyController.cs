@@ -37,11 +37,8 @@ namespace WebApplication1.Controllers
 
         public IEnumerable<Survey> GetAllSurveys()
         {
-            Thread.Sleep(1500);
             var Qlist = db.Surveys.ToList();
-            var Alist = Qlist.SelectMany(p => p.Questions).ToList();
-
-            
+            var Alist = Qlist.SelectMany(p => p.Questions).ToList();   
             return Qlist;
         }
 

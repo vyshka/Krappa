@@ -35,6 +35,11 @@ namespace WebApplication1.Controllers
         }
 
 
+        public ActionResult CompliteSurvey()
+        {
+            return View();
+        }
+
         public ActionResult Survey(int id)
         {
             return View();

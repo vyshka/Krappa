@@ -1,14 +1,11 @@
 import React from 'React'
 
-export class UserResults extends React.Component {
+export class SurveyList extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            model: {
-                Results:[],
-                UserName: ""
-            }
+            model: []
         }
     }
     componentWillMount() {
@@ -16,7 +13,7 @@ export class UserResults extends React.Component {
         var id = parts.pop() || parts.pop();
 
         $.ajax({
-            url: "/api/result/GetResultsByUserId/" + id,
+            url: "/api/survey/GetAllSurveys/",
             dataType: 'JSON',
             success: function(data) {
                 this.setState({
@@ -27,19 +24,17 @@ export class UserResults extends React.Component {
     }
 
     render() {
-        var resultslist = this.state.model.Results.map(function(data, index) {
+        var resultslist = this.state.model.map(function(data, index) {
             return(
-                <Result
+                <Survey
                     key = {index}
                     item = {data}
                 />
             )
         })
-
-
+        
         return(
             <div>
-                <h3>Результаты пользователя {this.state.model.UserName}</h3>
                 <div className="list-group">
                     {resultslist}
                 </div> 
@@ -48,15 +43,15 @@ export class UserResults extends React.Component {
     }
 }
 
-class Result extends React.Component {
+class Survey extends React.Component {
     render() {
         return(
             <a 
-                href={"/Admin/SurveyResult/" + this.props.item.id} 
+                href={"/Home/Survey/" + this.props.item.Id} 
                 key={this.props.item.SurveyName} 
                 className="list-group-item"
             >
-                {this.props.item.SurveyName}: {this.props.item.CompliteTime}
+                {this.props.item.name} вопросов: {this.props.item.Questions.length}
             </a>
         )
     }

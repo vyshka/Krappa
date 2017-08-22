@@ -1,5 +1,5 @@
 import React from 'React'
-import { Button } from '../helpers/Button.jsx'
+import { Button } from './Button.jsx'
 
 
 export class AddVacancyForm extends React.Component{

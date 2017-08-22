@@ -1,4 +1,4 @@
-import {DisplayTable} from './components/table.jsx'
+import {DisplayTable} from './components/helpers/table.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 

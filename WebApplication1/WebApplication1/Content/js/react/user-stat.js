@@ -4,8 +4,7 @@ import {UserResults} from './components/user/UserResults.jsx'
 
 function run() {
     ReactDOM.render(
-    <UserResults
-         />,
+    <UserResults/>,
     document.getElementById('root'))
 }
 

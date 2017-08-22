@@ -1,6 +1,6 @@
 import React from 'React'
 
-import {AddVacancyForm, AddUserForm} from './survey/addForm.jsx'
+import {AddVacancyForm, AddUserForm} from './addForm.jsx'
 
 
 
@@ -185,7 +185,20 @@ class Row extends React.Component{
         var rowColumns = [];
         for(var key in this.props.row) {
             if(key != "Id" && key != "SelectedRoleId") {
-                rowColumns.push(<td key = {key}>{this.props.row[key]}</td>)
+                if(key == "SurveyCount") {
+                    rowColumns.push(
+                        <td key = {key}>
+                            <a href = {"/admin/userstat/" + this.props.row.Id}>
+                                {this.props.row[key]}
+                            </a>
+                        </td>
+                    )    
+                } else {
+                    rowColumns.push(
+                        <td key = {key}>
+                            {this.props.row[key]}
+                        </td>)
+                }
             }
         }
         return(
@@ -216,7 +229,7 @@ class DeleteLink extends React.Component{
 
     render() {
         return(
-            <a onClick={this.handleClick} >
+            <a onClick={this.handleClick}>
                 <span className = 'glyphicon glyphicon-trash' />
             </a>
         )

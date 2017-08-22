@@ -35,8 +35,8 @@ export class SurveyResult extends React.Component {
                 <div key={element.Id} className = "panel panel-defaul">
                     <div className = "panel-body">
                         <fieldset className = "form-group">
-                            <legend>{element.Answer.Text}</legend>
-                            {element.Question.Text}
+                            <legend>{element.Question.Text}</legend>
+                            {element.Answer.Text}
                         </fieldset>
                     </div>
                 </div>

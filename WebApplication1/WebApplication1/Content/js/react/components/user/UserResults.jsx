@@ -35,8 +35,6 @@ export class UserResults extends React.Component {
                 />
             )
         })
-
-
         return(
             <div>
                 <h3>Результаты пользователя {this.state.model.UserName}</h3>

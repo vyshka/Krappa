@@ -31,7 +31,6 @@ export class DisplayTable extends React.Component{
                 Id: this.state.data[i].Id,
                 number: i 
             }
-
             tempArray.push(item);
         }
         var index;

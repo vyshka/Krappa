@@ -32,7 +32,6 @@ export class SurveyList extends React.Component {
                 />
             )
         })
-        
         return(
             <div>
                 <div className="list-group">

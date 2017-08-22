@@ -28,7 +28,7 @@ export class Survey extends React.Component{
             type: "POST",
             data: JSON.stringify(ResultModel),
             success: function() {
-                window.location.pathname = '/Admin/SurveyList'
+                window.location.pathname = '/Home/CompliteSurvey'
             }
         })
     }

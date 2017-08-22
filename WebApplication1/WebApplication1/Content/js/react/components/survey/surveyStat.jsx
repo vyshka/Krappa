@@ -1,5 +1,5 @@
 import React from 'React'
-
+import SaladUI from 'salad-ui'
 
 export class Stat extends React.Component {
     constructor(props) {
@@ -51,8 +51,15 @@ class Answer extends React.Component {
     render() {
         return(
             <div>
-                {this.props.answer.Text}: {this.props.answer.Count}
+                <SaladUI.Chart.BarMetric
+                    label={this.props.answer.Text} 
+                    percent={this.props.answer.Percent}
+                    value={this.props.answer.Count}
+                    metricName="Ответов"
+                />
             </div>
+                    
+
         )
     }
 }
@@ -67,7 +74,7 @@ class Question extends React.Component {
             )
         })
         return(
-            <div className = "panel panel-default">
+            <div key={this.props.question.Text} className = "panel panel-default">
                 <div className = "panel-header">
                     {this.props.question.Text}
                 </div>

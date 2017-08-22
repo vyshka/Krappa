@@ -30,6 +30,7 @@ namespace WebApplication1.Models
 
     public class AnswerStat
     {
+        public double Percent { get; set; }
         public string Text { get; set; }
         public int Count { get; set; }
     }

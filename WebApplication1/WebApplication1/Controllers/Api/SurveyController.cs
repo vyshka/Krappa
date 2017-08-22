@@ -174,10 +174,12 @@ namespace WebApplication1.Controllers
                 var answers = db.Answers.Where(a => a.Question.Id == question.Id).ToList();
                 foreach (var answer in answers)
                 {
-
+                    var qCount = db.AnswerQuestionResults.Where(aqr => aqr.Question.Id == question.Id).Count();
                     var count = db.AnswerQuestionResults.Where(aqr => aqr.Answer.Id == answer.Id).Count();
+                    var percent = Convert.ToDouble(count) / Convert.ToDouble(qCount) * 100;
                     AnswerStat aStat = new AnswerStat
                     {
+                        Percent = percent,
                         Count = count,
                         Text = answer.Text
                     };

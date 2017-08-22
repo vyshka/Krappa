@@ -208,7 +208,10 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
+        public ActionResult Temp()
+        {
+            return View();
+        }
 
         public ActionResult EditUser(AdminUserEditModel model)
         {
@@ -269,6 +272,10 @@ namespace WebApplication1.Controllers
         }
 
 
+        public ActionResult SurveyResult(int Id)
+        {
+            return View();
+        }
 
         public ActionResult CreateVacancy()
         {

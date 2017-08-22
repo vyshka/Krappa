@@ -1,4 +1,5 @@
 import React from 'React'
+import { Button } from '../helpers/Button.jsx'
 
 export class Survey extends React.Component{
     constructor(props) {
@@ -25,7 +26,10 @@ export class Survey extends React.Component{
             url: "/api/Result/SaveResult",
             contentType: "application/json",
             type: "POST",
-            data: JSON.stringify(ResultModel)
+            data: JSON.stringify(ResultModel),
+            success: function() {
+                window.location.pathname = '/Admin/SurveyList'
+            }
         })
     }
 
@@ -45,8 +49,6 @@ export class Survey extends React.Component{
         })
     }
 
-
-
     componentDidMount() {
         var parts = window.location.href.split('/');
         var id = parts.pop() || parts.pop();
@@ -54,11 +56,10 @@ export class Survey extends React.Component{
             url: "/api/Survey/GetSurveyById/" + id,
             dataType: 'JSON',
             success: function(data) {
-                var results = data.Questions.map(function(element) {
+                var results = data.Questions.map(function(element, index) {
                     return {
-                        
                         questionId: element.Id,
-                        answerId: undefined
+                        answerId: element.Answers[0].Id
                     }
                 })
                 this.setState({
@@ -72,7 +73,6 @@ export class Survey extends React.Component{
     }
 
     render() {
-
         var self = this
         var questionsList = this.state.Survey.Questions.map(function(element, index) {
             return(
@@ -87,10 +87,9 @@ export class Survey extends React.Component{
             <div>
                 <h3>{this.state.Survey.name}</h3>
                 {questionsList}
-                <Btn 
+                <Button 
                     Action = {this.compliteSurvey}
                     text = "Завершить"
-                    href = "/"
                 />
             </div>
 
@@ -100,7 +99,7 @@ export class Survey extends React.Component{
 
 
 
-class Question extends React.Component {
+export class Question extends React.Component {
     render() {
         var self = this
         var Answers = this.props.question.Answers.map(function(element, index) {
@@ -113,6 +112,7 @@ class Question extends React.Component {
                     aid = {element.Id}
                     qid = {self.props.question.Id}
                     onChange = {self.props.onChange}
+
                 />
             )
         });
@@ -149,15 +149,5 @@ class FormCheck extends React.Component {
         </div>
         )
         
-    }
-}
-
-class Btn extends React.Component {
-    render() {
-        return(
-            <a href={this.props.href}>
-                <button data-index={this.props.index} className="btn btn-default" onClick={this.props.Action}>{this.props.text}</button>
-            </a>
-        )
     }
 }

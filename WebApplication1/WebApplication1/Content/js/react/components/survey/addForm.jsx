@@ -1,4 +1,6 @@
 import React from 'React'
+import { Button } from '../helpers/Button.jsx'
+
 
 export class AddVacancyForm extends React.Component{
     constructor(props) {
@@ -233,7 +235,7 @@ export class AddUserForm extends React.Component{
                 </div>
 
                 <Button 
-                    handleClick={this.handleClick}
+                    Action={this.handleClick}
                     id="createBtn"
                     text="Добавить"
                 />
@@ -242,15 +244,6 @@ export class AddUserForm extends React.Component{
     }
 }
 
-class Button extends React.Component {
-    render() {
-        return(
-            <div className="form-group">
-                <button onClick={this.props.handleClick} type="button" id={this.props.id} className="btn btn-default" >{this.props.text}</button>                    
-            </div>
-        )
-    }
-}
 
 class FormGroup extends React.Component {
     render() {

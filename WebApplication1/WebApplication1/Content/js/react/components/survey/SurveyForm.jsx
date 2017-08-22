@@ -1,4 +1,5 @@
 import React from 'React'
+import { Button } from '../helpers/Button.jsx'
 
 
 
@@ -212,19 +213,19 @@ export class SurveyForm extends React.Component {
                 </div>
                            
                 {questionList}
-                <Btn
+                <Button
                     Action={e => this.addEditForm(e)}
                     text="Добавить вопрос"
                 />
                 <a href="/Admin/SurveyList">
-                    <Btn
+                    <Button
                         Action={e => this.updateSurvey(e)}
                         text="Сохранить"
                     />
                 </a>
 
                 <a href="/Admin/SurveyList">
-                    <Btn
+                    <Button
                         Action={e => this.deleteSurvey()}
                         text="Удалить"
                     />
@@ -293,7 +294,7 @@ class EditForm extends React.Component {
                 <div className="form-group">
                     {Answers}
                 </div>
-                <Btn
+                <Button
                     Action={e => this.props.addA(e)}
                     index = {this.props.question.Id}
                     text="Добавить ответ"
@@ -303,13 +304,6 @@ class EditForm extends React.Component {
     }
 }
 
-class Btn extends React.Component {
-    render() {
-        return(
-            <button data-index={this.props.index} className="btn btn-default" onClick={this.props.Action} >{this.props.text}</button>
-        )
-    }
-}
 
 class Question extends React.Component {
     render() {

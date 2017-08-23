@@ -8,21 +8,20 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class AnswerController : ApiController
+    public class OptionController : ApiController
     {
         private ApplicationContext db = new ApplicationContext();
 
-
         [HttpGet]
-        public Answer CreateAnswer(int id)
+        public Option CreateOption(int id)
         {
-            var Answer = db.Answers.Create();
+            var Option = db.Options.Create();
             var Question = db.Questions.Find(id);
-            Answer.Text = "";
-            Answer.Question = Question;
-            db.Answers.Add(Answer);
+            Option.Text = "";
+            Option.Question = Question;
+            db.Options.Add(Option);
             db.SaveChanges();
-            return Answer;
+            return Option;
         }
     }
 }

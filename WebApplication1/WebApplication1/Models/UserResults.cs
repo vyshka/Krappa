@@ -19,10 +19,9 @@ namespace WebApplication1.Models
 
     public class SurveyResult
     {
-
         public int id { get; set; }
         public string SurveyName { get; set; }
-        public string CompliteTime { get; set; }
+        public string CompleteTime { get; set; }
     }
 
 }

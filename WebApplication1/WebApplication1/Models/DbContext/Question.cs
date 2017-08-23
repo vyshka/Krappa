@@ -13,13 +13,15 @@ namespace WebApplication1.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Text { get; set; }
-        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
 
         public virtual Survey Survey { get; set; }
 
+        public int Order { get; set; }
+
         public Question()
         {
-            this.Answers = new List<Answer>();
+            this.Options = new List<Option>();
         }
 
     }

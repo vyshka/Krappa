@@ -12,10 +12,10 @@ namespace WebApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string name { get; set; }
+        public string Name { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 
-        public string updateTime { get; set; }
+        public string UpdateTime { get; set; }
 
         public Survey()
         {

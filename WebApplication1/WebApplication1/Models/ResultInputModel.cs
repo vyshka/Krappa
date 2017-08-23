@@ -9,15 +9,15 @@ namespace WebApplication1.Models
     {
         public int surveyId { get; set; }
 
-        public AnswerQuestion[] AnswersQuestions { get; set; }
+        public QuestionAnswer[] AnswersQuestions { get; set; }
         
     }
 
-    public class AnswerQuestion
+    public class QuestionAnswer
     {
         public int questionId { get; set; }
 
-        public int answerId { get; set; }
+        public string Text { get; set; }
     }
 
 }

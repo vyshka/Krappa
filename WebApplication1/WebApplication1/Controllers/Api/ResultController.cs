@@ -53,7 +53,8 @@ namespace WebApplication1.Controllers
 
         public UserResults GetResultsByUserId(string Id)
         {
-            var results = db.Results.Where(r => r.User == Id).ToList();
+            var User = UserManager.FindById(Id);
+            var results = db.Results.Where(r => r.User == User).ToList();
             var user = UserManager.FindById(Id);
 
             var Result = new UserResults();
@@ -66,8 +67,8 @@ namespace WebApplication1.Controllers
                 var survey = db.Surveys.Find(result.Survey.Id);
                 SurveyResult r = new SurveyResult
                 {
-                    CompliteTime = result.CompliteTime,
-                    SurveyName = survey.name,
+                    CompleteTime = result.CompleteTime,
+                    SurveyName = survey.Name,
                     id = result.Id
                 };
                 ResultsList.Add(r);
@@ -80,23 +81,24 @@ namespace WebApplication1.Controllers
         public void SaveResult([FromBody] ResultModel model)
         {
             var result = db.Results.Create();
-            var user = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
             var survey = db.Surveys.Find(model.surveyId);
 
             result.Survey = survey;
             result.User = user;
-            result.CompliteTime = DateTime.Now.ToString();
+            result.CompleteTime = DateTime.Now.ToString();
 
             foreach(var answerResult in model.AnswersQuestions)
             {
-                var dbAnswerResult = db.AnswerQuestionResults.Create();
-                var answer = db.Answers.Find(answerResult.answerId);
+                var dbAnswer = db.Answers.Create();
                 var question = db.Questions.Find(answerResult.questionId);
-                dbAnswerResult.Answer = answer;
-                dbAnswerResult.Question = question;
-                db.AnswerQuestionResults.Add(dbAnswerResult);
+                dbAnswer.Question = question;
+                dbAnswer.Result = result;
+                dbAnswer.AnswerText = answerResult.Text;
+
                 db.SaveChanges();
-                result.AnswerQuestionResult.Add(dbAnswerResult);
+                result.Answers.Add(dbAnswer);
             }
             db.Results.Add(result);
             db.SaveChanges();

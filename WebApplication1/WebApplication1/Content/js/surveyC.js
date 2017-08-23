@@ -27204,7 +27204,7 @@ var Survey = exports.Survey = function (_React$Component) {
                 type: "POST",
                 data: (0, _stringify2.default)(ResultModel),
                 success: function success() {
-                    window.location.pathname = '/Admin/SurveyList';
+                    window.location.pathname = '/Home/CompliteSurvey';
                 }
             });
         }
@@ -27214,9 +27214,20 @@ var Survey = exports.Survey = function (_React$Component) {
             var indexq = parseInt(e.target.getAttribute('data-qid'));
             var indexa = parseInt(e.target.getAttribute('data-aid'));
             var newResults = this.state.results;
+            var textAnswer = "";
+            this.state.Survey.Questions.map(function (element) {
+                if (element.Id == indexq) {
+                    element.Options.some(function (element) {
+                        if (element.Id == indexa) {
+                            textAnswer = element.Text;
+                            return true;
+                        }
+                    });
+                }
+            });
             newResults.some(function (element) {
                 if (element.questionId == indexq) {
-                    element.answerId = indexa;
+                    element.Text = textAnswer;
                     return true;
                 }
             });
@@ -27237,7 +27248,7 @@ var Survey = exports.Survey = function (_React$Component) {
                     var results = data.Questions.map(function (element, index) {
                         return {
                             questionId: element.Id,
-                            answerId: element.Answers[0].Id
+                            Text: element.Options[0].Text
                         };
                     });
                     this.setState({
@@ -27280,16 +27291,28 @@ var Survey = exports.Survey = function (_React$Component) {
 var Question = exports.Question = function (_React$Component2) {
     (0, _inherits3.default)(Question, _React$Component2);
 
-    function Question() {
+    function Question(props) {
         (0, _classCallCheck3.default)(this, Question);
-        return (0, _possibleConstructorReturn3.default)(this, (Question.__proto__ || (0, _getPrototypeOf2.default)(Question)).apply(this, arguments));
+
+        var _this2 = (0, _possibleConstructorReturn3.default)(this, (Question.__proto__ || (0, _getPrototypeOf2.default)(Question)).call(this, props));
+
+        _this2.state = {
+            selectedValue: ""
+        };
+        return _this2;
     }
 
     (0, _createClass3.default)(Question, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var newState = this.state;
+            newState.selectedValue = this.props.question.Options[0].Text;
+        }
+    }, {
         key: 'render',
         value: function render() {
             var self = this;
-            var Answers = this.props.question.Answers.map(function (element, index) {
+            var Options = this.props.question.Options.map(function (element, index) {
                 return _React2.default.createElement(FormCheck, {
                     key: index,
                     index: index,
@@ -27297,8 +27320,8 @@ var Question = exports.Question = function (_React$Component2) {
                     name: self.props.question.Text,
                     aid: element.Id,
                     qid: self.props.question.Id,
-                    onChange: self.props.onChange
-
+                    onChange: self.props.onChange,
+                    isChecked: self.state.selectedValue == element.Text
                 });
             });
 
@@ -27316,7 +27339,7 @@ var Question = exports.Question = function (_React$Component2) {
                             null,
                             this.props.question.Text
                         ),
-                        Answers
+                        Options
                     )
                 )
             );
@@ -27343,12 +27366,13 @@ var FormCheck = function (_React$Component3) {
                     'label',
                     { className: 'form-check-label' },
                     _React2.default.createElement('input', {
-                        defaultChecked: this.props.index == 0,
+                        checked: this.props.isChecked,
                         'data-aid': this.props.aid,
                         'data-qid': this.props.qid,
                         type: 'radio',
                         className: 'form-check-input',
                         name: this.props.name,
+                        value: this.props.Text,
                         onChange: this.props.onChange
                     }),
                     this.props.Text

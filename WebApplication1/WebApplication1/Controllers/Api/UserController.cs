@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
         private int GetSurveyCount(string Id)
         {
             var User = UserManager.FindById(Id);
-            var count = db.Results.Where(r => r.User == User).Count();
+            var count = db.Results.Where(r => r.User.Id == User.Id).Count();
             return count;
         }
 

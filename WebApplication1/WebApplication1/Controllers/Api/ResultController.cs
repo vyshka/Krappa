@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
 {
     public class ResultController : ApiController
     {
-        ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = new ApplicationContext();
         private ApplicationUserManager UserManager
         {
             get
@@ -53,10 +53,9 @@ namespace WebApplication1.Controllers
 
         public UserResults GetResultsByUserId(string Id)
         {
-            var User = UserManager.FindById(Id);
-            var results = db.Results.Where(r => r.User == User).ToList();
+            var User = db.Users.Find(Id);
+            var results = db.Results.Where(r => r.User.Id == User.Id).ToList();
             var user = UserManager.FindById(Id);
-
             var Result = new UserResults();
             Result.UserName = user.UserName;
 
@@ -82,13 +81,12 @@ namespace WebApplication1.Controllers
         {
             var result = db.Results.Create();
             var userId = User.Identity.GetUserId();
-            var user = UserManager.FindById(userId);
+            var user = db.Users.Find(userId);
             var survey = db.Surveys.Find(model.surveyId);
-
             result.Survey = survey;
             result.User = user;
             result.CompleteTime = DateTime.Now.ToString();
-
+            
             foreach(var answerResult in model.AnswersQuestions)
             {
                 var dbAnswer = db.Answers.Create();
@@ -96,11 +94,10 @@ namespace WebApplication1.Controllers
                 dbAnswer.Question = question;
                 dbAnswer.Result = result;
                 dbAnswer.AnswerText = answerResult.Text;
-
                 db.SaveChanges();
+                db.Answers.Add(dbAnswer);
                 result.Answers.Add(dbAnswer);
             }
-            db.Results.Add(result);
             db.SaveChanges();
         }
     }

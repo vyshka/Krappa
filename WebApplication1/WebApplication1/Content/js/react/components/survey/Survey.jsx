@@ -33,14 +33,11 @@ export class Survey extends React.Component{
         })
     }
 
-    onChange(e) {
-        var indexq = parseInt(e.target.getAttribute('data-qid'))
-        var indexa = parseInt(e.target.getAttribute('data-aid'))
+    onChange(selectedValues, questionId) {
         var newResults = this.state.results
         newResults.some(function(element) {
-            if(element.questionId == indexq) {
-                element.answerId = indexa
-                return true
+            if(element.questionId == questionId) {
+                element.Text = selectedValues
             }
         })
 
@@ -59,7 +56,7 @@ export class Survey extends React.Component{
                 var results = data.Questions.map(function(element, index) {
                     return {
                         questionId: element.Id,
-                        answerId: element.Answers[0].Id
+                        Text: String(element.Options[0].Id)
                     }
                 })
                 this.setState({
@@ -85,7 +82,7 @@ export class Survey extends React.Component{
         })
         return(
             <div>
-                <h3>{this.state.Survey.name}</h3>
+                {this.state.Survey.Name}
                 {questionsList}
                 <Button 
                     Action = {this.compliteSurvey}
@@ -100,29 +97,81 @@ export class Survey extends React.Component{
 
 
 export class Question extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            questionId: this.props.question.Id,
+            selectedValues: ""
+        }
+        this.onChange = this.onChange.bind(this)
+    }
+
+    componentWillMount() {
+        this.setState({
+            selectedValues: String(this.props.question.Options[0].Id)
+        })
+    }
+
+    onChange(e) {
+        
+        if(this.props.question.QuestionType == "options") {
+            var optionId = e.target.getAttribute("data-aid")
+            var newSelectedValues = this.state.selectedValues
+            if(!this.state.selectedValues.split(";").includes(optionId)) {
+                newSelectedValues += ";" + optionId
+            } else {
+                var selectedArr = newSelectedValues.split(";")
+                var index = selectedArr.indexOf(optionId)
+                selectedArr.splice(index, 1)
+                newSelectedValues = selectedArr.join(";")
+            }
+    
+            this.setState({
+                selectedValues: newSelectedValues
+            })
+            
+            this.props.onChange(newSelectedValues, this.state.questionId)
+        } else {
+            this.setState({
+                selectedValues: e.target.value
+            })
+            this.props.onChange(e.target.value, this.state.questionId)
+        }
+        
+    }
+
     render() {
         var self = this
-        var Answers = this.props.question.Answers.map(function(element, index) {
-            return(
-                <FormCheck 
-                    key = {index}
-                    index = {index}
-                    Text = {element.Text}
-                    name = {self.props.question.Text}
-                    aid = {element.Id}
-                    qid = {self.props.question.Id}
-                    onChange = {self.props.onChange}
-
-                />
-            )
-        });
+        var Options
+        if(this.props.question.QuestionType == "options") {
+            Options = this.props.question.Options.map(function(element, index) {
+                return(
+                    <FormCheck 
+                        key = {index}
+                        index = {index}
+                        Text = {element.Text}
+                        name = {self.props.question.Text}
+                        aid = {element.Id}
+                        qid = {self.props.question.Id}
+                        onChange = {self.onChange}
+                        isChecked = {self.state.selectedValues.split(";").includes(String(element.Id))}
+                    />
+                )
+            }
+        )} else {
+            Options = <input 
+                onChange = {self.onChange}
+                placeholder = "Текст ответа" 
+                className = "form-control" 
+            />
+        }
 
         return(
             <div className = "panel panel-default">
                 <div className = "panel-body">
                     <fieldset className="form-group">
-                        <legend>{this.props.question.Text}</legend>
-                        {Answers}
+                        <legend dangerouslySetInnerHTML={{__html: this.props.question.Text}} />
+                        {Options}
                     </fieldset>
                 </div>
             </div>
@@ -136,13 +185,13 @@ class FormCheck extends React.Component {
         <div className="form-check">
             <label className="form-check-label">
                 <input
-                    defaultChecked = {this.props.index == 0}
+                    checked = {this.props.isChecked}
                     data-aid = {this.props.aid}
                     data-qid = {this.props.qid}
                     type = "radio" 
                     className = "form-check-input" 
-                    name = {this.props.name}
-                    onChange = {this.props.onChange}
+                    value = {this.props.Text}
+                    onClick = {this.props.onChange}
                 />
                 {this.props.Text}
             </label>

@@ -6,7 +6,7 @@ export class SurveyResult extends React.Component {
         super(props)
         this.state = {
             model: {
-                AnswerQuestionResult: [],
+                Answers: [],
                 Survey: {
                     name: ""
                 }
@@ -30,13 +30,14 @@ export class SurveyResult extends React.Component {
     }
 
     render() {
-        var resultList = this.state.model.AnswerQuestionResult.map(function(element, index) {
+        var resultList = this.state.model.Answers.map(function(element, index) {
             return(
                 <div key={element.Id} className = "panel panel-defaul">
                     <div className = "panel-body">
                         <fieldset className = "form-group">
-                            <legend>{element.Question.Text}</legend>
-                            {element.Answer.Text}
+                        <legend 
+                            dangerouslySetInnerHTML={{__html: element.Question.Text}} />
+                            {element.AnswerText}
                         </fieldset>
                     </div>
                 </div>
@@ -44,7 +45,7 @@ export class SurveyResult extends React.Component {
         })
         return(
             <div>
-                <h3>Опрос {this.state.model.Survey.name}, пройден {this.state.model.CompliteTime}</h3>
+                <h3>Опрос {this.state.model.Survey.Name}, пройден {this.state.model.CompleteTime}</h3>
                 {resultList}
             </div>
         )

@@ -50,7 +50,7 @@ class Survey extends React.Component {
                 key={this.props.item.SurveyName} 
                 className="list-group-item"
             >
-                {this.props.item.name} вопросов: {this.props.item.Questions.length}
+                {this.props.item.Name} вопросов: {this.props.item.Questions.length}
             </a>
         )
     }

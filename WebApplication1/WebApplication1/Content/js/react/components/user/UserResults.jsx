@@ -54,7 +54,7 @@ class Result extends React.Component {
                 key={this.props.item.SurveyName} 
                 className="list-group-item"
             >
-                {this.props.item.SurveyName}: {this.props.item.CompliteTime}
+                {this.props.item.SurveyName}: {this.props.item.CompleteTime}
             </a>
         )
     }

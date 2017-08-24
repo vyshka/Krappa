@@ -144,14 +144,14 @@ class RowList extends React.Component {
 class Row extends React.Component {
     render() {
         var rowColumns = [];
-        rowColumns.push(<td key = {this.props.row.name} >{this.props.row.name}</td>);
+        rowColumns.push(<td key = {this.props.row.Name} >{this.props.row.Name}</td>);
         rowColumns.push(<td key = {"ResultCount" + this.props.row.ResultCount} >{this.props.row.ResultCount}</td>);
         rowColumns.push(<td key = {"/Home/Survey/" + this.props.row.Id} >
                             <a href={"/Home/Survey/" + this.props.row.Id}> 
                                 Ссылка
                             </a>
                         </td>);
-        rowColumns.push(<td key = {this.props.row.updateTime} >{this.props.row.updateTime}</td>);
+        rowColumns.push(<td key = {this.props.row.UpdateTime} >{this.props.row.UpdateTime}</td>);
         rowColumns.push(
             <td key = {"/Admin/Stat/" + this.props.row.Id}>
                 <a href= {"/Admin/Stat/" + this.props.row.Id}>

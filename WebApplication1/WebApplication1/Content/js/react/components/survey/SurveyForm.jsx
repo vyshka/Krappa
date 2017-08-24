@@ -1,5 +1,8 @@
 import React from 'React'
 import { Button } from '../helpers/Button.jsx'
+import ReactQuill from 'react-quill';
+
+
 
 
 
@@ -13,9 +16,8 @@ export class SurveyForm extends React.Component {
             }
         }
 
-        this.addEditForm = this.addEditForm.bind(this);
-            
-        this.changeA = this.changeA.bind(this);
+        this.addEditForm = this.addEditForm.bind(this);           
+        this.changeO = this.changeO.bind(this);
         this.changeQ = this.changeQ.bind(this);
         this.changeN = this.changeN.bind(this);
         this.deleteA = this.deleteA.bind(this);
@@ -25,6 +27,7 @@ export class SurveyForm extends React.Component {
         this.arrToString = this.arrToString.bind(this);
         this.stringToArr = this.stringToArr.bind(this);
         this.deleteSurvey = this.deleteSurvey.bind(this);
+        this.changeQuestionType = this.changeQuestionType.bind(this)
     }
 
     addAnswer (e) { 
@@ -33,10 +36,10 @@ export class SurveyForm extends React.Component {
         newData.Questions.forEach(function(element, indexQ) {
             if(element.Id == id) {
                 $.ajax({
-                    url: "/api/Answer/CreateAnswer/" + id,
+                    url: "/api/Option/CreateOption/" + id,
                     dataType: 'JSON',
                     success: function(data) {
-                        newData.Questions[indexQ].Answers.push({
+                        newData.Questions[indexQ].Options.push({
                             Id: data.Id,
                             Text: data.Text
                         })
@@ -65,7 +68,7 @@ export class SurveyForm extends React.Component {
         })        
     }
 
-    componentDidMount() {
+    componentWillMount() {
 
         var parts = window.location.href.split('/');
         var id = parts.pop() || parts.pop();
@@ -87,7 +90,7 @@ export class SurveyForm extends React.Component {
             type: "POST",
             data: JSON.stringify(this.state.model),
             success: function() {
-
+                window.location.pathname = '/Admin/SurveyList'
             }
         })
     }
@@ -96,15 +99,17 @@ export class SurveyForm extends React.Component {
         $.ajax({
             url: "/api/Survey/DeleteSurvey/" + parseInt(this.state.model.Id),
             method: 'POST',
+            success: function() {
+                window.location.pathname = '/Admin/SurveyList'
+            }
         })
     }
 
-    changeQ (e){ 
+    changeQ (e, index){ 
         var newData = this.state.model;
-        var index = e.target.getAttribute("data-id");
         newData.Questions.forEach(function(element, questionIndex) {
             if(element.Id == index) {
-                element.Text = e.target.value
+                element.Text = e
             }
             
         }, this);
@@ -113,14 +118,14 @@ export class SurveyForm extends React.Component {
         });
     };
 
-    changeA (e) {
-        var indexA = e.target.getAttribute('data-id');
+    changeO (e) {
+        var indexO = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.model;
         newData.Questions.forEach(function(element, questionIndex) {
             if(element.Id == indexQ) {
-                element.Answers.forEach(function(answer, asnwerIndex) {
-                    if(answer.Id == indexA) {
+                element.Options.forEach(function(answer, asnwerIndex) {
+                    if(answer.Id == indexO) {
                         answer.Text = e.target.value;
                     }
                 }, this);
@@ -135,7 +140,7 @@ export class SurveyForm extends React.Component {
     changeN (e) {
 
         var newData = this.state.model;
-        newData.name = e.target.value;        
+        newData.Name = e.target.value;        
         this.setState({
             model: newData
         });
@@ -150,14 +155,14 @@ export class SurveyForm extends React.Component {
     }
 
     deleteA (e) {
-        var indexA = e.target.getAttribute('data-id');
+        var indexO = e.target.getAttribute('data-id');
         var indexQ = e.target.getAttribute('data-qid');
         var newData = this.state.model;
         newData.Questions.forEach(function(element, questionIndex) {
             if(element.Id == indexQ) {
-                element.Answers.forEach(function(answer, asnwerIndex) {
-                    if(answer.Id == indexA) {
-                        element.Answers.splice(asnwerIndex, 1)
+                element.Options.forEach(function(answer, asnwerIndex) {
+                    if(answer.Id == indexO) {
+                        element.Options.splice(asnwerIndex, 1)
                     }
                 }, this);
             }
@@ -179,37 +184,52 @@ export class SurveyForm extends React.Component {
         })
     }
 
+    changeQuestionType(type, indexQ) {
+        var newState = this.state.model
+        var newQuestionsState = newState.Questions
+        newState.Questions.some(function(element) {
+            if(element.Id == indexQ) {
+                element.QuestionType = type;
+                return true
+            }
+        })
+        this.setState({
+            model: newState
+        })
+    }
     
-
-
-
     render() {
         var self = this;
-        var questionList = this.state.model.Questions.map(function(element, index) { //question
+
+        var questionList = this.state.model.Questions.map(function(element, index) {
                 return(
                     <EditForm 
                         key = {index}
-                        question = {self.state.model.Questions[index]}
-                        answers = {self.state.model.Questions[index].Answers}
+                        question = {element}
                         index = {index}
-                        changeA = {self.changeA}
+                        changeO = {self.changeO}
                         changeQ = {self.changeQ}
                         deleteA = {self.deleteA}
                         deleteQ = {self.deleteQ}
+                        changeQuestionType = {self.changeQuestionType}
                         addA = {self.addAnswer}
                     />
                 )
             });
+         
         return(
             <div>
                 <div className="form-group">
                     <label className="control-label">Название опроса</label>
+
                     <input
                         placeholder="Название опроса" 
                         className="form-control" 
-                        value={this.state.model.name} 
+                        value={this.state.model.Name} 
                         onChange={this.changeN}
-                    />     
+                    />    
+                    
+                    
                 </div>
                            
                 {questionList}
@@ -217,19 +237,15 @@ export class SurveyForm extends React.Component {
                     Action={e => this.addEditForm(e)}
                     text="Добавить вопрос"
                 />
-                <a href="/Admin/SurveyList">
                     <Button
                         Action={e => this.updateSurvey(e)}
                         text="Сохранить"
                     />
-                </a>
 
-                <a href="/Admin/SurveyList">
                     <Button
                         Action={e => this.deleteSurvey()}
                         text="Удалить"
                     />
-                 </a>
 
             </div>
         )
@@ -237,41 +253,70 @@ export class SurveyForm extends React.Component {
 }
 
 
+class DefOptions extends React.Component {
+    render() {
+        var self = this
+        var Options = this.props.options.map(function(element, index) {
+            return(
+                <div className = "input-del" key={index}>
+                    <input 
+                        placeholder = "Ответ" 
+                        className = "form-control" 
+                        value = {element.Text} 
+                        onChange = {self.props.changeO}
+                        data-qid = {self.props.questionId} 
+                        data-id = {element.Id} 
+                        key = {index}
+                    />
+                    <a>
+                        <span 
+                            data-id = {element.Id} 
+                            data-qid = {self.props.questionId} 
+                            key = {index}                       
+                            onClick = {self.props.deleteA}      
+                            className = 'glyphicon glyphicon-trash' 
+                        />
+                    </a>
+                </div>
+            )
+        });
+        return(
+            <div>
+                <div className="form-group">
+                    {Options}
+                </div>
+                <Button
+                    Action={this.props.addA}
+                    index = {this.props.questionId}
+                    text="Добавить ответ"
+                />
+            </div>
+        )
+    }
+}
+
+class Options extends React.Component {
+    render() {
+        if(this.props.qType == "options") {
+            return(
+                <DefOptions {...this.props} />
+            )    
+        } else {
+            return(
+                <input 
+                    placeholder = "Текст ответа" 
+                    className = "form-control" 
+                />
+            )
+        }
+
+        
+    }
+}
 
 class EditForm extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    
-
     render() {
         let self = this;
-        var Answers = this.props.answers.map(function(element, index) {
-                return(
-                    <div className = "input-del" key={index}>
-                        <input 
-                            placeholder="Ответ" 
-                            className="form-control" 
-                            value={element.Text} 
-                            onChange={self.props.changeA}
-                            data-qid = {self.props.question.Id} 
-                            data-id={element.Id} 
-                            key={index}
-                        />
-                        <a>
-                            <span 
-                                data-id={element.Id} 
-                                data-qid = {self.props.question.Id} 
-                                key={index}                       
-                                onClick = {self.props.deleteA}      
-                                className = 'glyphicon glyphicon-trash' 
-                            />
-                        </a>
-                    </div>
-                )
-            });
-
         return(
             <div className = "edit-form">
                 <div className="input-del">
@@ -280,38 +325,113 @@ class EditForm extends React.Component {
                         indexQ = {this.props.question.Id}
                         index = {this.props.index}
                         onChange = {this.props.changeQ}
+                        deleteQ = {this.props.deleteQ}
                     />
-                    <a>
-                        <span 
-                            data-qid = {self.props.index} 
-                            key = {self.props.index}
-                            onClick = {self.props.deleteQ}      
-                            className = 'glyphicon glyphicon-trash' 
-                        />
-                    </a>
+                    
                 </div>
                 <label className="control-label">Ответы</label>
-                <div className="form-group">
-                    {Answers}
-                </div>
-                <Button
-                    Action={e => this.props.addA(e)}
-                    index = {this.props.question.Id}
-                    text="Добавить ответ"
+                <OptionSelect 
+                    changeQuestionType = {this.props.changeQuestionType}
+                    indexQ = {this.props.question.Id}
                 />
+                <Options 
+                    qType = {this.props.question.QuestionType}
+                    options = {this.props.question.Options}    
+                    onChange = {this.props.changeO}
+                    questionId = {this.props.question.Id}
+                    changeO = {this.props.changeO}
+                    deleteA = {this.props.deleteA}
+                    addA = {this.props.addA}
+                />
+               
             </div>
+        )
+    }
+}
+
+class OptionSelect extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            selectedValue: "options"
+        }
+
+        this.onChange = this.onChange.bind(this)
+    }
+
+    onChange(e) {
+        this.setState({
+            selectedValue: e.target.value
+        })
+        this.props.changeQuestionType(e.target.value, this.props.indexQ)
+    }
+
+    render() {
+        return(
+            <select className = "selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
+                <option value="options">Ответы</option>
+                <option value="text">Текст</option>
+            </select>
         )
     }
 }
 
 
 class Question extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            Text: props.question,
+            indexQ: props.indexQ
+        }
+
+        this.onChange = this.onChange.bind(this)
+    }
+
+    onChange(e) {
+        this.props.onChange(e, this.state.indexQ)
+    }
     render() {
         return(
             <div className="form-group">
                 <label className="control-label">{this.props.index + 1} вопрос</label>
-                <input data-id={this.props.indexQ} onChange = {this.props.onChange} className = "form-control" value = {this.props.question}/> 
+                <a>
+                    <span 
+                        data-qid = {this.props.index} 
+                        key = {this.props.index}
+                        onClick = {this.props.deleteQ}      
+                        className = 'glyphicon glyphicon-trash' 
+                    />
+                </a>
+                <ReactQuill 
+                    data-id={this.props.indexQ} 
+                    value={this.props.question}
+                    onChange={this.onChange}
+                    modules={Question.modules}
+                    formats={Question.formats} 
+                />
             </div>
         )
     }
 }
+
+Question.modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, 
+       {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image', 'video'],
+      ['clean']
+    ]
+  }
+
+  
+  Question.formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video'
+  ]

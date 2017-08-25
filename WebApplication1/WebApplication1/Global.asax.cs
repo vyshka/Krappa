@@ -22,6 +22,13 @@ namespace WebApplication1
 
             GlobalConfiguration.Configuration.EnsureInitialized();
 
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            config.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
         }
     }
 }

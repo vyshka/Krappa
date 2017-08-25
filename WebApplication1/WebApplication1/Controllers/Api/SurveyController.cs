@@ -189,7 +189,7 @@ namespace WebApplication1.Controllers
                     var count = db.Answers.Where(a => a.AnswerText == answer).Count();
                     var percent = Convert.ToDouble(count) / Convert.ToDouble(qaCount) * 100;
                     string answerText = "";
-                    if (question.QuestionType == "options")
+                    if (question.QuestionType.Type == "options")
                     {
                         var answersIdArr = answer.Split(';');
                         List<string> answerList = new List<string>();

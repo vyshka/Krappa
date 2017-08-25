@@ -19,8 +19,7 @@ namespace WebApplication1.Models
 
         public int Order { get; set; }
 
-        [DefaultValue("options")]
-        public string QuestionType { get; set; }
+        public virtual QuestionType QuestionType { get; set; }
 
         public Question()
         {

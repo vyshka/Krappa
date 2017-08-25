@@ -29,6 +29,8 @@ namespace WebApplication1.Models
 
         public DbSet<Result> Results { get; set; }
 
+        public DbSet<QuestionType> QuestionTypes { get; set; }
+
         
 
     }

@@ -1,7 +1,14 @@
 ﻿
 @{
-    ViewBag.Title = "CompltieSurvey";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "О компании";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 @section Scripts

@@ -6,10 +6,11 @@ module.exports = {
       userstat: entryPoint + 'user-stat.js',
       userlist: entryPoint + 'user-list.js',
       surveyC: entryPoint + 'surveyC.js',
-      surveylist: entryPoint + 'survey-list.js',
+      surveyTlist: entryPoint + 'survey-list.js',
       stat: entryPoint + 'stat.js',
       newSurvey: entryPoint + 'newSurvey.js',
-      surveyResult: entryPoint + 'survey-result.js'
+      surveyResult: entryPoint + 'survey-result.js',
+      surveyList: entryPoint + 'complite-survey.js'
     },
   output: {
     path: __dirname + '/Content/js',
@@ -22,7 +23,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          plugins: ['transform-runtime']
+          plugins: ['transform-runtime', 'transform-class-properties']
         }
         
       }

@@ -1,7 +1,8 @@
 import React from 'React'
 import { Button } from '../helpers/Button.jsx'
 import ReactQuill from 'react-quill'
-
+import { DefOption } from './options/DefOption.jsx'
+import { FileOption } from './options/FileOption.jsx'
 
 
 
@@ -189,7 +190,7 @@ export class SurveyForm extends React.Component {
         var newQuestionsState = newState.Questions
         newState.Questions.some(function(element) {
             if(element.Id == indexQ) {
-                element.QuestionType = type;
+                element.QuestionType.Type = type;
                 return true
             }
         })
@@ -253,55 +254,16 @@ export class SurveyForm extends React.Component {
 }
 
 
-class DefOptions extends React.Component {
-    render() {
-        var self = this
-        var Options = this.props.options.map(function(element, index) {
-            return(
-                <div className = "input-del" key={index}>
-                    <input 
-                        placeholder = "Ответ" 
-                        className = "form-control" 
-                        value = {element.Text} 
-                        onChange = {self.props.changeO}
-                        data-qid = {self.props.questionId} 
-                        data-id = {element.Id} 
-                        key = {index}
-                    />
-                    <a>
-                        <span 
-                            data-id = {element.Id} 
-                            data-qid = {self.props.questionId} 
-                            key = {index}                       
-                            onClick = {self.props.deleteA}      
-                            className = 'glyphicon glyphicon-trash' 
-                        />
-                    </a>
-                </div>
-            )
-        });
-        return(
-            <div>
-                <div className="form-group">
-                    {Options}
-                </div>
-                <Button
-                    Action={this.props.addA}
-                    index = {this.props.questionId}
-                    text="Добавить ответ"
-                />
-            </div>
-        )
-    }
-}
 
 class Options extends React.Component {
     render() {
         if(this.props.qType == "options") {
             return(
-                <DefOptions {...this.props} />
+                <DefOption {...this.props} />
             )    
-        } else {
+        } 
+        
+        if(this.props.qType == "text") {
             return(
                 <input 
                     placeholder = "Текст ответа" 
@@ -310,7 +272,11 @@ class Options extends React.Component {
             )
         }
 
-        
+        if(this.props.qType == "file") {
+            return(
+                <FileOption />
+            )
+        }        
     }
 }
 
@@ -333,9 +299,10 @@ class EditForm extends React.Component {
                 <OptionSelect 
                     changeQuestionType = {this.props.changeQuestionType}
                     indexQ = {this.props.question.Id}
+                    questionType = {this.props.question.QuestionType.Type}
                 />
                 <Options 
-                    qType = {this.props.question.QuestionType}
+                    qType = {this.props.question.QuestionType.Type}
                     options = {this.props.question.Options}    
                     onChange = {this.props.changeO}
                     questionId = {this.props.question.Id}
@@ -353,7 +320,7 @@ class OptionSelect extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedValue: "options"
+            selectedValue: this.props.questionType
         }
 
         this.onChange = this.onChange.bind(this)
@@ -371,6 +338,7 @@ class OptionSelect extends React.Component {
             <select className = "selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
                 <option value="options">Ответы</option>
                 <option value="text">Текст</option>
+                <option value="file">Файл</option>
             </select>
         )
     }

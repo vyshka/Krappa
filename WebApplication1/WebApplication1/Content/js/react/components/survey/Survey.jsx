@@ -1,6 +1,7 @@
 import React from 'React'
 import { Button } from '../helpers/Button.jsx'
 import ReactQuill from 'react-quill'
+import { FileOption } from './options/FileOption.jsx'
 
 export class Survey extends React.Component{
     constructor(props) {
@@ -97,7 +98,7 @@ export class Survey extends React.Component{
         })
         return(
             <div>
-                {this.state.Survey.Name}
+                <h3>{this.state.Survey.Name}</h3>
                 {questionsList}
                 <Button 
                     Action = {this.compliteSurvey}
@@ -129,7 +130,7 @@ export class Question extends React.Component {
 
     onChange(e) {
         
-        if(this.props.question.QuestionType == "options") {
+        if(this.props.question.QuestionType.Type == "options") {
             var optionId = e.target.getAttribute("data-aid")
             var newSelectedValues = this.state.selectedValues
             if(!this.state.selectedValues.split(";").includes(optionId)) {
@@ -146,11 +147,19 @@ export class Question extends React.Component {
             })
             
             this.props.onChange(newSelectedValues, this.state.questionId)
-        } else {
+        } 
+        if(this.props.question.QuestionType.Type == "text") {
             this.setState({
                 selectedValues: e
             })
             this.props.onChange(e, this.state.questionId)
+        }
+
+        if(this.props.question.QuestionType.Type == "file") {
+            this.setState({
+                selectedValues: e.base64
+            })
+            this.props.onChange(e.base64, this.state.questionId)
         }
         
     }
@@ -158,7 +167,7 @@ export class Question extends React.Component {
     render() {
         var self = this
         var Options
-        if(this.props.question.QuestionType == "options") {
+        if(this.props.question.QuestionType.Type == "options") {
             Options = this.props.question.Options.map(function(element, index) {
                 return(
                     <FormCheck 
@@ -173,13 +182,22 @@ export class Question extends React.Component {
                     />
                 )
             }
-        )} else {
+        )} 
+
+
+        if(this.props.question.QuestionType.Type == "text") {
             Options = <ReactQuill 
                 data-id={this.props.indexQ} 
                 onChange={this.onChange}
                 modules={Question.modules}
                 formats={Question.formats} 
             />
+        }
+
+        if(this.props.question.QuestionType.Type == "file") {
+            Options = <FileOption
+                        onDone = {this.onChange}
+                     />
         }
 
         return(
@@ -202,7 +220,7 @@ Question.modules = {
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{'list': 'ordered'}, {'list': 'bullet'}, 
        {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image', 'video', 'file'],
+      ['link', 'image', 'video'],
       ['clean']
     ]
   }
@@ -225,6 +243,7 @@ Question.modules = {
         <div className="form-check">
             <label className="form-check-label">
                 <input
+                    defaultChecked
                     checked = {this.props.isChecked}
                     data-aid = {this.props.aid}
                     data-qid = {this.props.qid}

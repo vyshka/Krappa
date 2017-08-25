@@ -170,38 +170,62 @@ namespace WebApplication1.Controllers
         }
 
 
-        //[HttpGet]
-        //public SurveyStat GetSurveyStat(string id)
-        //{
-        //    int Id = Convert.ToInt32(id);
-        //    SurveyStat stat = new SurveyStat();
-        //    var Survey = db.Surveys.Find(Id);
-        //    stat.Name = Survey.Name;
-        //    var questions = db.Questions.Where(q => q.Survey.Id == Id).ToList();
-        //    foreach (var question in questions)
-        //    {
-        //        QuestionStat qStat = new QuestionStat();
-        //        qStat.Text = question.Text;
-        //        var answers = db.Answers.Where(a => a.Question.Id == question.Id).ToList();
-        //        foreach (var answer in answers)
-        //        {
-        //            var qCount = db.Answers.Where(a => a.Question.Id == question.Id).Count();
-        //            var count = db.Answers.Where(aqr => aqr..Id == answer.Id).Count();
-        //            var percent = Convert.ToDouble(count) / Convert.ToDouble(qCount) * 100;
-        //            OptionStat aStat = new OptionStat
-        //            {
-        //                Percent = percent,
-        //                Count = count,
-        //                Text = answer.Text
-        //            };
-        //            qStat.AnswersStat.Add(aStat);
-        //        }
-        //        stat.QuestionStat.Add(qStat);
-        //    }
+        [HttpGet]
+        public SurveyStat GetSurveyStat(string id)
+        {
+            int Id = Convert.ToInt32(id);
+            SurveyStat stat = new SurveyStat();
+            var Survey = db.Surveys.Find(Id);
+            stat.Name = Survey.Name;
+            var questions = db.Questions.Where(q => q.Survey.Id == Id).ToList();
+            foreach (var question in questions)
+            {
+                QuestionStat qStat = new QuestionStat();
+                qStat.Text = question.Text;
+                var answers = db.Answers.Where(a => a.Question.Id == question.Id).Select(a => a.AnswerText).Distinct().ToList();
+                foreach (var answer in answers)
+                {
+                    var qaCount = db.Answers.Where(a => a.Question.Id == question.Id).Count();
+                    var count = db.Answers.Where(a => a.AnswerText == answer).Count();
+                    var percent = Convert.ToDouble(count) / Convert.ToDouble(qaCount) * 100;
+                    string answerText = "";
+                    if (question.QuestionType == "options")
+                    {
+                        var answersIdArr = answer.Split(';');
+                        List<string> answerList = new List<string>();
+                        foreach(var answerId in answersIdArr)
+                        {
+                            var intAnswerId = Convert.ToInt16(answerId);
+                            var item = db.Options.Where(o => o.Id == intAnswerId).Select(o => o.Text).ToList()[0];
+                            answerList.Add(item); //delete to string
+                        }
+                        answerText = string.Join(", ", answerList.ToArray());
+
+                    }
+                    else
+                    {
+                        answerText = answer;
+                    }
+
+                    OptionStat oStat = new OptionStat
+                    {
+                        Percent = percent,
+                        Count = count,
+                        Text = answerText
+                    };
+                    qStat.AnswersStat.Add(oStat);
+
+                }
+                stat.QuestionStat.Add(qStat);
 
 
-        //    return stat;
-        //}
+                
+                
+            }
+
+
+            return stat;
+        }
 
     }
 

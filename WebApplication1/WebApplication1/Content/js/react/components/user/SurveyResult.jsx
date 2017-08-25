@@ -31,17 +31,33 @@ export class SurveyResult extends React.Component {
 
     render() {
         var resultList = this.state.model.Answers.map(function(element, index) {
+            var answersList = []
+
+            if(element.Question.QuestionType == "options") {
+                var AnswersIdArr = element.AnswerText.split(";")
+                AnswersIdArr.forEach(function(arrElement) {
+                    element.Question.Options.forEach(function(option) {
+                        if(parseInt(arrElement) == option.Id) {
+                            answersList.push(option.Text)
+                        }
+                    }, this);
+                }, this);
+            } else {  
+                answersList.push(element.AnswerText)
+            }
+            var textResult = answersList.join()
             return(
                 <div key={element.Id} className = "panel panel-defaul">
                     <div className = "panel-body">
                         <fieldset className = "form-group">
                         <legend 
                             dangerouslySetInnerHTML={{__html: element.Question.Text}} />
-                            {element.AnswerText}
+                            {textResult}
                         </fieldset>
                     </div>
                 </div>
-            )
+            )          
+            
         })
         return(
             <div>

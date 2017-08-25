@@ -1,6 +1,6 @@
 import React from 'React'
 import { Button } from '../helpers/Button.jsx'
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill'
 
 
 

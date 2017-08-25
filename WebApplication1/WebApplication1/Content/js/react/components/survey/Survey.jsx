@@ -1,5 +1,6 @@
 import React from 'React'
 import { Button } from '../helpers/Button.jsx'
+import ReactQuill from 'react-quill'
 
 export class Survey extends React.Component{
     constructor(props) {
@@ -18,10 +19,24 @@ export class Survey extends React.Component{
     }
 
     compliteSurvey() {
+        var results = this.state.results
+        results.forEach(function(element) {
+            var text = element.Text
+            var textArr = text.split(";")
+            textArr.sort()
+            var index = textArr.indexOf("")
+            if(index != -1) {
+                textArr.splice(index, 1)
+            }
+            element.Text = textArr.join(";")
+        }, this);
+
+
         var ResultModel = {
             surveyId: this.state.Survey.Id,
-            AnswersQuestions: this.state.results
+            AnswersQuestions: results
         }
+
         $.ajax({
             url: "/api/Result/SaveResult",
             contentType: "application/json",
@@ -133,9 +148,9 @@ export class Question extends React.Component {
             this.props.onChange(newSelectedValues, this.state.questionId)
         } else {
             this.setState({
-                selectedValues: e.target.value
+                selectedValues: e
             })
-            this.props.onChange(e.target.value, this.state.questionId)
+            this.props.onChange(e, this.state.questionId)
         }
         
     }
@@ -159,10 +174,11 @@ export class Question extends React.Component {
                 )
             }
         )} else {
-            Options = <input 
-                onChange = {self.onChange}
-                placeholder = "Текст ответа" 
-                className = "form-control" 
+            Options = <ReactQuill 
+                data-id={this.props.indexQ} 
+                onChange={this.onChange}
+                modules={Question.modules}
+                formats={Question.formats} 
             />
         }
 
@@ -179,7 +195,31 @@ export class Question extends React.Component {
     }
 }
 
-class FormCheck extends React.Component {
+Question.modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, 
+       {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image', 'video', 'file'],
+      ['clean']
+    ]
+  }
+
+  
+  Question.formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video'
+  ]
+
+
+
+
+
+  class FormCheck extends React.Component {
     render() {
         return(
         <div className="form-check">

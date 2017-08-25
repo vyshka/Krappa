@@ -16,7 +16,6 @@ export class Stat extends React.Component {
         var parts = window.location.href.split('/');
         var id = parts.pop() || parts.pop();
         
-
         $.ajax({
             url: "/api/Survey/GetSurveyStat/" + id,
             dataType: 'JSON',
@@ -52,11 +51,14 @@ class Answer extends React.Component {
     render() {
         return(
             <div>
+                <div 
+                    dangerouslySetInnerHTML={{__html: this.props.answer.Text}}
+                />
                 <SaladUI.Chart.BarMetric
-                    label={this.props.answer.Text} 
+                    label=""
                     percent={this.props.answer.Percent}
                     value={this.props.answer.Count}
-                    metricName="Ответов"
+                    metricName="ответов"
                 />
             </div>
                     
@@ -77,9 +79,10 @@ class Question extends React.Component {
         })
         return(
             <div className = "panel panel-default">
-                <div className = "panel-header">
-                    {this.props.question.Text}
-                </div>
+                <div 
+                    className = "panel-header"
+                    dangerouslySetInnerHTML={{__html: this.props.question.Text}}
+                />
                 <div className = "panel-body">
                     {answersList}
                 </div>

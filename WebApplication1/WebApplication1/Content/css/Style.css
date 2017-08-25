@@ -263,7 +263,10 @@ used to vertically center elements, may need modification if you're not using de
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-
+.panel-header {
+  margin: 5px;
+  font-size: 16px;
+}
 .nopadingleft {
   padding-left: 0px !important;
 }
@@ -275,12 +278,6 @@ used to vertically center elements, may need modification if you're not using de
 .inactive {
   cursor: default;
   color: gray;
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 100% !important;
-  }
 }
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)

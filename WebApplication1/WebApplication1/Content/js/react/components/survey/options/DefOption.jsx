@@ -1,7 +1,8 @@
 import React from 'React'
-import {Button } from '../../helpers/Button.jsx'
+import { Button } from '../../helpers/Button.jsx'
 
 export class DefOption extends React.Component {
+
     render() {
         var self = this
         var Options = this.props.options.map(function(element, index) {

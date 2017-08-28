@@ -25,8 +25,6 @@ export class SurveyForm extends React.Component {
         this.deleteQ = this.deleteQ.bind(this);
         this.updateSurvey = this.updateSurvey.bind(this);
         this.addAnswer = this.addAnswer.bind(this);
-        this.arrToString = this.arrToString.bind(this);
-        this.stringToArr = this.stringToArr.bind(this);
         this.deleteSurvey = this.deleteSurvey.bind(this);
         this.changeQuestionType = this.changeQuestionType.bind(this)
     }
@@ -147,13 +145,6 @@ export class SurveyForm extends React.Component {
         });
     };
 
-    arrToString(arr) {
-        return arr.join(',')
-    }
-
-    stringToArr(string) {
-        return string.split(',')
-    }
 
     deleteA (e) {
         var indexO = e.target.getAttribute('data-id');
@@ -277,6 +268,12 @@ class Options extends React.Component {
                 <FileOption />
             )
         }        
+
+        if(this.props.qType == "dropdown") {
+            return(
+                <DefOption {...this.props}/>
+            )
+        }        
     }
 }
 
@@ -293,7 +290,6 @@ class EditForm extends React.Component {
                         onChange = {this.props.changeQ}
                         deleteQ = {this.props.deleteQ}
                     />
-                    
                 </div>
                 <label className="control-label">Ответы</label>
                 <OptionSelect 
@@ -310,7 +306,6 @@ class EditForm extends React.Component {
                     deleteA = {this.props.deleteA}
                     addA = {this.props.addA}
                 />
-               
             </div>
         )
     }
@@ -335,10 +330,11 @@ class OptionSelect extends React.Component {
 
     render() {
         return(
-            <select className = "selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
+            <select className="selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
                 <option value="options">Ответы</option>
                 <option value="text">Текст</option>
                 <option value="file">Файл</option>
+                <option value="dropdown">Выпадающий список</option>
             </select>
         )
     }

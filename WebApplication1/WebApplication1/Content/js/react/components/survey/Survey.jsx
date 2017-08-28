@@ -2,6 +2,8 @@ import React from 'React'
 import { Button } from '../helpers/Button.jsx'
 import ReactQuill from 'react-quill'
 import { FileOption } from './options/FileOption.jsx'
+import { DropDownOption } from './options/DropDownOption.jsx'
+import { CheckFormOption } from './options/CheckFormOption.jsx'
 
 export class Survey extends React.Component{
     constructor(props) {
@@ -129,39 +131,10 @@ export class Question extends React.Component {
     }
 
     onChange(e) {
-        
-        if(this.props.question.QuestionType.Type == "options") {
-            var optionId = e.target.getAttribute("data-aid")
-            var newSelectedValues = this.state.selectedValues
-            if(!this.state.selectedValues.split(";").includes(optionId)) {
-                newSelectedValues += ";" + optionId
-            } else {
-                var selectedArr = newSelectedValues.split(";")
-                var index = selectedArr.indexOf(optionId)
-                selectedArr.splice(index, 1)
-                newSelectedValues = selectedArr.join(";")
-            }
-    
-            this.setState({
-                selectedValues: newSelectedValues
-            })
-            
-            this.props.onChange(newSelectedValues, this.state.questionId)
-        } 
-        if(this.props.question.QuestionType.Type == "text") {
-            this.setState({
-                selectedValues: e
-            })
-            this.props.onChange(e, this.state.questionId)
-        }
-
-        if(this.props.question.QuestionType.Type == "file") {
-            this.setState({
-                selectedValues: e.base64
-            })
-            this.props.onChange(e.base64, this.state.questionId)
-        }
-        
+        this.setState({
+            selectedValues: e
+        })
+        this.props.onChange(e, this.state.questionId)
     }
 
     render() {
@@ -170,7 +143,7 @@ export class Question extends React.Component {
         if(this.props.question.QuestionType.Type == "options") {
             Options = this.props.question.Options.map(function(element, index) {
                 return(
-                    <FormCheck 
+                    <CheckFormOption 
                         key = {index}
                         index = {index}
                         Text = {element.Text}
@@ -183,6 +156,13 @@ export class Question extends React.Component {
                 )
             }
         )} 
+
+        if(this.props.question.QuestionType.Type == "dropdown") {
+            Options = <DropDownOption 
+                        options = {this.props.question.Options}
+                        onChange = {this.onChange}
+                    />
+        }
 
 
         if(this.props.question.QuestionType.Type == "text") {
@@ -237,25 +217,3 @@ Question.modules = {
 
 
 
-  class FormCheck extends React.Component {
-    render() {
-        return(
-        <div className="form-check">
-            <label className="form-check-label">
-                <input
-                    defaultChecked
-                    checked = {this.props.isChecked}
-                    data-aid = {this.props.aid}
-                    data-qid = {this.props.qid}
-                    type = "radio" 
-                    className = "form-check-input" 
-                    value = {this.props.Text}
-                    onClick = {this.props.onChange}
-                />
-                {this.props.Text}
-            </label>
-        </div>
-        )
-        
-    }
-}

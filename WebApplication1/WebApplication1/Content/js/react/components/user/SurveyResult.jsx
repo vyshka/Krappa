@@ -43,19 +43,18 @@ export class SurveyResult extends React.Component {
                     }, this);
                 }, this);
             } 
-            if(element.Question.QuestionType.Type == "text") {
+            
+            
+            
+            if(element.Question.QuestionType.Type == "text" || element.Question.QuestionType.Type == "dropdown") {
                 answersList.push(element.AnswerText)
             }
 
-            var filename = ""
+
             if(element.Question.QuestionType.Type == "file") {
-                filename = element.AnswerText.substr(element.AnswerText.lastIndexOf('\\') + 1)
+                var filename = element.AnswerText.substr(element.AnswerText.lastIndexOf('\\') + 1)
                 answersList.push(filename)
-            }
 
-            
-
-            if(element.Question.QuestionType.Type == "file") {
                 return(
                     <div key={element.Id} className = "panel panel-defaul">
                         <div className = "panel-body">
@@ -63,7 +62,7 @@ export class SurveyResult extends React.Component {
                                 <legend 
                                     dangerouslySetInnerHTML={{__html: element.Question.Text}} 
                                 />
-                                <a href = {"/api/Result/DownloadFile/" + filename} >
+                                <a href = {"/api/Result/DownloadFile?filename=" + filename} >
                                     {filename}
                                 </a>
                             </fieldset>
@@ -72,9 +71,9 @@ export class SurveyResult extends React.Component {
                 )
             }
 
-            var textResult = answersList.join()
+            
 
-            if(element.Question.QuestionType.Type == "text" || element.Question.QuestionType.Type == "options") {
+            var textResult = answersList.join()
                 return(
                     <div key={element.Id} className = "panel panel-defaul">
                         <div className = "panel-body">
@@ -86,9 +85,6 @@ export class SurveyResult extends React.Component {
                         </div>
                     </div>
                 )          
-            }
-                
-            
         })
         return(
             <div>

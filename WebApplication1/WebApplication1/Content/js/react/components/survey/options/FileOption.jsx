@@ -56,9 +56,10 @@ export class FileOption extends React.Component {
         return (
             <div>
                 <form>
-                    <h2>Just file</h2>
-                    <p><b>{this.state.FileServiceResponse}</b></p>
-                    <input type="file" id="case-one" onChange={this.filesOnChange} />
+                    <input 
+                        type="file" 
+                        id="case-one" 
+                        onChange={this.filesOnChange} />
                 </form>
             </div>
         );

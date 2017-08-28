@@ -88,6 +88,8 @@ namespace WebApplication1.Controllers
                                 .Include(x => x.Questions)
                                 .Single(c => c.Id == model.Id);
 
+            
+
             if (original != null)
             {
                 db.Entry(original).CurrentValues.SetValues(model);
@@ -106,9 +108,10 @@ namespace WebApplication1.Controllers
 
                 foreach (var modelQuestion in model.Questions.ToList())     //list of questions from input model
                 {
-                    foreach (var modelAnswer in modelQuestion.Options.ToList())
+
+                    foreach (var modelOption in modelQuestion.Options.ToList())
                     {
-                        modelOptions.Add(modelAnswer);
+                        modelOptions.Add(modelOption);
                     }
 
                 }
@@ -138,12 +141,16 @@ namespace WebApplication1.Controllers
                     var dbQuestion = original.Questions.SingleOrDefault(q => q.Id == question.Id);
                     if (dbQuestion != null)
                     {
+                        var dbQuestionType = db.QuestionTypes.Where(qt => qt.Type == question.QuestionType.Type).ToList()[0];
+                        dbQuestion.QuestionType = dbQuestionType;
                         db.Entry(dbQuestion).CurrentValues.SetValues(question);
                     }
                     else
                     {
                         original.Questions.Add(question);
                     }
+
+
 
                     foreach (var option in question.Options)
                     {
@@ -161,6 +168,9 @@ namespace WebApplication1.Controllers
 
                     }
                 }
+
+
+                //update questionType herer throw original.questions.questiontype: set new from model
 
                 original.UpdateTime = DateTime.Now.ToString();
                 db.SaveChanges();

@@ -79,10 +79,10 @@ namespace WebApplication1.Controllers
             return Result;
         }
 
+
         [HttpGet]
         public HttpResponseMessage DownloadFile(string filename)
         {
-            //string filename = "1.xlsx";
             var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
             var path = root + filename;
 

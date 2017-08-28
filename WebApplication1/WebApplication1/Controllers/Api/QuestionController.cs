@@ -19,8 +19,10 @@ namespace WebApplication1.Controllers
 
             var Question = db.Questions.Create();
             var Survey = db.Surveys.Find(id);
+            var QuestionType = db.QuestionTypes.Find(1);
             Question.Text = "";
             Question.Survey = Survey;
+            Question.QuestionType = QuestionType;
             Survey.Questions.Add(Question);
             db.SaveChanges();
 

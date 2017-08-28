@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.IO;
 using System.Web.Http;
 using WebApplication1.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using System.Web;
+using System.Net.Http.Headers;
 
 namespace WebApplication1.Controllers
 {
@@ -75,6 +77,40 @@ namespace WebApplication1.Controllers
             Result.Results = ResultsList;
 
             return Result;
+        }
+
+        [HttpGet]
+        public HttpResponseMessage DownloadFile(string filename)
+        {
+            //string filename = "1.xlsx";
+            var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
+            var path = root + filename;
+
+            var stream = new FileStream(path, FileMode.Open);
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            
+            response.Content = new StreamContent(stream);
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = filename;
+
+            return response;
+
+
+        }
+
+        [HttpPost]
+        public string UploadFile()
+        {
+            var httpPostedFile = HttpContext.Current.Request.Files["file"];
+            var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
+            var path = root + httpPostedFile.FileName;
+            httpPostedFile.SaveAs(path);
+
+            return httpPostedFile.FileName;
+
         }
 
         public void SaveResult([FromBody] ResultModel model)

@@ -33,7 +33,7 @@ export class SurveyResult extends React.Component {
         var resultList = this.state.model.Answers.map(function(element, index) {
             var answersList = []
 
-            if(element.Question.QuestionType == "options") {
+            if(element.Question.QuestionType.Type == "options") {
                 var AnswersIdArr = element.AnswerText.split(";")
                 AnswersIdArr.forEach(function(arrElement) {
                     element.Question.Options.forEach(function(option) {
@@ -42,21 +42,52 @@ export class SurveyResult extends React.Component {
                         }
                     }, this);
                 }, this);
-            } else {  
+            } 
+            if(element.Question.QuestionType.Type == "text") {
                 answersList.push(element.AnswerText)
             }
-            var textResult = answersList.join()
-            return(
-                <div key={element.Id} className = "panel panel-defaul">
-                    <div className = "panel-body">
-                        <fieldset className = "form-group">
-                        <legend 
-                            dangerouslySetInnerHTML={{__html: element.Question.Text}} />
-                            {textResult}
-                        </fieldset>
+
+            var filename = ""
+            if(element.Question.QuestionType.Type == "file") {
+                filename = element.AnswerText.substr(element.AnswerText.lastIndexOf('\\') + 1)
+                answersList.push(filename)
+            }
+
+            
+
+            if(element.Question.QuestionType.Type == "file") {
+                return(
+                    <div key={element.Id} className = "panel panel-defaul">
+                        <div className = "panel-body">
+                            <fieldset>
+                                <legend 
+                                    dangerouslySetInnerHTML={{__html: element.Question.Text}} 
+                                />
+                                <a href = {"/api/Result/DownloadFile/" + filename} >
+                                    {filename}
+                                </a>
+                            </fieldset>
+                        </div>
                     </div>
-                </div>
-            )          
+                )
+            }
+
+            var textResult = answersList.join()
+
+            if(element.Question.QuestionType.Type == "text" || element.Question.QuestionType.Type == "options") {
+                return(
+                    <div key={element.Id} className = "panel panel-defaul">
+                        <div className = "panel-body">
+                            <fieldset className = "form-group">
+                            <legend 
+                                dangerouslySetInnerHTML={{__html: element.Question.Text}} />
+                                {textResult}
+                            </fieldset>
+                        </div>
+                    </div>
+                )          
+            }
+                
             
         })
         return(

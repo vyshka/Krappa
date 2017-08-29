@@ -1,10 +1,6 @@
 import React from 'React'
-import { Button } from '../helpers/Button.jsx'
-import ReactQuill from 'react-quill'
-import { DefOption } from './options/DefOption.jsx'
-import { FileOption } from './options/FileOption.jsx'
-
-
+import { Button } from '../../helpers/Button.jsx'
+import { EditForm } from './EditForm.jsx'
 
 
 export class SurveyForm extends React.Component {
@@ -35,7 +31,8 @@ export class SurveyForm extends React.Component {
         newData.Questions.forEach(function(element, indexQ) {
             if(element.Id == id) {
                 $.ajax({
-                    url: "/api/Option/CreateOption/" + id,
+                    url: "/question/" + id + "/option",
+                    method: 'POST',
                     dataType: 'JSON',
                     success: function(data) {
                         newData.Questions[indexQ].Options.push({
@@ -56,7 +53,8 @@ export class SurveyForm extends React.Component {
         var id = this.state.model.Id
 
         $.ajax({
-            url: "/api/Question/CreateQuestion/" + id,
+            url: "/survey/" + id + "/question",
+            method: 'POST',
             dataType: 'JSON',
             success: function(data) {
                 newData.Questions.push(data)
@@ -72,7 +70,7 @@ export class SurveyForm extends React.Component {
         var parts = window.location.href.split('/');
         var id = parts.pop() || parts.pop();
         $.ajax({
-            url: "/api/Survey/GetSurveyById/" + id,
+            url: "/surveys/" + id,
             dataType: 'JSON',
             success: function(data) {
                 this.setState({
@@ -86,7 +84,7 @@ export class SurveyForm extends React.Component {
         $.ajax({
             url: "/api/Survey/UpdateSurvey",
             contentType: "application/json",
-            type: "POST",
+            method: "POST",
             data: JSON.stringify(this.state.model),
             success: function() {
                 window.location.pathname = '/Admin/SurveyList'
@@ -96,8 +94,8 @@ export class SurveyForm extends React.Component {
 
     deleteSurvey () {
         $.ajax({
-            url: "/api/Survey/DeleteSurvey/" + parseInt(this.state.model.Id),
-            method: 'POST',
+            url: "/survey" + parseInt(this.state.model.Id),
+            method: 'DELETE',
             success: function() {
                 window.location.pathname = '/Admin/SurveyList'
             }
@@ -246,156 +244,6 @@ export class SurveyForm extends React.Component {
 
 
 
-class Options extends React.Component {
-    render() {
-        if(this.props.qType == "options") {
-            return(
-                <DefOption {...this.props} />
-            )    
-        } 
-        
-        if(this.props.qType == "text") {
-            return(
-                <input 
-                    placeholder = "Текст ответа" 
-                    className = "form-control" 
-                />
-            )
-        }
-
-        if(this.props.qType == "file") {
-            return(
-                <FileOption />
-            )
-        }        
-
-        if(this.props.qType == "dropdown") {
-            return(
-                <DefOption {...this.props}/>
-            )
-        }        
-    }
-}
-
-class EditForm extends React.Component {
-    render() {
-        let self = this;
-        return(
-            <div className = "edit-form">
-                <div className="input-del">
-                    <Question 
-                        question = {this.props.question.Text}    
-                        indexQ = {this.props.question.Id}
-                        index = {this.props.index}
-                        onChange = {this.props.changeQ}
-                        deleteQ = {this.props.deleteQ}
-                    />
-                </div>
-                <label className="control-label">Ответы</label>
-                <OptionSelect 
-                    changeQuestionType = {this.props.changeQuestionType}
-                    indexQ = {this.props.question.Id}
-                    questionType = {this.props.question.QuestionType.Type}
-                />
-                <Options 
-                    qType = {this.props.question.QuestionType.Type}
-                    options = {this.props.question.Options}    
-                    onChange = {this.props.changeO}
-                    questionId = {this.props.question.Id}
-                    changeO = {this.props.changeO}
-                    deleteA = {this.props.deleteA}
-                    addA = {this.props.addA}
-                />
-            </div>
-        )
-    }
-}
-
-class OptionSelect extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedValue: this.props.questionType
-        }
-
-        this.onChange = this.onChange.bind(this)
-    }
-
-    onChange(e) {
-        this.setState({
-            selectedValue: e.target.value
-        })
-        this.props.changeQuestionType(e.target.value, this.props.indexQ)
-    }
-
-    render() {
-        return(
-            <select className="selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
-                <option value="options">Ответы</option>
-                <option value="text">Текст</option>
-                <option value="file">Файл</option>
-                <option value="dropdown">Выпадающий список</option>
-            </select>
-        )
-    }
-}
 
 
-class Question extends React.Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
-            Text: props.question,
-            indexQ: props.indexQ
-        }
-
-        this.onChange = this.onChange.bind(this)
-    }
-
-    onChange(e) {
-        this.props.onChange(e, this.state.indexQ)
-    }
-    render() {
-        return(
-            <div className="form-group">
-                <label className="control-label">{this.props.index + 1} вопрос</label>
-                <a>
-                    <span 
-                        data-qid = {this.props.index} 
-                        key = {this.props.index}
-                        onClick = {this.props.deleteQ}      
-                        className = 'glyphicon glyphicon-trash' 
-                    />
-                </a>
-                <ReactQuill 
-                    data-id={this.props.indexQ} 
-                    value={this.props.question}
-                    onChange={this.onChange}
-                    modules={Question.modules}
-                    formats={Question.formats} 
-                />
-            </div>
-        )
-    }
-}
-
-Question.modules = {
-    toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-      [{size: []}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, 
-       {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image', 'video'],
-      ['clean']
-    ]
-  }
-
-  
-  Question.formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'video'
-  ]

@@ -8,11 +8,12 @@ using System;
 
 namespace WebApplication1.Controllers
 {
-
+    [Authorize]
     public class SurveyController : ApiController
     {
         private ApplicationContext db = new ApplicationContext();
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public bool DeleteSurvey(int id)
         {
@@ -49,12 +50,15 @@ namespace WebApplication1.Controllers
             return true;
         }
 
+
+
         public IEnumerable<Survey> GetAllSurveys()
         {
             var Qlist = db.Surveys.ToList();
             var Alist = Qlist.SelectMany(p => p.Questions).ToList();
             return Qlist;
         }
+
 
         public Survey GetSurveyById(int id)
         {
@@ -63,6 +67,8 @@ namespace WebApplication1.Controllers
             return survey;
         }
 
+
+        [Authorize(Roles = "Admin")]
         public int CreateSurvey(Survey model)
         {
             if (ModelState.IsValid)
@@ -80,6 +86,8 @@ namespace WebApplication1.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public bool UpdateSurvey(Survey model) //if answer[index].id == null answer.Question = ...
         {
@@ -87,8 +95,6 @@ namespace WebApplication1.Controllers
             var original = db.Surveys
                                 .Include(x => x.Questions)
                                 .Single(c => c.Id == model.Id);
-
-            
 
             if (original != null)
             {
@@ -169,9 +175,6 @@ namespace WebApplication1.Controllers
                     }
                 }
 
-
-                //update questionType herer throw original.questions.questiontype: set new from model
-
                 original.UpdateTime = DateTime.Now.ToString();
                 db.SaveChanges();
                 return true;
@@ -180,6 +183,8 @@ namespace WebApplication1.Controllers
         }
 
 
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public SurveyStat GetSurveyStat(string id)
         {
@@ -207,7 +212,7 @@ namespace WebApplication1.Controllers
                         {
                             var intAnswerId = Convert.ToInt16(answerId);
                             var item = db.Options.Where(o => o.Id == intAnswerId).Select(o => o.Text).ToList()[0];
-                            answerList.Add(item); //delete to string
+                            answerList.Add(item); 
                         }
                         answerText = string.Join(", ", answerList.ToArray());
 
@@ -227,13 +232,7 @@ namespace WebApplication1.Controllers
 
                 }
                 stat.QuestionStat.Add(qStat);
-
-
-                
-                
             }
-
-
             return stat;
         }
 

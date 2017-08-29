@@ -8,9 +8,9 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class QuestionController : ApiController
     {
-
         private ApplicationContext db = new ApplicationContext();
 
         [HttpGet]

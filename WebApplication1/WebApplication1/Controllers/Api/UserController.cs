@@ -11,11 +11,10 @@ using System.Web.Script.Serialization;
 using System.Web.Http;
 using System.IO;
 using System.Web.Routing;
-using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
-    [System.Web.Mvc.Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : ApiController
     {
 
@@ -32,7 +31,7 @@ namespace WebApplication1.Controllers
         public UsersList getUserById(string id)
         {
             UsersList user = new UsersList(UserManager.FindById(id));
-            string renderedHTML = RenderViewToString("Admin", "EditUser", user);
+            //string renderedHTML = RenderViewToString("Admin", "EditUser", user);
             return user;
         }
 
@@ -110,23 +109,23 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        private static string RenderViewToString(string controllerName, string viewName, object viewData)
-        {
-            using (var writer = new StringWriter())
-            {
-                var routeData = new RouteData();
-                routeData.Values.Add("controller", controllerName);
-                var fakeControllerContext = new ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
-                var razorViewEngine = new RazorViewEngine();
-                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
+        //private static string RenderViewToString(string controllerName, string viewName, object viewData)
+        //{
+        //    using (var writer = new StringWriter())
+        //    {
+        //        var routeData = new RouteData();
+        //        routeData.Values.Add("controller", controllerName);
+        //        var fakeControllerContext = new System.Web.Mvc.ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
+        //        var razorViewEngine = new RazorViewEngine();
+        //        var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
 
-                var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
-                razorViewResult.View.Render(viewContext, writer);
-                return writer.ToString();
-            }
-        }
+        //        var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
+        //        razorViewResult.View.Render(viewContext, writer);
+        //        return writer.ToString();
+        //    }
+        //}
 
     }
 
-    public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
+    //public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
 }

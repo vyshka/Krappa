@@ -32,28 +32,9 @@ namespace WebApplication1.Controllers
             return vacancy;
         }
 
-        [HttpGet]
-        public IEnumerable<Vacancies> GetAllVacanciesWithSearch(string searchString)
-        {
-            var list = db.Vacancies.ToList();
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                list = list.Where(s => s.Name.Contains(searchString)
-                                    || s.City.Contains(searchString)).ToList();
-            }
-            return (list);
-
-        }
-
         [HttpDelete]
         public Vacancies DeleteVacancy(int id)
         {
-            //Thread.Sleep(3000);
-            //var r = new Random();
-            //if (r.Next(10) % 3 == 0)
-            //{  }
-
-
             var model = db.Vacancies.Find(id);
             if (model == null)
             {

@@ -13,6 +13,8 @@ using System.Net.Http.Headers;
 
 namespace WebApplication1.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class ResultController : ApiController
     {
         private ApplicationContext db = new ApplicationContext();
@@ -24,6 +26,11 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public class ReturnResultsList
+        {
+            public int SurveyId { get; set; }
+            public int Count { get; set; }
+        }
         public Result GetResultById(int id)
         {
             var result = db.Results.Where(r => r.Id == id).ToList()[0];
@@ -47,11 +54,7 @@ namespace WebApplication1.Controllers
             return ret;
         }
 
-        public class ReturnResultsList
-        {
-            public int SurveyId { get; set; }
-            public int Count { get; set; }
-        }
+        
 
         public UserResults GetResultsByUserId(string Id)
         {
@@ -136,5 +139,6 @@ namespace WebApplication1.Controllers
             }
             db.SaveChanges();
         }
+
     }
 }

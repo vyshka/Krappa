@@ -10,7 +10,7 @@ module.exports = {
       stat: entryPoint + 'stat.js',
       newSurvey: entryPoint + 'newSurvey.js',
       surveyResult: entryPoint + 'survey-result.js',
-      surveyList: entryPoint + 'complite-survey.js'
+      surveyList: entryPoint + 'complete-survey.js'
     },
   output: {
     path: __dirname + '/Content/js',
@@ -24,7 +24,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           plugins: ['transform-runtime', 'transform-class-properties']
-        }
+        } 
         
       }
     ]

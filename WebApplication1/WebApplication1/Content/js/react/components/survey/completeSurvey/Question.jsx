@@ -2,14 +2,13 @@ import React from 'React'
 import ReactQuill from 'react-quill'
 import { FileOption } from '../options/FileOption.jsx'
 import { DropDownOption } from '../options/DropDownOption.jsx'
-import { CheckFormOption } from '../options/CheckFormOption.jsx'
+import { CheckForm } from '../options/CheckForm.jsx'
 
 export class Question extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            questionId: this.props.question.Id,
-            selectedValues: ""
+            questionId: this.props.question.Id
         }
         this.onChange = this.onChange.bind(this)
     }
@@ -31,21 +30,11 @@ export class Question extends React.Component {
         var self = this
         var Options
         if(this.props.question.QuestionType.Type == "options") {
-            Options = this.props.question.Options.map(function(element, index) {
-                return(
-                    <CheckFormOption 
-                        key = {index}
-                        index = {index}
-                        Text = {element.Text}
-                        name = {self.props.question.Text}
-                        aid = {element.Id}
-                        qid = {self.props.question.Id}
-                        onChange = {self.onChange}
-                        isChecked = {self.state.selectedValues.split(";").includes(String(element.Id))}
+            Options = <CheckForm 
+                        onChange = {this.onChange}
+                        question = {this.props.question}
                     />
-                )
-            }
-        )} 
+        } 
 
         if(this.props.question.QuestionType.Type == "dropdown") {
             Options = <DropDownOption 

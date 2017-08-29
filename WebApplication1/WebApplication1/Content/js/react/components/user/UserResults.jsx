@@ -16,7 +16,8 @@ export class UserResults extends React.Component {
         var id = parts.pop() || parts.pop();
 
         $.ajax({
-            url: "/api/result/GetResultsByUserId/" + id,
+            url: "/results/users/" + id,
+            method: 'GET',
             dataType: 'JSON',
             success: function(data) {
                 this.setState({

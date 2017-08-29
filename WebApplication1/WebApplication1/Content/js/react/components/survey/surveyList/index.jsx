@@ -14,7 +14,8 @@ export class SurveyList extends React.Component {
         var id = parts.pop() || parts.pop();
 
         $.ajax({
-            url: "/api/survey/GetAllSurveys/",
+            url: "/surveys",
+            method: 'GET',
             dataType: 'JSON',
             success: function(data) {
                 this.setState({

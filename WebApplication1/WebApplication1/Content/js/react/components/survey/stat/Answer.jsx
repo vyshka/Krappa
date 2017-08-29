@@ -12,7 +12,7 @@ export class Answer extends React.Component {
                     label=""
                     percent={this.props.answer.Percent}
                     value={this.props.answer.Count}
-                    metricName="ответов"
+                    metricName={this.props.answer.Percent + '%'}
                 />
             </div>
                     

@@ -63,7 +63,8 @@ export class SurveyTable extends React.Component{
         var table = document.getElementById("table");
         var self = this
         $.ajax({
-            url: this.props.url,
+            url: "/surveys",
+            method: 'GET',
             dataType: 'JSON',
             beforeSend: function() {
                 spinner.spin(table);

@@ -26,7 +26,7 @@ export class FileOption extends React.Component {
 
         $.ajax({
             url: "/api/Result/UploadFile/" + this.props.ResultId,
-            type: "POST",
+            method: "POST",
             contentType: false,
             processData: false,
             data: form,

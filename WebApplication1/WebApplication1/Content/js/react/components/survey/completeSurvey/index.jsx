@@ -40,9 +40,9 @@ export class Survey extends React.Component{
         }
 
         $.ajax({
-            url: "/api/Result/SaveResult",
+            url: "/results",
             contentType: "application/json",
-            type: "POST",
+            method: "PUT",
             data: JSON.stringify(ResultModel),
             success: function() {
                 window.location.pathname = '/Home/CompleteSurvey'
@@ -67,7 +67,7 @@ export class Survey extends React.Component{
         var parts = window.location.href.split('/');
         var id = parts.pop() || parts.pop();
         $.ajax({
-            url: "/api/Survey/GetSurveyById/" + id,
+            url: "/surveys/" + id,
             dataType: 'JSON',
             success: function(data) {
                 var results = data.Questions.map(function(element, index) {
@@ -84,7 +84,8 @@ export class Survey extends React.Component{
         })
 
         $.ajax({
-            url: "/api/Result/CreateResult",
+            url: "/results",
+            method: 'POST',
             dataType: 'JSON',
             success: function(data) {
                 this.setState({

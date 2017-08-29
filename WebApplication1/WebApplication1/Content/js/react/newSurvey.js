@@ -1,4 +1,4 @@
-import { SurveyForm } from './components/survey/EditSurvey/index.jsx'
+import { SurveyForm } from './components/survey/surveyForm/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 

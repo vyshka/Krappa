@@ -19,7 +19,7 @@ export class SurveyResult extends React.Component {
         var id = parts.pop() || parts.pop();
 
         $.ajax({
-            url: "/api/Result/GetResultById/" + id,
+            url: "/results/" + id,
             dataType: 'JSON',
             success: function(data) {
                 this.setState({
@@ -30,6 +30,7 @@ export class SurveyResult extends React.Component {
     }
 
     render() {
+        var self = this
         var resultList = this.state.model.Answers.map(function(element, index) {
             var answersList = []
 
@@ -54,7 +55,7 @@ export class SurveyResult extends React.Component {
             if(element.Question.QuestionType.Type == "file") {
                 var filename = element.AnswerText.substr(element.AnswerText.lastIndexOf('\\') + 1)
                 answersList.push(filename)
-
+                var SurveyId = self.state.model.Id
                 return(
                     <div key={element.Id} className = "panel panel-defaul">
                         <div className = "panel-body">
@@ -62,7 +63,7 @@ export class SurveyResult extends React.Component {
                                 <legend 
                                     dangerouslySetInnerHTML={{__html: element.Question.Text}} 
                                 />
-                                <a href = {"/api/Result/DownloadFile?filename=" + filename} >
+                                <a href = {"/downloadfile/" + SurveyId + "/" + filename + "/"} >
                                     {filename}
                                 </a>
                             </fieldset>

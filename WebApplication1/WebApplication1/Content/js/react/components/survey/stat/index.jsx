@@ -18,7 +18,8 @@ export class Stat extends React.Component {
         var id = parts.pop() || parts.pop();
         
         $.ajax({
-            url: "/api/Survey/GetSurveyStat/" + id,
+            url: "/survey/" + id + "/stat",
+            method: 'GET',
             dataType: 'JSON',
             success: function(data) {
                 this.setState({

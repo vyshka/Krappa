@@ -16,6 +16,8 @@ namespace WebApplication1.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+
+        [Route("vacancies")]
         [HttpGet]
         public IEnumerable<Vacancies> GetAllVacancies()
         {
@@ -25,12 +27,16 @@ namespace WebApplication1.Controllers
             
         }
 
+
+        [Route("vacancies/{id}")]
         [HttpGet]
         public Vacancies GetVacancyById(int id)
         {
             var vacancy = db.Vacancies.Find(id);
             return vacancy;
         }
+
+
 
         [HttpDelete]
         public Vacancies DeleteVacancy(int id)
@@ -44,6 +50,7 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return model;
         }
+
 
         [HttpPost]
         public bool UpdateVacancy(Vacancies item)
@@ -59,7 +66,6 @@ namespace WebApplication1.Controllers
             }
             return false;
         }
-
 
         [HttpPost]
         public int CreateVacancy(Vacancies item)

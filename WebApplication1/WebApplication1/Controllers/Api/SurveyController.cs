@@ -13,8 +13,10 @@ namespace WebApplication1.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [Route("survey/{id}")]
+        [HttpDelete]
         public bool DeleteSurvey(int id)
         {
             //var survey = db.Surveys.Include(s => s.Questions);
@@ -50,8 +52,9 @@ namespace WebApplication1.Controllers
             return true;
         }
 
-
-
+        
+        [Route("surveys")]
+        [HttpGet]
         public IEnumerable<Survey> GetAllSurveys()
         {
             var Qlist = db.Surveys.ToList();
@@ -60,6 +63,8 @@ namespace WebApplication1.Controllers
         }
 
 
+        [Route("surveys/{id}")]
+        [HttpGet]
         public Survey GetSurveyById(int id)
         {
             var survey = db.Surveys.Find(id);
@@ -68,7 +73,10 @@ namespace WebApplication1.Controllers
         }
 
 
+
         [Authorize(Roles = "Admin")]
+        [Route("survey")]
+        [HttpPost]
         public int CreateSurvey(Survey model)
         {
             if (ModelState.IsValid)
@@ -87,9 +95,10 @@ namespace WebApplication1.Controllers
         }
 
 
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public bool UpdateSurvey(Survey model) //if answer[index].id == null answer.Question = ...
+        public bool UpdateSurvey(Survey model)
         {
 
             var original = db.Surveys
@@ -183,8 +192,8 @@ namespace WebApplication1.Controllers
         }
 
 
-
         [Authorize(Roles = "Admin")]
+        [Route("survey/{id}/stat")]
         [HttpGet]
         public SurveyStat GetSurveyStat(string id)
         {

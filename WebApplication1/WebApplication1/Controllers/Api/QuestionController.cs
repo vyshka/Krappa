@@ -13,7 +13,10 @@ namespace WebApplication1.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
-        [HttpGet]
+
+
+        [Route("survey/{id}/question")]
+        [HttpPost]
         public Question CreateQuestion(int id)
         {
 

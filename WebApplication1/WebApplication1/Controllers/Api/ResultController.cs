@@ -31,6 +31,9 @@ namespace WebApplication1.Controllers
             public int SurveyId { get; set; }
             public int Count { get; set; }
         }
+
+        [Route("results/{id}")]
+        [HttpGet]
         public Result GetResultById(int id)
         {
             var result = db.Results.Where(r => r.Id == id).ToList()[0];
@@ -55,12 +58,13 @@ namespace WebApplication1.Controllers
         }
 
 
-        
-        public UserResults GetResultsByUserId(string Id)
+        [Route("results/users/{id}")]
+        [HttpGet]
+        public UserResults GetResultsByUserId(string id)
         {
-            var User = db.Users.Find(Id);
+            var User = db.Users.Find(id);
             var results = db.Results.Where(r => r.User.Id == User.Id).ToList();
-            var user = UserManager.FindById(Id);
+            var user = UserManager.FindById(id);
             var Result = new UserResults();
             Result.UserName = user.UserName;
 
@@ -83,7 +87,8 @@ namespace WebApplication1.Controllers
         }
 
 
-        [Route("api/Result/DownloadFile/{id}/{filename}")]
+
+        [Route("downloadfile/{id}/{filename}/")]
         [HttpGet]
         public HttpResponseMessage DownloadFile(int id, string filename )
         {
@@ -120,8 +125,8 @@ namespace WebApplication1.Controllers
 
         }
 
-
-        [HttpGet]
+        [Route("results")]
+        [HttpPost]
         public int CreateResult()
         {
             var result = db.Results.Create();
@@ -134,6 +139,10 @@ namespace WebApplication1.Controllers
 
         }
 
+
+
+        [Route("results")]
+        [HttpPut]
         public void SaveResult([FromBody] ResultModel model)
         {
 

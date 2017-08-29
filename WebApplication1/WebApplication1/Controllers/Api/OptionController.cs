@@ -13,7 +13,8 @@ namespace WebApplication1.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
-        [HttpGet]
+        [Route("question/{id}/option")]
+        [HttpPost]
         public Option CreateOption(int id)
         {
             var Option = db.Options.Create();

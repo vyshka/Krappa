@@ -279,6 +279,12 @@ used to vertically center elements, may need modification if you're not using de
   cursor: default;
   color: gray;
 }
+
+@media (min-width: 768px) {
+  .contrainer {
+    width: unset !important;
+  }
+}
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -2282,23 +2288,21 @@ pre code {
   margin-left: auto;
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
-
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
-
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
   }
-}
+}*/
 
 .container-fluid {
   padding-right: 15px;

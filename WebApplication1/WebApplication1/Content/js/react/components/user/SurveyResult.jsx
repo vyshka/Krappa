@@ -1,5 +1,5 @@
 import React from 'React'
-import { Question } from '../survey/Survey.jsx'
+import { Question } from '../survey/completeSurvey/Question.jsx'
 
 export class SurveyResult extends React.Component {
     constructor(props) {

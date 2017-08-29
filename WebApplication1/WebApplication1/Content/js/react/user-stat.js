@@ -1,6 +1,6 @@
 import React from 'React'
 import ReactDOM from 'React-DOM'
-import {UserResults} from './components/user/UserResults.jsx'
+import { UserResults } from './components/user/UserResults.jsx'
 
 function run() {
     ReactDOM.render(

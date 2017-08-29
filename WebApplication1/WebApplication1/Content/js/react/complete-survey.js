@@ -1,10 +1,10 @@
-import { SurveyList } from './components/survey/surveyList.jsx'
+import { SurveyList } from './components/survey/surveyList/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 
 function run() {
     ReactDOM.render(
-    <SurveyList/>,
+    <SurveyList />,
     document.getElementById('root'))
 }
 

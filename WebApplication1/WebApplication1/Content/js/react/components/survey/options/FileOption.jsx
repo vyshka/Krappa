@@ -9,8 +9,7 @@ export class FileOption extends React.Component {
         this.filesOnChange = this.filesOnChange.bind(this)
         this.uploadFile = this.uploadFile.bind(this)
         this.state = {
-            FileServiceResponse: 'Выберите файл',
-            fields: {}
+            fiels: {}
         }
     }
 
@@ -33,16 +32,13 @@ export class FileOption extends React.Component {
             processData: false,
             data: form,
             success: function(path) {
-                this.setState({
-                    FileServiceResponse: "Файл загружен"
-                })
                 this.props.onDone(path)
             }.bind(this)
         })
     }
     
-    filesOnChange(sender) {
-        let filesToUpload = sender.target.files;
+    filesOnChange(e) {
+        let filesToUpload = e.target.files;
         let state = this.state;
 
         this.setState({
@@ -59,7 +55,8 @@ export class FileOption extends React.Component {
                     <input 
                         type="file" 
                         id="case-one" 
-                        onChange={this.filesOnChange} />
+                        onChange={this.filesOnChange} 
+                    />
                 </form>
             </div>
         );

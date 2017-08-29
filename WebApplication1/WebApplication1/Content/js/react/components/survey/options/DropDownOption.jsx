@@ -13,7 +13,6 @@ export class DropDownOption extends React.Component {
     }
 
     onChange(e) {
-        //Kappa123
         console.log
         this.setState({
             selectedValue: e.target.value

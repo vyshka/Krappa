@@ -1,11 +1,11 @@
-import {Survey} from './components/survey/survey.jsx'
+import { Survey } from './components/survey/completeSurvey/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 
 
 function run() {
     ReactDOM.render(
-        <Survey/>,
+        <Survey />,
         document.getElementById('root')
     )
 }

@@ -1,4 +1,4 @@
-import {SurveyTable} from './components/survey/surveyTable.jsx'
+import { SurveyTable } from './components/survey/surveyTable/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 

@@ -1,10 +1,10 @@
-import {SurveyForm} from './components/survey/SurveyForm.jsx'
+import { SurveyForm } from './components/survey/EditSurvey/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 
 function run() {
     ReactDOM.render(
-    <SurveyForm/>,
+    <SurveyForm />,
     document.getElementById('root'))
 }
 

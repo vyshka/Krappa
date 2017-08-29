@@ -1,4 +1,4 @@
-import {Stat} from './components/survey/surveyStat.jsx'
+import { Stat } from './components/survey/stat/index.jsx'
 import React from 'React'
 import ReactDOM from 'React-DOM'
 

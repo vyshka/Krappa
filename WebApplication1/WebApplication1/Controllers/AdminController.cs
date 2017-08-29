@@ -7,11 +7,8 @@ using System.Web.Mvc;
 using WebApplication1.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.Owin.Security;
 using PagedList;
 using System.Configuration;
-using System.Data.Entity.Validation;
 
 namespace WebApplication1.Controllers
 {

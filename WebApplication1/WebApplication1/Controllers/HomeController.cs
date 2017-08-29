@@ -12,34 +12,39 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
-    [AllowAnonymous]
+    
     public class HomeController : Controller
     {
 
         private ApplicationContext db = new ApplicationContext();
 
-        // GET: Home
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return RedirectToAction("AboutCompany");
         }
 
+        [AllowAnonymous]
         public ActionResult AboutCompany()
         {
             return View(db.Vacancies.ToList());
         }
 
+
+        [AllowAnonymous]
         public ActionResult VacancyList()
         {
             return PartialView(db.Vacancies.ToList());
         }
 
-
+        [Authorize]
         public ActionResult CompliteSurvey()
         {
             return View();
         }
 
+
+        [Authorize]
         public ActionResult Survey(int id)
         {
             return View();

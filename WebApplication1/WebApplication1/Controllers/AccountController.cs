@@ -124,6 +124,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize]
         public async Task<ActionResult> Edit()
         {
             ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
@@ -135,6 +136,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Edit(UserEditModel model)
         {
@@ -171,6 +173,8 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> Profile()
         {

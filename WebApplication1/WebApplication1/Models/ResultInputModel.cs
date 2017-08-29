@@ -7,6 +7,7 @@ namespace WebApplication1.Models
 {
     public class ResultModel
     {
+        public int Id { get; set; }
         public int surveyId { get; set; }
 
         public QuestionAnswer[] AnswersQuestions { get; set; }

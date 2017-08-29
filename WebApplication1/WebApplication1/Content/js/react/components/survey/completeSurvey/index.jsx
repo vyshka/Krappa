@@ -16,10 +16,10 @@ export class Survey extends React.Component{
         }
 
         this.onChange = this.onChange.bind(this)
-        this.compliteSurvey = this.compliteSurvey.bind(this)
+        this.completeSurvey = this.completeSurvey.bind(this)
     }
 
-    compliteSurvey() {
+    completeSurvey() {
         var results = this.state.results
         results.forEach(function(element) {
             var text = element.Text
@@ -34,6 +34,7 @@ export class Survey extends React.Component{
 
 
         var ResultModel = {
+            Id: this.state.Id,
             surveyId: this.state.Survey.Id,
             AnswersQuestions: results
         }
@@ -44,7 +45,7 @@ export class Survey extends React.Component{
             type: "POST",
             data: JSON.stringify(ResultModel),
             success: function() {
-                window.location.pathname = '/Home/CompliteSurvey'
+                window.location.pathname = '/Home/CompleteSurvey'
             }
         })
     }
@@ -81,6 +82,16 @@ export class Survey extends React.Component{
                 })
             }.bind(this)
         })
+
+        $.ajax({
+            url: "/api/Result/CreateResult",
+            dataType: 'JSON',
+            success: function(data) {
+                this.setState({
+                    Id: data,
+                })
+            }.bind(this)
+        })
         
 
     }
@@ -90,6 +101,7 @@ export class Survey extends React.Component{
         var questionsList = this.state.Survey.Questions.map(function(element, index) {
             return(
                 <Question 
+                    ResultId = {self.state.Id}
                     key = {element.Id}
                     question = {element}  
                     onChange = {self.onChange}  
@@ -101,7 +113,7 @@ export class Survey extends React.Component{
                 <h3>{this.state.Survey.Name}</h3>
                 {questionsList}
                 <Button 
-                    Action = {this.compliteSurvey}
+                    Action = {this.completeSurvey}
                     text = "Завершить"
                 />
             </div>

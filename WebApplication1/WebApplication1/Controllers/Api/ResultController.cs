@@ -54,8 +54,8 @@ namespace WebApplication1.Controllers
             return ret;
         }
 
-        
 
+        
         public UserResults GetResultsByUserId(string Id)
         {
             var User = db.Users.Find(Id);
@@ -83,11 +83,12 @@ namespace WebApplication1.Controllers
         }
 
 
+        [Route("api/Result/DownloadFile/{id}/{filename}")]
         [HttpGet]
-        public HttpResponseMessage DownloadFile(string filename)
+        public HttpResponseMessage DownloadFile(int id, string filename )
         {
             var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
-            var path = root + filename;
+            var path = root + id.ToString() + '/' + filename;
 
             var stream = new FileStream(path, FileMode.Open);
 
@@ -105,20 +106,38 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public string UploadFile()
+        public string UploadFile(int id)
         {
+
             var httpPostedFile = HttpContext.Current.Request.Files["file"];
             var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
-            var path = root + httpPostedFile.FileName;
+            root += id.ToString();
+            Directory.CreateDirectory(root);
+            var path = root + '/' + httpPostedFile.FileName;
             httpPostedFile.SaveAs(path);
 
             return httpPostedFile.FileName;
 
         }
 
-        public void SaveResult([FromBody] ResultModel model)
+
+        [HttpGet]
+        public int CreateResult()
         {
             var result = db.Results.Create();
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            result.User = user;
+            db.Results.Add(result);
+            db.SaveChanges();
+            return result.Id;
+
+        }
+
+        public void SaveResult([FromBody] ResultModel model)
+        {
+
+            var result = db.Results.Find(model.Id);
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
             var survey = db.Surveys.Find(model.surveyId);

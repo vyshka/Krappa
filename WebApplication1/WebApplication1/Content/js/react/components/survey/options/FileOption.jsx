@@ -1,5 +1,4 @@
 import React from 'React'
-import FileBase64 from 'react-file-base64';
 
 export class FileOption extends React.Component {
 
@@ -26,7 +25,7 @@ export class FileOption extends React.Component {
         }
 
         $.ajax({
-            url: "/api/Result/UploadFile",
+            url: "/api/Result/UploadFile/" + this.props.ResultId,
             type: "POST",
             contentType: false,
             processData: false,

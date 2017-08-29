@@ -1,4 +1,4 @@
-import Raect from 'React'
+import React from 'React'
 import ReactQuill from 'react-quill'
 import { FileOption } from '../options/FileOption.jsx'
 import { DropDownOption } from '../options/DropDownOption.jsx'
@@ -66,6 +66,7 @@ export class Question extends React.Component {
 
         if(this.props.question.QuestionType.Type == "file") {
             Options = <FileOption
+                        ResultId = {this.props.ResultId}
                         onDone = {this.onChange}
                      />
         }

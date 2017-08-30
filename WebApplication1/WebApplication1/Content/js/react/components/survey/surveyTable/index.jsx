@@ -9,11 +9,10 @@ export class SurveyTable extends React.Component{
         super(props)
 
         this.state = {
-            data: [ ]
+            data: []
         }
 
         this.deleteFromState = this.deleteFromState.bind(this)
-        this.loadcount = this.loadcount.bind(this)
     }
 
     componentDidMount() {
@@ -35,29 +34,6 @@ export class SurveyTable extends React.Component{
         })
     }
 
-    loadcount() {
-        $.ajax({
-            url: "/api/Result/GetResultsCount",
-            dataType: 'JSON',
-            success: function(data) {
-                var newData = this.state.data
-                newData.forEach(function(element) {     
-                    element.ResultCount = 0;
-                    data.forEach(function(listElement) {
-                        if(element.Id == listElement.SurveyId) {                            
-                            element.ResultCount = listElement.Count
-                        }
-                    })
-                    
-                }, this);
-                this.setState({
-                    data: newData
-                })
-            }.bind(this)
-        })
-
-    }
-
     loadList() {
         var spinner = new Spinner({ top:"100%" });
         var table = document.getElementById("table");
@@ -72,7 +48,6 @@ export class SurveyTable extends React.Component{
             success: function(list) {
                 spinner.stop();
                 this.setState({data: list});
-                this.loadcount();
             }.bind(this)
         })
     }

@@ -26,11 +26,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public class ReturnResultsList
-        {
-            public int SurveyId { get; set; }
-            public int Count { get; set; }
-        }
+        
 
         [Route("results/{id}")]
         [HttpGet]
@@ -38,23 +34,6 @@ namespace WebApplication1.Controllers
         {
             var result = db.Results.Where(r => r.Id == id).ToList()[0];
             return result;
-        }
-
-
-
-        public List<ReturnResultsList> GetResultsCount()
-        {
-            var ResultsCount =
-                db.Results
-                    .GroupBy(r => r.Survey.Id)
-                    .Select(g => new ReturnResultsList
-                    {
-                        SurveyId = g.Key,
-                        Count = g.Select(r => r.Survey).Count()
-                    });
-            var ret = ResultsCount.ToList();
-
-            return ret;
         }
 
 
@@ -110,6 +89,7 @@ namespace WebApplication1.Controllers
 
         }
 
+        [Route("uploadfile/{id}")]
         [HttpPost]
         public string UploadFile(int id)
         {

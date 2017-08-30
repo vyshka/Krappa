@@ -13,9 +13,14 @@ namespace WebApplication1.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+        public class ReturnResultsList
+        {
+            public int SurveyId { get; set; }
+            public int Count { get; set; }
+        }
 
         [Authorize(Roles = "Admin")]
-        [Route("survey/{id}")]
+        [Route("surveys/{id}")]
         [HttpDelete]
         public bool DeleteSurvey(int id)
         {
@@ -55,11 +60,26 @@ namespace WebApplication1.Controllers
         
         [Route("surveys")]
         [HttpGet]
-        public IEnumerable<Survey> GetAllSurveys()
+        public IEnumerable<SurveyView> GetAllSurveys()
         {
-            var Qlist = db.Surveys.ToList();
-            var Alist = Qlist.SelectMany(p => p.Questions).ToList();
-            return Qlist;
+            var list = db.Surveys.ToList();
+
+            List<SurveyView> rList = new List<SurveyView>();
+            var ResultsCount =
+                db.Results
+                    .GroupBy(r => r.Survey.Id)
+                    .Select(g => new ReturnResultsList
+                    {
+                        SurveyId = g.Key,
+                        Count = g.Select(r => r.Survey).Count()
+                    }).ToList();
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                var item = new SurveyView(list[i], ResultsCount[i].Count);
+                rList.Add(item);
+            }
+            return rList;
         }
 
 
@@ -75,7 +95,7 @@ namespace WebApplication1.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        [Route("survey")]
+        [Route("surveys")]
         [HttpPost]
         public int CreateSurvey(Survey model)
         {
@@ -95,9 +115,9 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Route("surveys")]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [HttpPut]
         public bool UpdateSurvey(Survey model)
         {
 
@@ -193,7 +213,7 @@ namespace WebApplication1.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        [Route("survey/{id}/stat")]
+        [Route("surveys/{id}/stat")]
         [HttpGet]
         public SurveyStat GetSurveyStat(string id)
         {

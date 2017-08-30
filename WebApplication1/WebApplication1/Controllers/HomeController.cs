@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
         }
 
         [Authorize]
-        public ActionResult CompliteSurvey()
+        public ActionResult CompleteSurvey()
         {
             return View();
         }

@@ -22,5 +22,6 @@ namespace WebApplication1.Models
             this.UpdateTime = model.UpdateTime;
             this.ResultCount = count;
         }
+
     }
 }

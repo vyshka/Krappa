@@ -53,7 +53,7 @@ export class SurveyForm extends React.Component {
         var id = this.state.model.Id
 
         $.ajax({
-            url: "/survey/" + id + "/question",
+            url: "/surveys/" + id + "/question",
             method: 'POST',
             dataType: 'JSON',
             success: function(data) {
@@ -82,9 +82,9 @@ export class SurveyForm extends React.Component {
 
     updateSurvey () {
         $.ajax({
-            url: "/api/Survey/UpdateSurvey",
+            url: "/surveys",
             contentType: "application/json",
-            method: "POST",
+            method: "PUT",
             data: JSON.stringify(this.state.model),
             success: function() {
                 window.location.pathname = '/Admin/SurveyList'
@@ -94,7 +94,7 @@ export class SurveyForm extends React.Component {
 
     deleteSurvey () {
         $.ajax({
-            url: "/survey" + parseInt(this.state.model.Id),
+            url: "/surveys/" + parseInt(this.state.model.Id),
             method: 'DELETE',
             success: function() {
                 window.location.pathname = '/Admin/SurveyList'

@@ -1,8 +1,6 @@
 import React from 'React'
-
-import {AddVacancyForm, AddUserForm} from './addForm.jsx'
-
-
+import { AddVacancyForm } from './AddVacancyForm.jsx'
+import { AddUserForm } from './AddUserForm.jsx'
 
 export class DisplayTable extends React.Component{  
     constructor(props) {
@@ -244,7 +242,7 @@ class DeleteLink extends React.Component{
                 success: function(result) {
                     deleteAct(result);
                 }
-            })
+            }).bind(this)
         }
     }
 }

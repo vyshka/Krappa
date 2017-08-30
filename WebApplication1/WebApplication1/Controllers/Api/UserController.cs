@@ -28,6 +28,8 @@ namespace WebApplication1.Controllers
 
         private ApplicationContext db = new ApplicationContext();
 
+
+        //users/id
         public UsersList getUserById(string id)
         {
             UsersList user = new UsersList(UserManager.FindById(id));
@@ -35,6 +37,8 @@ namespace WebApplication1.Controllers
             return user;
         }
 
+
+        //users
         public IEnumerable<UsersList> getAllUsers()
         {
             Thread.Sleep(1500);
@@ -49,6 +53,8 @@ namespace WebApplication1.Controllers
             return list;
         }
 
+
+        //users/count
         private int GetSurveyCount(string Id)
         {
             var User = UserManager.FindById(Id);
@@ -56,6 +62,7 @@ namespace WebApplication1.Controllers
             return count;
         }
 
+        //post Users
         public UsersList CreateUser(AdminCreateUserModel model)
         {
             ApplicationUser user = new ApplicationUser { UserName = model.userName, Email = model.Email, registerTime = DateTime.Now };
@@ -80,6 +87,8 @@ namespace WebApplication1.Controllers
             
         }
 
+
+        //delete user/id
         public ApplicationUser DeleteUser(string id)
         {
             var user = UserManager.FindById(id);
@@ -91,6 +100,9 @@ namespace WebApplication1.Controllers
             return user;
         }
 
+
+
+        //?
         public bool updateUser(AdminUserEditModel model)
         {
             ApplicationUser user = UserManager.FindById(model.Id);

@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Route("vacancies/{id}")]
         [HttpDelete]
         public Vacancies DeleteVacancy(int id)
         {
@@ -52,7 +52,8 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpPost]
+        [Route("vacancies")]
+        [HttpPut]
         public bool UpdateVacancy(Vacancies item)
         {
             var original = db.Vacancies.Find(item.Id);
@@ -67,6 +68,7 @@ namespace WebApplication1.Controllers
             return false;
         }
 
+        [Route("vacancies")]
         [HttpPost]
         public int CreateVacancy(Vacancies item)
         {

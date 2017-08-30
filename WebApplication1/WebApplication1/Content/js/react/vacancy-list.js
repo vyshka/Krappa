@@ -5,8 +5,8 @@ import ReactDOM from 'React-DOM'
 function run() {
     ReactDOM.render(
     <DisplayTable
-        url = "/api/vacancies/getallVacancies"
-        deleteUrl = "/api/vacancies/DeleteVacancy/"
+        url = "/vacancies"
+        deleteUrl = "/vacancies/"
         editUrl = ""
         isVacancy = {true}
          />,

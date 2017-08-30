@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
 
 
 
-        [Route("survey/{id}/question")]
+        [Route("surveys/{id}/question")]
         [HttpPost]
         public Question CreateQuestion(int id)
         {

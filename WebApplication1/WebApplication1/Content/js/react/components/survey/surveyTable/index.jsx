@@ -19,7 +19,6 @@ export class SurveyTable extends React.Component{
         this.loadList()
     }
 
-
     deleteFromState(elementId) {
         var newData = this.state.data
         var deleteIndex;

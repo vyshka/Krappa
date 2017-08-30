@@ -1,5 +1,5 @@
 import React from 'React'
-import SaladUI from 'salad-ui'
+import { BarMetric } from 'salad-ui.chart'
 
 export class Answer extends React.Component {
     render() {
@@ -8,7 +8,7 @@ export class Answer extends React.Component {
                 <div 
                     dangerouslySetInnerHTML={{__html: this.props.answer.Text}}
                 />
-                <SaladUI.Chart.BarMetric
+                <BarMetric
                     label=""
                     percent={this.props.answer.Percent}
                     value={this.props.answer.Count}

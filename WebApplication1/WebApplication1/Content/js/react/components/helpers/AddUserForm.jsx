@@ -1,93 +1,7 @@
 import React from 'React'
 import { Button } from './Button.jsx'
+import { FormGroup } from './FormGroup.jsx'
 
-
-export class AddVacancyForm extends React.Component{
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            name: "",
-            city: "",
-            url:""
-        }
-
-        this.handleClick = this.handleClick.bind(this);
-        this.change = this.change.bind(this);
-        this.clearState = this.clearState.bind(this);
-
-    }
-
-    change(e) {
-        this.setState({
-            [e.target.id]: e.target.value
-        });
-    };
-
-    clearState() {
-        this.setState({
-            name:"",
-            city: "",
-            url: ""
-        })
-    }
-
-    handleClick() {
-        var self = this;
-        var Vacancies = {
-            Url: this.state.url,
-            City: this.state.city,
-            name: this.state.name
-        }
-        $.ajax({
-            url: "/api/vacancies/CreateVacancy",
-            contentType: "application/json",
-            type: "POST",
-            data: JSON.stringify(Vacancies),
-            success: function(data) {
-                Vacancies.Id = data;    
-                self.props.add(Vacancies);
-                self.clearState();
-                
-                
-            }
-        })
-    }
-
-    render() {
-        return(
-            <form className="form-horizontal">
-                <h3>Добавить вакансию</h3>
-                <FormGroup 
-                    id="name"
-                    text="Название"
-                    onChange={e => this.change(e)} 
-                    value={this.state.name}
-                />
-
-                <FormGroup 
-                    id="city"
-                    text="Город"
-                    onChange={e => this.change(e)} 
-                    value={this.state.city}
-                />
-
-                <FormGroup 
-                    id="url"
-                    text="Url"
-                    onChange={e => this.change(e)} 
-                    value={this.state.url}
-                />
-
-                <div className="form-group">
-                    <div>
-                        <button onClick={this.handleClick} type="button" id="createBtn" className="btn btn-default" >Добавить</button>                    
-                    </div>
-                </div> 
-            </form>
-        )
-    }
-}
 
 export class AddUserForm extends React.Component{
 
@@ -240,28 +154,6 @@ export class AddUserForm extends React.Component{
                     text="Добавить"
                 />
             </form>
-        )
-    }
-}
-
-
-class FormGroup extends React.Component {
-    render() {
-        return(
-            <div className="form-group">
-                <label className="control-label">{this.props.text}</label>
-                <input type={this.props.type} className="form-control" id={this.props.id} value={this.props.value} onChange = {this.props.onChange} />
-                <ErrorText text={this.props.error} />
-            </div>
-            
-        )
-    }
-}
-
-class ErrorText extends React.Component{
-    render() {
-        return(
-            <span className="text-danger field-validation-error">{this.props.text}</span>
         )
     }
 }

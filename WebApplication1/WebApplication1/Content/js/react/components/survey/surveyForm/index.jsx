@@ -1,6 +1,15 @@
 import React from 'React'
 import { Button } from '../../helpers/Button.jsx'
 import { EditForm } from './EditForm.jsx'
+import {
+    SortableContainer,
+    SortableElement,
+    SortableHandle,
+    arrayMove,
+  } from 'react-sortable-hoc';
+
+
+
 
 
 export class SurveyForm extends React.Component {
@@ -23,6 +32,7 @@ export class SurveyForm extends React.Component {
         this.addAnswer = this.addAnswer.bind(this);
         this.deleteSurvey = this.deleteSurvey.bind(this);
         this.changeQuestionType = this.changeQuestionType.bind(this)
+        this.onSortEnd = this.onSortEnd.bind(this)
     }
 
     addAnswer (e) { 
@@ -188,11 +198,27 @@ export class SurveyForm extends React.Component {
         })
     }
     
+    onSortEnd = ({oldIndex, newIndex}) => {
+        
+        var newState = this.state
+        let items = newState.model.Questions;
+        newState.model.Questions = arrayMove(items, oldIndex, newIndex)
+        
+        newState.model.Questions.map(function(element, index) {
+            element.Order = index
+        })
+
+        this.setState({
+          model: newState.model,
+        });
+      };
+
     render() {
         var self = this;
+        var items = this.state.model.Questions
 
         var questionList = this.state.model.Questions.map(function(element, index) {
-                return(
+            return(
                     <EditForm 
                         key = {index}
                         question = {element}
@@ -204,14 +230,36 @@ export class SurveyForm extends React.Component {
                         changeQuestionType = {self.changeQuestionType}
                         addA = {self.addAnswer}
                     />
-                )
-            });
+            )
+        });
+
+        const DragHandle = SortableHandle(() => <span>::</span>);
+
+        const SortableItem = SortableElement(({value}) => {
+            return (
+                <div className = "panel panel-default">
+                    {value}
+                </div>
+            );
+          });
+
+
+        const SortableList = SortableContainer(({items}) => {
+            return (
+              <div>
+                {items.map((value, index) => (
+                  <SortableItem key={`item-${index}`} index={index} value={value} />
+                ))}
+              </div>
+            )
+          })
+
+        
          
         return(
             <div>
                 <div className="form-group">
                     <label className="control-label">Название опроса</label>
-
                     <input
                         placeholder="Название опроса" 
                         className="form-control" 
@@ -221,8 +269,16 @@ export class SurveyForm extends React.Component {
                     
                     
                 </div>
-                           
-                {questionList}
+
+                <div>                           
+                    <SortableList 
+                        items={questionList} 
+                        onSortEnd={this.onSortEnd} 
+                        lockAxis="y" 
+                    />
+                </div>
+
+
                 <Button
                     Action={e => this.addEditForm(e)}
                     text="Добавить вопрос"

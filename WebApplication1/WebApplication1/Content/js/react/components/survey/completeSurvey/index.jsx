@@ -17,6 +17,7 @@ export class Survey extends React.Component{
 
         this.onChange = this.onChange.bind(this)
         this.completeSurvey = this.completeSurvey.bind(this)
+        this.createResult = this.createResult.bind(this)
     }
 
     completeSurvey() {
@@ -68,6 +69,7 @@ export class Survey extends React.Component{
         var id = parts.pop() || parts.pop();
         $.ajax({
             url: "/surveys/" + id,
+            method: "GET",
             dataType: 'JSON',
             success: function(data) {
                 var results = data.Questions.map(function(element, index) {
@@ -79,22 +81,23 @@ export class Survey extends React.Component{
                 this.setState({
                     Survey: data,
                     results: results
-                })
+                }, this.createResult(data.Id))
             }.bind(this)
         })
+    }
 
+    createResult(Id) {
         $.ajax({
-            url: "/results",
+            url: "/results/" + Id,
             method: 'POST',
             dataType: 'JSON',
+            data: this.state.Survey.Id,
             success: function(data) {
                 this.setState({
                     Id: data,
                 })
             }.bind(this)
         })
-        
-
     }
 
     render() {

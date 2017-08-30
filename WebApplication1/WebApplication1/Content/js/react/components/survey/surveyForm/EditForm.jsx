@@ -17,7 +17,7 @@ export class EditForm extends React.Component {
                         deleteQ = {this.props.deleteQ}
                     />
                 </div>
-                <label className="control-label">Ответы </label>
+                <label>Ответы </label>
                 <OptionSelect 
                     changeQuestionType = {this.props.changeQuestionType}
                     indexQ = {this.props.question.Id}

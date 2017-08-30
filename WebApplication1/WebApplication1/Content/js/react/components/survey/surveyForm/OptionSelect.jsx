@@ -6,7 +6,6 @@ export class OptionSelect extends React.Component {
         this.state = {
             selectedValue: this.props.questionType
         }
-
         this.onChange = this.onChange.bind(this)
     }
 
@@ -19,7 +18,7 @@ export class OptionSelect extends React.Component {
 
     render() {
         return(
-            <select className="selectpicker" value={this.state.selectedValue} onChange={this.onChange}>
+            <select value={this.state.selectedValue} onChange={this.onChange}>
                 <option value="options">Ответы</option>
                 <option value="text">Текст</option>
                 <option value="file">Файл</option>

@@ -232,9 +232,7 @@ export class SurveyForm extends React.Component {
                     />
             )
         });
-
-        const DragHandle = SortableHandle(() => <span>::</span>);
-
+        
         const SortableItem = SortableElement(({value}) => {
             return (
                 <div className = "panel panel-default">
@@ -265,9 +263,7 @@ export class SurveyForm extends React.Component {
                         className="form-control" 
                         value={this.state.model.Name} 
                         onChange={this.changeN}
-                    />    
-                    
-                    
+                    />     
                 </div>
 
                 <div>                           

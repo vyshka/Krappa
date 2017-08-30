@@ -1,4 +1,4 @@
-/// <binding />
+/// <binding BeforeBuild='default' />
 /// <reference path="Content/js/scripts.js" />
 /// <binding BeforeBuild='default' />
 // include plug-ins
@@ -12,9 +12,6 @@ var gulp = require('gulp'),
  
 
 var jsDest = 'Content/js/',
-    sourceFile = './js/main.js',
-    destFolder = './js/',
-    destFile = 'findem.js';
     jsFiles = [
             'Content/js/jquery-3.1.1.js',
             'Content/js/jquery.validate.js',
@@ -60,7 +57,5 @@ gulp.task('minify-css', ['less'], function() {
 
 
 gulp.task('default', ['scripts', 'less', 'minify-css'], function () { });
-
-gulp.task('survey', ['temp', 'browserifySurvey', 'cleanSurvey'], function() { })
 
 

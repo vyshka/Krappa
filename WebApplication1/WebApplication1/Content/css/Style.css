@@ -62,7 +62,7 @@ span {
   margin: 15px 0;
 }
 .edit-form {
-  margin: 20px 0px;
+  margin: 5px;
   padding: 5px;
 }
 
@@ -278,12 +278,6 @@ used to vertically center elements, may need modification if you're not using de
 .inactive {
   cursor: default;
   color: gray;
-}
-
-@media (min-width: 768px) {
-  .contrainer {
-    width: unset !important;
-  }
 }
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -2297,12 +2291,13 @@ pre code {
   .container {
     width: 970px;
   }
-}
+}*/
+
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
   }
-}*/
+}
 
 .container-fluid {
   padding-right: 15px;

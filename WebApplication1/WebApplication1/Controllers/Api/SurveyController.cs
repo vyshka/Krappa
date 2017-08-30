@@ -65,14 +65,14 @@ namespace WebApplication1.Controllers
             var list = db.Surveys.ToList();
 
             List<SurveyView> rList = new List<SurveyView>();
-            var ResultsCount =
-                db.Results
+            var ResultsCount = db.Results
                     .GroupBy(r => r.Survey.Id)
                     .Select(g => new ReturnResultsList
                     {
                         SurveyId = g.Key,
-                        Count = g.Select(r => r.Survey).Count()
-                    }).ToList();
+                        Count = g.Select(r => r.Survey).Count() 
+                    })
+                    .ToList();
 
             for(int i = 0; i < list.Count; i++)
             {
@@ -88,6 +88,7 @@ namespace WebApplication1.Controllers
         public Survey GetSurveyById(int id)
         {
             var survey = db.Surveys.Find(id);
+            survey.Questions = survey.Questions.OrderBy(q => q.Order).ToList();
 
             return survey;
         }

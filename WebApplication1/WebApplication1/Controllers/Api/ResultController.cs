@@ -95,7 +95,7 @@ namespace WebApplication1.Controllers
         {
 
             var httpPostedFile = HttpContext.Current.Request.Files["file"];
-            var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
+            var root = HttpContext.Current.Server.MapPath("~/Files/");
             root += id.ToString();
             Directory.CreateDirectory(root);
             var path = root + '/' + httpPostedFile.FileName;
@@ -105,13 +105,15 @@ namespace WebApplication1.Controllers
 
         }
 
-        [Route("results")]
+        [Route("results/{Id}")]
         [HttpPost]
-        public int CreateResult()
+        public int CreateResult([FromUri] int Id)
         {
             var result = db.Results.Create();
             var userId = User.Identity.GetUserId();
+            var survey = db.Surveys.Find(Id);
             var user = db.Users.Find(userId);
+            result.Survey = survey;
             result.User = user;
             db.Results.Add(result);
             db.SaveChanges();
@@ -129,8 +131,6 @@ namespace WebApplication1.Controllers
             var result = db.Results.Find(model.Id);
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
-            var survey = db.Surveys.Find(model.surveyId);
-            result.Survey = survey;
             result.User = user;
             result.CompleteTime = DateTime.Now.ToString();
             
@@ -147,6 +147,5 @@ namespace WebApplication1.Controllers
             }
             db.SaveChanges();
         }
-
     }
 }

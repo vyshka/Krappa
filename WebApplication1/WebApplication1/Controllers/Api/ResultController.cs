@@ -14,7 +14,7 @@ using System.Net.Http.Headers;
 namespace WebApplication1.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    
     public class ResultController : ApiController
     {
         private ApplicationContext db = new ApplicationContext();
@@ -26,8 +26,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        
 
+        [Authorize(Roles = "Admin")]
         [Route("results/{id}")]
         [HttpGet]
         public Result GetResultById(int id)
@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             return result;
         }
 
-
+        [Authorize(Roles = "Admin")]
         [Route("results/users/{id}")]
         [HttpGet]
         public UserResults GetResultsByUserId(string id)
@@ -66,12 +66,12 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [Route("downloadfile/{id}/{filename}/")]
         [HttpGet]
         public HttpResponseMessage DownloadFile(int id, string filename )
         {
-            var root = System.Web.HttpContext.Current.Server.MapPath("~/Files/");
+            var root = HttpContext.Current.Server.MapPath("~/Files/");
             var path = root + id.ToString() + '/' + filename;
 
             var stream = new FileStream(path, FileMode.Open);
@@ -89,6 +89,7 @@ namespace WebApplication1.Controllers
 
         }
 
+        [Authorize]
         [Route("uploadfile/{id}")]
         [HttpPost]
         public string UploadFile(int id)
@@ -105,6 +106,7 @@ namespace WebApplication1.Controllers
 
         }
 
+        [Authorize]
         [Route("results/{Id}")]
         [HttpPost]
         public int CreateResult([FromUri] int Id)
@@ -122,7 +124,7 @@ namespace WebApplication1.Controllers
         }
 
 
-
+        [Authorize]
         [Route("results")]
         [HttpPut]
         public void SaveResult([FromBody] ResultModel model)

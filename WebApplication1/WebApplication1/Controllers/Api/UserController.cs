@@ -29,16 +29,19 @@ namespace WebApplication1.Controllers
         private ApplicationContext db = new ApplicationContext();
 
 
-        //users/id
-        public UsersList getUserById(string id)
+        [Route("users/{id}")]
+        [HttpGet]
+        public string getUserById(string id)
         {
-            UsersList user = new UsersList(UserManager.FindById(id));
-            //string renderedHTML = RenderViewToString("Admin", "EditUser", user);
-            return user;
+            var user = UserManager.FindById(id);
+            string renderedHTML = RenderViewToString("Admin", "EditUser", user);
+            return renderedHTML;
         }
 
 
-        //users
+
+        [Route("users")]
+        [HttpGet]
         public IEnumerable<UsersList> getAllUsers()
         {
             Thread.Sleep(1500);
@@ -54,7 +57,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        //users/count
         private int GetSurveyCount(string Id)
         {
             var User = UserManager.FindById(Id);
@@ -62,7 +64,8 @@ namespace WebApplication1.Controllers
             return count;
         }
 
-        //post Users
+        [Route("users")]
+        [HttpPost]
         public UsersList CreateUser(AdminCreateUserModel model)
         {
             ApplicationUser user = new ApplicationUser { UserName = model.userName, Email = model.Email, registerTime = DateTime.Now };
@@ -88,7 +91,8 @@ namespace WebApplication1.Controllers
         }
 
 
-        //delete user/id
+        [Route("users/{id}")]
+        [HttpDelete]
         public ApplicationUser DeleteUser(string id)
         {
             var user = UserManager.FindById(id);
@@ -103,7 +107,9 @@ namespace WebApplication1.Controllers
 
 
         //?
-        public bool updateUser(AdminUserEditModel model)
+        [Route("users/{id}")]
+        [HttpPost]
+        public bool updateUser([FromBody]AdminUserEditModel model, [FromUri]string id)
         {
             ApplicationUser user = UserManager.FindById(model.Id);
             if (user != null)
@@ -121,23 +127,27 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        //private static string RenderViewToString(string controllerName, string viewName, object viewData)
-        //{
-        //    using (var writer = new StringWriter())
-        //    {
-        //        var routeData = new RouteData();
-        //        routeData.Values.Add("controller", controllerName);
-        //        var fakeControllerContext = new System.Web.Mvc.ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
-        //        var razorViewEngine = new RazorViewEngine();
-        //        var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
+        private static string RenderViewToString(string controllerName, string viewName, object viewData)
+        {
+            using (var writer = new StringWriter())
+            {
+                var routeData = new RouteData();
+                routeData.Values.Add("controller", controllerName);
+                var fakeControllerContext = new System.Web.Mvc.ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
+                var razorViewEngine = new System.Web.Mvc.RazorViewEngine();
+                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
 
-        //        var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
-        //        razorViewResult.View.Render(viewContext, writer);
-        //        return writer.ToString();
-        //    }
-        //}
+                var viewContext = new System.Web.Mvc.ViewContext(
+                    fakeControllerContext, 
+                    razorViewResult.View, 
+                    new System.Web.Mvc.ViewDataDictionary(viewData), 
+                    new System.Web.Mvc.TempDataDictionary(), writer);
+                razorViewResult.View.Render(viewContext, writer);
+                return writer.ToString();
+            }
+        }
 
     }
 
-    //public class FakeController : ControllerBase { protected override void ExecuteCore() { } }
+    public class FakeController : System.Web.Mvc.ControllerBase { protected override void ExecuteCore() { } }
 }

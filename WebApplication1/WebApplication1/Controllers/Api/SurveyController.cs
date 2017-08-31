@@ -254,7 +254,7 @@ namespace WebApplication1.Controllers
 
                     OptionStat oStat = new OptionStat
                     {
-                        Percent = percent,
+                        Percent = Math.Round(percent, 2),
                         Count = count,
                         Text = answerText
                     };

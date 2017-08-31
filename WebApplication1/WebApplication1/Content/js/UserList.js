@@ -27434,6 +27434,7 @@ var DisplayTable = exports.DisplayTable = function (_React$Component) {
             var table = document.getElementById("table");
             $.ajax({
                 url: this.props.url,
+                method: "GET",
                 dataType: 'JSON',
                 beforeSend: function beforeSend() {
                     spinner.spin(table);
@@ -28306,9 +28307,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function run() {
   _ReactDOM2.default.render(_React2.default.createElement(_table.DisplayTable, {
-    url: '/api/User/getAllUsers',
-    deleteUrl: '/api/User/DeleteUser/',
-    editUrl: '',
+    url: '/users',
+    deleteUrl: '/users/',
+    editUrl: '/users/',
     isUser: true
   }), document.getElementById('tableContent'));
 }

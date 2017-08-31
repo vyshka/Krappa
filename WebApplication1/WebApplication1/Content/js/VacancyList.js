@@ -27434,6 +27434,7 @@ var DisplayTable = exports.DisplayTable = function (_React$Component) {
             var table = document.getElementById("table");
             $.ajax({
                 url: this.props.url,
+                method: "GET",
                 dataType: 'JSON',
                 beforeSend: function beforeSend() {
                     spinner.spin(table);

@@ -64381,15 +64381,15 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
         _this.state = {
             model: {
                 Questions: [],
-                name: ""
+                Name: ""
             }
         };
 
         _this.addEditForm = _this.addEditForm.bind(_this);
         _this.changeO = _this.changeO.bind(_this);
-        _this.changeQ = _this.changeQ.bind(_this);
         _this.changeN = _this.changeN.bind(_this);
         _this.deleteA = _this.deleteA.bind(_this);
+        _this.onChange = _this.onChange.bind(_this);
         _this.deleteQ = _this.deleteQ.bind(_this);
         _this.updateSurvey = _this.updateSurvey.bind(_this);
         _this.addAnswer = _this.addAnswer.bind(_this);
@@ -64482,16 +64482,18 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
             });
         }
     }, {
-        key: 'changeQ',
-        value: function changeQ(e, index) {
+        key: 'onChange',
+        value: function onChange(e, index) {
             var newData = this.state.model;
-            newData.Questions.forEach(function (element, questionIndex) {
+            newData.Questions.some(function (element) {
                 if (element.Id == index) {
                     element.Text = e;
                 }
-            }, this);
+            });
             this.setState({
                 model: newData
+            }, function () {
+                console.log("index component");
             });
         }
     }, {
@@ -64582,7 +64584,7 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                     question: element,
                     index: index,
                     changeO: self.changeO,
-                    changeQ: self.changeQ,
+                    onChange: self.onChange,
                     deleteA: self.deleteA,
                     deleteQ: self.deleteQ,
                     changeQuestionType: self.changeQuestionType,
@@ -64633,11 +64635,7 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                 _React2.default.createElement(
                     'div',
                     null,
-                    _React2.default.createElement(SortableList, {
-                        items: questionList,
-                        onSortEnd: this.onSortEnd,
-                        lockAxis: 'y'
-                    })
+                    questionList
                 ),
                 _React2.default.createElement(_Button.Button, {
                     Action: function Action(e) {
@@ -64721,21 +64719,21 @@ var EditForm = exports.EditForm = function (_React$Component) {
             var self = this;
             return _React2.default.createElement(
                 'div',
-                { className: 'edit-form' },
+                { className: 'panel panel-default edit-form' },
                 _React2.default.createElement(
                     'div',
                     { className: 'input-del' },
                     _React2.default.createElement(_Question.Question, {
-                        question: this.props.question.Text,
+                        Text: this.props.question.Text,
                         indexQ: this.props.question.Id,
                         index: this.props.index,
-                        onChange: this.props.changeQ,
+                        onChange: this.props.onChange,
                         deleteQ: this.props.deleteQ
                     })
                 ),
                 _React2.default.createElement(
                     'label',
-                    null,
+                    { className: 'control-label right-margin' },
                     '\u041E\u0442\u0432\u0435\u0442\u044B '
                 ),
                 _React2.default.createElement(_OptionSelect.OptionSelect, {
@@ -65112,7 +65110,7 @@ var Question = exports.Question = function (_React$Component) {
                 ),
                 _React2.default.createElement(_reactQuill2.default, {
                     'data-id': this.props.indexQ,
-                    value: this.props.question,
+                    value: this.props.Text,
                     onChange: this.onChange,
                     modules: Question.modules,
                     formats: Question.formats

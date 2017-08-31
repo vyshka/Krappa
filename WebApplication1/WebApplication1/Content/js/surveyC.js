@@ -62950,7 +62950,6 @@ var DropDownOption = exports.DropDownOption = function (_React$Component) {
     (0, _createClass3.default)(DropDownOption, [{
         key: "onChange",
         value: function onChange(e) {
-            console.log;
             this.setState({
                 selectedValue: e.target.value
             });

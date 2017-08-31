@@ -5,9 +5,9 @@ import ReactDOM from 'React-DOM'
 function run() {
     ReactDOM.render(
     <DisplayTable
-        url = "/api/User/getAllUsers"
-        deleteUrl = "/api/User/DeleteUser/"
-        editUrl = ""
+        url = "/users"
+        deleteUrl = "/users/"
+        editUrl = "/users/"
         isUser = {true}
          />,
     document.getElementById('tableContent'))

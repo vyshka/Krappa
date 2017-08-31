@@ -13,7 +13,6 @@ export class DropDownOption extends React.Component {
     }
 
     onChange(e) {
-        console.log
         this.setState({
             selectedValue: e.target.value
         })

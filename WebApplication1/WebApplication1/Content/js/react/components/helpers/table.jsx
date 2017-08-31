@@ -51,6 +51,7 @@ export class DisplayTable extends React.Component{
         var table = document.getElementById("table");
         $.ajax({
             url: this.props.url,
+            method: "GET",
             dataType: 'JSON',
             beforeSend: function() {
                 spinner.spin(table);

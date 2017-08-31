@@ -3,7 +3,6 @@ using System.Linq;
 using WebApplication1.Models;
 using System.Web.Http;
 using System.Data.Entity;
-using System.Threading;
 using System;
 
 namespace WebApplication1.Controllers
@@ -74,10 +73,17 @@ namespace WebApplication1.Controllers
                     })
                     .ToList();
 
-            for(int i = 0; i < list.Count; i++)
+            foreach(var item in list)
             {
-                var item = new SurveyView(list[i], ResultsCount[i].Count);
-                rList.Add(item);
+                foreach(var resultcount in ResultsCount)
+                {
+                    if(item.Id == resultcount.SurveyId)
+                    {
+                        var val = new SurveyView(item, resultcount.Count);
+                        rList.Add(val);
+                        break;
+                    }
+                }
             }
             return rList;
         }

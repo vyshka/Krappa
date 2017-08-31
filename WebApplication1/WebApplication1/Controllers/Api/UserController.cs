@@ -5,9 +5,6 @@ using System.Linq;
 using System.Web;
 using WebApplication1.Models;
 using Microsoft.AspNet.Identity.Owin;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Web.Script.Serialization;
 using System.Web.Http;
 using System.IO;
 using System.Web.Routing;
@@ -44,7 +41,6 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<UsersList> getAllUsers()
         {
-            Thread.Sleep(1500);
             List<UsersList> list = new List<UsersList>();
             foreach (var element in UserManager.Users)
             {

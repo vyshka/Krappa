@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Web.Http;
 using System.IO;
 using WebApplication1.Models;
@@ -21,7 +20,6 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IEnumerable<Vacancies> GetAllVacancies()
         {
-            Thread.Sleep(1500);
             var temp = db.Vacancies.ToList();
             return (temp);
             

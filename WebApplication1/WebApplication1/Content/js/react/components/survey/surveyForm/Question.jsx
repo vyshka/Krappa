@@ -32,7 +32,7 @@ export class Question extends React.Component {
                 </a>
                 <ReactQuill 
                     data-id={this.props.indexQ} 
-                    value={this.props.question}
+                    value={this.props.Text}
                     onChange={this.onChange}
                     modules={Question.modules}
                     formats={Question.formats} 

@@ -3,21 +3,22 @@ import { Options } from './Options.jsx'
 import { OptionSelect } from './OptionSelect.jsx'
 import { Question } from './Question.jsx'
 
+
 export class EditForm extends React.Component {
     render() {
         let self = this;
         return(
-            <div className = "edit-form">
+            <div className = "panel panel-default edit-form">
                 <div className="input-del">
                     <Question 
-                        question = {this.props.question.Text}    
+                        Text = {this.props.question.Text}    
                         indexQ = {this.props.question.Id}
                         index = {this.props.index}
-                        onChange = {this.props.changeQ}
+                        onChange = {this.props.onChange}
                         deleteQ = {this.props.deleteQ}
                     />
                 </div>
-                <label>Ответы </label>
+                <label className="control-label right-margin">Ответы </label>
                 <OptionSelect 
                     changeQuestionType = {this.props.changeQuestionType}
                     indexQ = {this.props.question.Id}

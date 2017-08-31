@@ -12,21 +12,22 @@ import {
 
 
 
+
 export class SurveyForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             model: {
                 Questions: [],
-                name: ""
+                Name: ""
             }
         }
 
         this.addEditForm = this.addEditForm.bind(this);           
         this.changeO = this.changeO.bind(this);
-        this.changeQ = this.changeQ.bind(this);
         this.changeN = this.changeN.bind(this);
         this.deleteA = this.deleteA.bind(this);
+        this.onChange = this.onChange.bind(this)
         this.deleteQ = this.deleteQ.bind(this);
         this.updateSurvey = this.updateSurvey.bind(this);
         this.addAnswer = this.addAnswer.bind(this);
@@ -112,17 +113,20 @@ export class SurveyForm extends React.Component {
         })
     }
 
-    changeQ (e, index){ 
+    onChange (e, index){ 
         var newData = this.state.model;
-        newData.Questions.forEach(function(element, questionIndex) {
+        newData.Questions.some(function(element) {
             if(element.Id == index) {
                 element.Text = e
             }
             
-        }, this);
+        })
         this.setState({
             model: newData
-        });
+        }, function() {
+            console.log("index component")
+        })
+
     };
 
     changeO (e) {
@@ -211,7 +215,9 @@ export class SurveyForm extends React.Component {
         this.setState({
           model: newState.model,
         });
-      };
+      }
+
+      
 
     render() {
         var self = this;
@@ -224,7 +230,7 @@ export class SurveyForm extends React.Component {
                         question = {element}
                         index = {index}
                         changeO = {self.changeO}
-                        changeQ = {self.changeQ}
+                        onChange = {self.onChange}
                         deleteA = {self.deleteA}
                         deleteQ = {self.deleteQ}
                         changeQuestionType = {self.changeQuestionType}
@@ -252,8 +258,6 @@ export class SurveyForm extends React.Component {
             )
           })
 
-        
-         
         return(
             <div>
                 <div className="form-group">
@@ -267,11 +271,13 @@ export class SurveyForm extends React.Component {
                 </div>
 
                 <div>                           
-                    <SortableList 
+                    {/* <SortableList 
                         items={questionList} 
                         onSortEnd={this.onSortEnd} 
                         lockAxis="y" 
-                    />
+                        pressDelay={200}
+                    /> */}
+                    {questionList}
                 </div>
 
 

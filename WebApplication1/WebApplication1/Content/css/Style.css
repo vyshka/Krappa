@@ -267,6 +267,10 @@ used to vertically center elements, may need modification if you're not using de
   margin: 5px;
   font-size: 16px;
 }
+
+.right-margin {
+  margin-right: 5px;
+}
 .nopadingleft {
   padding-left: 0px !important;
 }

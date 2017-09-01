@@ -14,13 +14,13 @@ namespace WebApplication1.Models
         public int ResultCount { get; set; }
         public string UpdateTime { get; set; }
 
-        public SurveyView(Survey model, int count)
+        public SurveyView(Survey model)
         {
             this.Id = model.Id;
             this.Name = model.Name;
             this.Questions = model.Questions;
             this.UpdateTime = model.UpdateTime;
-            this.ResultCount = count;
+            this.ResultCount = 0;
         }
 
     }

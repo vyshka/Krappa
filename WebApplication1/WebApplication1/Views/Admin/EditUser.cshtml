@@ -1,24 +1,24 @@
-﻿@model WebApplication1.Models.UserViewModel
+﻿@model WebApplication1.Models.ApplicationUser
 
 
 <div class="form-horizontal">
     @Html.HiddenFor(model => model.Id, new { @id = "id"})
     @Html.ValidationSummary(true)
     <div class="form-group">
-        @Html.LabelFor(model => model.userName, new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.userName, new { @Value = Model.userName, @class = "form-control", @id = "userName"})
-            @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+        @Html.LabelFor(model => model.UserName, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserName, new { @Value = Model.UserName, @class = "form-control", @id = "userName"})
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Email, new { @class = "control-label" })
             @Html.TextBoxFor(model => model.Email, new { @Value = Model.Email, @class = "form-control", @id = "Email" })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.password, new { @class = "control-label" })
             @Html.PasswordFor(model => model.password, new { @class = "form-control", @id = "password" })
             @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-    </div>
+    </div>*@
     <div class="form-group">
             <button id="saveBtn" class="btn btn-default">Сохранить</button>
     </div>

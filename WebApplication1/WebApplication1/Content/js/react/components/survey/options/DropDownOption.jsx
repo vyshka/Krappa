@@ -12,6 +12,9 @@ export class DropDownOption extends React.Component {
         this.onChange = this.onChange.bind(this)
     }
 
+    componentDidMount() {
+        this.props.onChange(this.state.selectedValue)
+    }
     onChange(e) {
         this.setState({
             selectedValue: e.target.value

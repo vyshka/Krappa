@@ -11,8 +11,8 @@ export class Answer extends React.Component {
                 <BarMetric
                     label=""
                     percent={this.props.answer.Percent}
-                    value={this.props.answer.Count}
-                    metricName={this.props.answer.Percent + '%'}
+                    value={this.props.answer.Percent}
+                    metricName={'%'}
                 />
             </div>
                     

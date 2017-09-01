@@ -19,8 +19,9 @@ export class SurveyForm extends React.Component {
         this.state = {
             model: {
                 Questions: [],
-                Name: ""
-            }
+                Name: "",
+            },
+            isEdit: true
         }
 
         this.addEditForm = this.addEditForm.bind(this);           
@@ -34,6 +35,7 @@ export class SurveyForm extends React.Component {
         this.deleteSurvey = this.deleteSurvey.bind(this);
         this.changeQuestionType = this.changeQuestionType.bind(this)
         this.onSortEnd = this.onSortEnd.bind(this)
+        this.isEdit = this.isEdit.bind(this)
     }
 
     addAnswer (e) { 
@@ -123,8 +125,6 @@ export class SurveyForm extends React.Component {
         })
         this.setState({
             model: newData
-        }, function() {
-            console.log("index component")
         })
 
     };
@@ -202,6 +202,14 @@ export class SurveyForm extends React.Component {
         })
     }
     
+    isEdit(e) {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        this.setState({
+            isEdit: value
+        })
+    }
+
     onSortEnd = ({oldIndex, newIndex}) => {
         
         var newState = this.state
@@ -222,7 +230,7 @@ export class SurveyForm extends React.Component {
     render() {
         var self = this;
         var items = this.state.model.Questions
-
+        
         var questionList = this.state.model.Questions.map(function(element, index) {
             return(
                     <EditForm 
@@ -235,28 +243,41 @@ export class SurveyForm extends React.Component {
                         deleteQ = {self.deleteQ}
                         changeQuestionType = {self.changeQuestionType}
                         addA = {self.addAnswer}
+                        isEdit = {self.state.isEdit}
                     />
             )
         });
         
+        
         const SortableItem = SortableElement(({value}) => {
             return (
-                <div className = "panel panel-default">
+                <div>
                     {value}
                 </div>
             );
-          });
-
-
+        });
+        
+        
         const SortableList = SortableContainer(({items}) => {
             return (
-              <div>
+                <div>
                 {items.map((value, index) => (
-                  <SortableItem key={`item-${index}`} index={index} value={value} />
+                    <SortableItem key={`item-${index}`} index={index} value={value} />
                 ))}
-              </div>
+            </div>
             )
-          })
+        })
+
+        var list
+        if(this.state.isEdit) {
+            list = questionList
+        } else {
+            list = <SortableList 
+                items={questionList} 
+                onSortEnd={this.onSortEnd} 
+                lockAxis="y" 
+            />
+        }
 
         return(
             <div>
@@ -268,16 +289,17 @@ export class SurveyForm extends React.Component {
                         value={this.state.model.Name} 
                         onChange={this.changeN}
                     />     
+                    <label>
+                        Зафиксировать:
+                        <input
+                            type="checkbox"
+                            checked={this.state.isEdit}
+                            onChange={this.isEdit} />
+                        </label>
                 </div>
 
                 <div>                           
-                    {/* <SortableList 
-                        items={questionList} 
-                        onSortEnd={this.onSortEnd} 
-                        lockAxis="y" 
-                        pressDelay={200}
-                    /> */}
-                    {questionList}
+                    {list}
                 </div>
 
 

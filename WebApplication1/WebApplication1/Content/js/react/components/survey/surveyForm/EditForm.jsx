@@ -8,7 +8,7 @@ export class EditForm extends React.Component {
     render() {
         let self = this;
         return(
-            <div className = "panel panel-default edit-form">
+            <div className = {"edit-form " + (this.props.isEdit ? 'panel-default panel' : 'border')}>
                 <div className="input-del">
                     <Question 
                         Text = {this.props.question.Text}    

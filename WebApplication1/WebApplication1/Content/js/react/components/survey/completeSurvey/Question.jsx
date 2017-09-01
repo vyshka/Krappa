@@ -14,8 +14,12 @@ export class Question extends React.Component {
     }
 
     componentWillMount() {
+        var text = ""
+        if(this.props.question.Options[0]) {
+            text = this.props.question.Options[0].Text
+        }
         this.setState({
-            selectedValues: String(this.props.question.Options[0].Id)
+            selectedValues: text
         })
     }
 

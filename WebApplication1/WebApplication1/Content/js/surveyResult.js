@@ -62741,8 +62741,12 @@ var Question = exports.Question = function (_React$Component) {
     (0, _createClass3.default)(Question, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var text = "";
+            if (this.props.question.Options[0]) {
+                text = this.props.question.Options[0].Text;
+            }
             this.setState({
-                selectedValues: String(this.props.question.Options[0].Id)
+                selectedValues: text
             });
         }
     }, {
@@ -62868,6 +62872,11 @@ var DropDownOption = exports.DropDownOption = function (_React$Component) {
     }
 
     (0, _createClass3.default)(DropDownOption, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.props.onChange(this.state.selectedValue);
+        }
+    }, {
         key: "onChange",
         value: function onChange(e) {
             this.setState({
@@ -63463,6 +63472,27 @@ var SurveyResult = exports.SurveyResult = function (_React$Component) {
             var resultList = this.state.model.Answers.map(function (element, index) {
                 var answersList = [];
 
+                if (element.Question.QuestionType.Type == "dropdown") {
+                    return _React2.default.createElement(
+                        'div',
+                        { key: element.Id, className: 'panel panel-defaul' },
+                        _React2.default.createElement(
+                            'div',
+                            { className: 'panel-body' },
+                            _React2.default.createElement(
+                                'fieldset',
+                                null,
+                                _React2.default.createElement('legend', {
+                                    dangerouslySetInnerHTML: { __html: element.Question.Text }
+                                }),
+                                _React2.default.createElement('div', {
+                                    dangerouslySetInnerHTML: { __html: element.AnswerText }
+                                })
+                            )
+                        )
+                    );
+                }
+
                 if (element.Question.QuestionType.Type == "options") {
                     var AnswersIdArr = element.AnswerText.split(";");
                     AnswersIdArr.forEach(function (arrElement) {
@@ -63472,10 +63502,46 @@ var SurveyResult = exports.SurveyResult = function (_React$Component) {
                             }
                         }, this);
                     }, this);
+
+                    return _React2.default.createElement(
+                        'div',
+                        { key: element.Id, className: 'panel panel-defaul' },
+                        _React2.default.createElement(
+                            'div',
+                            { className: 'panel-body' },
+                            _React2.default.createElement(
+                                'fieldset',
+                                null,
+                                _React2.default.createElement('legend', {
+                                    dangerouslySetInnerHTML: { __html: element.Question.Text }
+                                }),
+                                _React2.default.createElement('div', {
+                                    dangerouslySetInnerHTML: { __html: answersList.join() }
+                                })
+                            )
+                        )
+                    );
                 }
 
-                if (element.Question.QuestionType.Type == "text" || element.Question.QuestionType.Type == "dropdown") {
-                    answersList.push(element.AnswerText);
+                if (element.Question.QuestionType.Type == "text") {
+                    return _React2.default.createElement(
+                        'div',
+                        { key: element.Id, className: 'panel panel-defaul' },
+                        _React2.default.createElement(
+                            'div',
+                            { className: 'panel-body' },
+                            _React2.default.createElement(
+                                'fieldset',
+                                null,
+                                _React2.default.createElement('legend', {
+                                    dangerouslySetInnerHTML: { __html: element.Question.Text }
+                                }),
+                                _React2.default.createElement('div', {
+                                    dangerouslySetInnerHTML: { __html: element.AnswerText }
+                                })
+                            )
+                        )
+                    );
                 }
 
                 if (element.Question.QuestionType.Type == "file") {

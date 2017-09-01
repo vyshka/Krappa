@@ -8,7 +8,7 @@ function run() {
 
       <SurveyTable
           url = "/api/Survey/GetAllSurveys"
-          deleteUrl = "/api/Survey/DeleteSurvey/"
+          deleteUrl = "/surveys/"
           editUrl = "/Admin/EditSurvey/"
       />
       

@@ -64382,7 +64382,8 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
             model: {
                 Questions: [],
                 Name: ""
-            }
+            },
+            isEdit: true
         };
 
         _this.addEditForm = _this.addEditForm.bind(_this);
@@ -64396,6 +64397,7 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
         _this.deleteSurvey = _this.deleteSurvey.bind(_this);
         _this.changeQuestionType = _this.changeQuestionType.bind(_this);
         _this.onSortEnd = _this.onSortEnd.bind(_this);
+        _this.isEdit = _this.isEdit.bind(_this);
         return _this;
     }
 
@@ -64492,8 +64494,6 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
             });
             this.setState({
                 model: newData
-            }, function () {
-                console.log("index component");
             });
         }
     }, {
@@ -64571,6 +64571,15 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
             });
         }
     }, {
+        key: 'isEdit',
+        value: function isEdit(e) {
+            var target = e.target;
+            var value = target.type === 'checkbox' ? target.checked : target.value;
+            this.setState({
+                isEdit: value
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -64588,7 +64597,8 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                     deleteA: self.deleteA,
                     deleteQ: self.deleteQ,
                     changeQuestionType: self.changeQuestionType,
-                    addA: self.addAnswer
+                    addA: self.addAnswer,
+                    isEdit: self.state.isEdit
                 });
             });
 
@@ -64597,7 +64607,7 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
 
                 return _React2.default.createElement(
                     'div',
-                    { className: 'panel panel-default' },
+                    null,
                     value
                 );
             });
@@ -64613,6 +64623,17 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                     })
                 );
             });
+
+            var list;
+            if (this.state.isEdit) {
+                list = questionList;
+            } else {
+                list = _React2.default.createElement(SortableList, {
+                    items: questionList,
+                    onSortEnd: this.onSortEnd,
+                    lockAxis: 'y'
+                });
+            }
 
             return _React2.default.createElement(
                 'div',
@@ -64630,12 +64651,21 @@ var SurveyForm = exports.SurveyForm = function (_React$Component) {
                         className: 'form-control',
                         value: this.state.model.Name,
                         onChange: this.changeN
-                    })
+                    }),
+                    _React2.default.createElement(
+                        'label',
+                        null,
+                        '\u0417\u0430\u0444\u0438\u043A\u0441\u0438\u0440\u043E\u0432\u0430\u0442\u044C:',
+                        _React2.default.createElement('input', {
+                            type: 'checkbox',
+                            checked: this.state.isEdit,
+                            onChange: this.isEdit })
+                    )
                 ),
                 _React2.default.createElement(
                     'div',
                     null,
-                    questionList
+                    list
                 ),
                 _React2.default.createElement(_Button.Button, {
                     Action: function Action(e) {
@@ -64719,7 +64749,7 @@ var EditForm = exports.EditForm = function (_React$Component) {
             var self = this;
             return _React2.default.createElement(
                 'div',
-                { className: 'panel panel-default edit-form' },
+                { className: "edit-form " + (this.props.isEdit ? 'panel-default panel' : 'border') },
                 _React2.default.createElement(
                     'div',
                     { className: 'input-del' },

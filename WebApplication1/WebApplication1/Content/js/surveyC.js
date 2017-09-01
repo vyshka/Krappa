@@ -62821,8 +62821,12 @@ var Question = exports.Question = function (_React$Component) {
     (0, _createClass3.default)(Question, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var text = "";
+            if (this.props.question.Options[0]) {
+                text = this.props.question.Options[0].Text;
+            }
             this.setState({
-                selectedValues: String(this.props.question.Options[0].Id)
+                selectedValues: text
             });
         }
     }, {
@@ -62948,6 +62952,11 @@ var DropDownOption = exports.DropDownOption = function (_React$Component) {
     }
 
     (0, _createClass3.default)(DropDownOption, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.props.onChange(this.state.selectedValue);
+        }
+    }, {
         key: "onChange",
         value: function onChange(e) {
             this.setState({
@@ -63453,9 +63462,13 @@ var Survey = exports.Survey = function (_React$Component) {
                 dataType: 'JSON',
                 success: function (data) {
                     var results = data.Questions.map(function (element, index) {
+                        var text = "";
+                        if (element.Options[0]) {
+                            text = String(element.Options[0].Id);
+                        }
                         return {
                             questionId: element.Id,
-                            Text: String(element.Options[0].Id)
+                            Text: text
                         };
                     });
                     this.setState({

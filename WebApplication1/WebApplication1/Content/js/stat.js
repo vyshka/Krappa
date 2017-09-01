@@ -59623,8 +59623,8 @@ var Answer = exports.Answer = function (_React$Component) {
                 _React2.default.createElement(_saladUi.BarMetric, {
                     label: '',
                     percent: this.props.answer.Percent,
-                    value: this.props.answer.Count,
-                    metricName: this.props.answer.Percent + '%'
+                    value: this.props.answer.Percent,
+                    metricName: '%'
                 })
             );
         }

@@ -27313,7 +27313,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function run() {
     _ReactDOM2.default.render(_React2.default.createElement(_index.SurveyTable, {
         url: '/api/Survey/GetAllSurveys',
-        deleteUrl: '/api/Survey/DeleteSurvey/',
+        deleteUrl: '/surveys/',
         editUrl: '/Admin/EditSurvey/'
     }), document.getElementById('tableContent'));
 }

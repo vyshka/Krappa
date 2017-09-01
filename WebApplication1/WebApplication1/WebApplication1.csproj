@@ -234,24 +234,65 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\newSyrvey.js" />
-    <Content Include="Content\js\react\browser.js" />
-    <Content Include="Content\js\react\react-dom.js" />
-    <Content Include="Content\js\react\react.js" />
+    <Content Include="Content\js\newSurvey.js" />
+    <Content Include="Content\js\react\complete-survey.js" />
+    <Content Include="Content\js\react\newSurvey.js" />
+    <Content Include="Content\js\react\stat.js" />
+    <Content Include="Content\js\react\survey-list.js" />
+    <Content Include="Content\js\react\survey-result.js" />
+    <Content Include="Content\js\react\surveyC.js" />
     <Content Include="Content\js\react\user-list.js" />
+    <Content Include="Content\js\react\user-stat.js" />
     <Content Include="Content\js\react\vacancy-list.js" />
+    <Content Include="Content\js\stat.js" />
+    <Content Include="Content\js\surveyC.js" />
+    <Content Include="Content\js\SurveyList.js" />
+    <Content Include="Content\js\surveyResult.js" />
+    <Content Include="Content\js\surveyTlist.js" />
     <Content Include="Content\js\UserList.js" />
+    <Content Include="Content\js\userStat.js" />
     <Content Include="Content\js\VacancyList.js" />
     <Content Include="Content\less\base\base.less" />
-    <Content Include="Content\js\react\components\addForm.jsx" />
-    <Content Include="Content\js\react\components\survey\editForm.jsx" />
-    <Content Include="Content\js\react\components\table.jsx" />
+    <Content Include="Content\js\react\components\user\UserResults.jsx" />
+    <Content Include=".babelrc" />
+    <Content Include="Content\js\react\components\helpers\Button.jsx" />
+    <Content Include="Content\js\react\components\user\SurveyResult.jsx" />
+    <Content Include="Content\js\react\components\helpers\table.jsx" />
+    <Content Include="webpack.config.js" />
+    <Content Include="Content\js\react\components\helpers\AddUserForm.jsx" />
+    <Content Include="Content\js\react\components\helpers\AddVacancyForm.jsx" />
+    <Content Include="Content\js\react\components\helpers\FormGroup.jsx" />
+    <Content Include="Content\js\react\components\survey\completeSurvey\index.jsx" />
+    <Content Include="Content\js\react\components\survey\completeSurvey\Question.jsx" />
+    <Content Include="Content\js\react\components\survey\options\CheckForm.jsx" />
+    <Content Include="Content\js\react\components\survey\options\CheckFormOption.jsx" />
+    <Content Include="Content\js\react\components\survey\options\DefOption.jsx" />
+    <Content Include="Content\js\react\components\survey\options\DropDownOption.jsx" />
+    <Content Include="Content\js\react\components\survey\options\FileOption.jsx" />
+    <Content Include="Content\js\react\components\survey\stat\Answer.jsx" />
+    <Content Include="Content\js\react\components\survey\stat\index.jsx" />
+    <Content Include="Content\js\react\components\survey\stat\Question.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyForm\EditForm.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyForm\index.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyForm\Options.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyForm\OptionSelect.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyForm\Question.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyList\index.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyList\Survey.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\helpers\DeleteLink.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\helpers\EditLink.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\index.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\Links.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\Row.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\RowList.jsx" />
+    <Content Include="Content\js\react\components\survey\surveyTable\THead.jsx" />
     <None Include="Content\less\bootstrap.less" />
     <None Include="Content\less\jquery.fancybox.less" />
     <Content Include="Content\less\layouts\footer.less" />
     <Content Include="Content\less\layouts\header.less" />
     <Content Include="Content\less\layouts\profile.less" />
     <Content Include="Content\less\layouts\form-horizontal.less" />
+    <Content Include="Content\less\layouts\table.less" />
     <None Include="Content\less\media-queries.less" />
     <None Include="Content\less\layouts\question.less" />
     <Content Include="Content\less\modules\about.less" />
@@ -280,7 +321,6 @@
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\js\scripts.min.js" />
     <Content Include="Content\js\spin.min.js" />
-    <Content Include="Content\js\web-api.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\js\ai.0.22.9-build00167.js" />
@@ -294,6 +334,7 @@
     <Content Include="gulpfile.js" />
     <Content Include="Package.json" />
     <Content Include="Content\less\states\state.less" />
+    <Content Include="package-lock.json" />
     <None Include="Properties\PublishProfiles\Krappa.pubxml" />
     <None Include="Content\js\jquery-3.1.1.intellisense.js" />
     <Content Include="Content\js\jquery-3.1.1.js" />
@@ -305,8 +346,6 @@
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
-    <Content Include="scripts\ww.jquery.js" />
-    <Content Include="scripts\ww.jquery.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -319,125 +358,40 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\SurveyController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\VacanciesController.cs" />
+    <Compile Include="Controllers\Api\OptionController.cs" />
+    <Compile Include="Controllers\Api\QuestionController.cs" />
+    <Compile Include="Controllers\Api\ResultController.cs" />
+    <Compile Include="Controllers\Api\SurveyController.cs" />
+    <Compile Include="Controllers\Api\UserController.cs" />
+    <Compile Include="Controllers\Api\VacanciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707051327056_InitialCreate.cs" />
-    <Compile Include="Migrations\201707051327056_InitialCreate.Designer.cs">
-      <DependentUpon>201707051327056_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707051451482_123.cs" />
-    <Compile Include="Migrations\201707051451482_123.Designer.cs">
-      <DependentUpon>201707051451482_123.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707051622052_some db changes.cs" />
-    <Compile Include="Migrations\201707051622052_some db changes.Designer.cs">
-      <DependentUpon>201707051622052_some db changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707060837201_role class changed.cs" />
-    <Compile Include="Migrations\201707060837201_role class changed.Designer.cs">
-      <DependentUpon>201707060837201_role class changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707100929047_VacancyModelCityAdded.cs" />
-    <Compile Include="Migrations\201707100929047_VacancyModelCityAdded.Designer.cs">
-      <DependentUpon>201707100929047_VacancyModelCityAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.cs" />
-    <Compile Include="Migrations\201707100930399_VacancyModelCityAdded1.Designer.cs">
-      <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708040801251_updateVacancy.cs" />
-    <Compile Include="Migrations\201708040801251_updateVacancy.Designer.cs">
-      <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091507398_temp.cs" />
-    <Compile Include="Migrations\201708091507398_temp.Designer.cs">
-      <DependentUpon>201708091507398_temp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091612153_1.cs" />
-    <Compile Include="Migrations\201708091612153_1.Designer.cs">
-      <DependentUpon>201708091612153_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091640440_tempo.cs" />
-    <Compile Include="Migrations\201708091640440_tempo.Designer.cs">
-      <DependentUpon>201708091640440_tempo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091650032_questionupdate.cs" />
-    <Compile Include="Migrations\201708091650032_questionupdate.Designer.cs">
-      <DependentUpon>201708091650032_questionupdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091652276_questionupdate1.cs" />
-    <Compile Include="Migrations\201708091652276_questionupdate1.Designer.cs">
-      <DependentUpon>201708091652276_questionupdate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091654412_questionupdate2.cs" />
-    <Compile Include="Migrations\201708091654412_questionupdate2.Designer.cs">
-      <DependentUpon>201708091654412_questionupdate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100907424_InitialMigrations2.cs" />
-    <Compile Include="Migrations\201708100907424_InitialMigrations2.Designer.cs">
-      <DependentUpon>201708100907424_InitialMigrations2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100911472_12.cs" />
-    <Compile Include="Migrations\201708100911472_12.Designer.cs">
-      <DependentUpon>201708100911472_12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100913446_temp1.cs" />
-    <Compile Include="Migrations\201708100913446_temp1.Designer.cs">
-      <DependentUpon>201708100913446_temp1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100935396_dropSurveysQuestions.cs" />
-    <Compile Include="Migrations\201708100935396_dropSurveysQuestions.Designer.cs">
-      <DependentUpon>201708100935396_dropSurveysQuestions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100937448_init.cs" />
-    <Compile Include="Migrations\201708100937448_init.Designer.cs">
-      <DependentUpon>201708100937448_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100950057_IdentityKeyUpdate.cs" />
-    <Compile Include="Migrations\201708100950057_IdentityKeyUpdate.Designer.cs">
-      <DependentUpon>201708100950057_IdentityKeyUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100952373_IdentityKeyUpdate2.cs" />
-    <Compile Include="Migrations\201708100952373_IdentityKeyUpdate2.Designer.cs">
-      <DependentUpon>201708100952373_IdentityKeyUpdate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100956370_IdentityKeyUpdate3.cs" />
-    <Compile Include="Migrations\201708100956370_IdentityKeyUpdate3.Designer.cs">
-      <DependentUpon>201708100956370_IdentityKeyUpdate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101006532_IdentityKeyUpdate4.cs" />
-    <Compile Include="Migrations\201708101006532_IdentityKeyUpdate4.Designer.cs">
-      <DependentUpon>201708101006532_IdentityKeyUpdate4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101021031_addreftoQ.cs" />
-    <Compile Include="Migrations\201708101021031_addreftoQ.Designer.cs">
-      <DependentUpon>201708101021031_addreftoQ.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminCreateUserModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
+    <Compile Include="Models\DbContext\Option.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
+    <Compile Include="Models\DbContext\Answer.cs" />
+    <Compile Include="Models\DbContext\QuestionType.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Question.cs" />
-    <Compile Include="Models\QuestionOutModel.cs" />
+    <Compile Include="Models\DbContext\Question.cs" />
     <Compile Include="Models\RegisterModel.cs" />
-    <Compile Include="Models\Survey.cs" />
-    <Compile Include="Models\SurveyCreateModel.cs" />
-    <Compile Include="Models\SurveyOutModel.cs" />
+    <Compile Include="Models\DbContext\Result.cs" />
+    <Compile Include="Models\DbContext\Survey.cs" />
+    <Compile Include="Models\ResultInputModel.cs" />
+    <Compile Include="Models\SurveyStat.cs" />
+    <Compile Include="Models\SurveyView.cs" />
     <Compile Include="Models\UserEditModel.cs" />
+    <Compile Include="Models\UserResults.cs" />
     <Compile Include="Models\UsersList.cs" />
     <Compile Include="Models\UserViewModel.cs" />
-    <Compile Include="Models\Vacancies.cs" />
-    <Compile Include="Models\VacancyContext.cs" />
+    <Compile Include="Models\DbContext\Vacancies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +423,13 @@
     <Content Include="Views\Admin\GetUserById.cshtml" />
     <Content Include="Views\Home\Advans.cshtml" />
     <Content Include="Views\Admin\EditSurvey.cshtml" />
+    <Content Include="Views\Home\Survey.cshtml" />
+    <Content Include="Views\Admin\Stat.cshtml" />
+    <Content Include="Views\Admin\UserResults.cshtml" />
+    <Content Include="Views\Admin\UserStat.cshtml" />
+    <Content Include="Views\Admin\Temp.cshtml" />
+    <Content Include="Views\Admin\SurveyResult.cshtml" />
+    <Content Include="Views\Home\CompleteSurvey.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -478,77 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707051327056_InitialCreate.resx">
-      <DependentUpon>201707051327056_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707051451482_123.resx">
-      <DependentUpon>201707051451482_123.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707051622052_some db changes.resx">
-      <DependentUpon>201707051622052_some db changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707060837201_role class changed.resx">
-      <DependentUpon>201707060837201_role class changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707100929047_VacancyModelCityAdded.resx">
-      <DependentUpon>201707100929047_VacancyModelCityAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707100930399_VacancyModelCityAdded1.resx">
-      <DependentUpon>201707100930399_VacancyModelCityAdded1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708040801251_updateVacancy.resx">
-      <DependentUpon>201708040801251_updateVacancy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091507398_temp.resx">
-      <DependentUpon>201708091507398_temp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091612153_1.resx">
-      <DependentUpon>201708091612153_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091640440_tempo.resx">
-      <DependentUpon>201708091640440_tempo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091650032_questionupdate.resx">
-      <DependentUpon>201708091650032_questionupdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091652276_questionupdate1.resx">
-      <DependentUpon>201708091652276_questionupdate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091654412_questionupdate2.resx">
-      <DependentUpon>201708091654412_questionupdate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100907424_InitialMigrations2.resx">
-      <DependentUpon>201708100907424_InitialMigrations2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100911472_12.resx">
-      <DependentUpon>201708100911472_12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100913446_temp1.resx">
-      <DependentUpon>201708100913446_temp1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100935396_dropSurveysQuestions.resx">
-      <DependentUpon>201708100935396_dropSurveysQuestions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100937448_init.resx">
-      <DependentUpon>201708100937448_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100950057_IdentityKeyUpdate.resx">
-      <DependentUpon>201708100950057_IdentityKeyUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100952373_IdentityKeyUpdate2.resx">
-      <DependentUpon>201708100952373_IdentityKeyUpdate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100956370_IdentityKeyUpdate3.resx">
-      <DependentUpon>201708100956370_IdentityKeyUpdate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101006532_IdentityKeyUpdate4.resx">
-      <DependentUpon>201708101006532_IdentityKeyUpdate4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101021031_addreftoQ.resx">
-      <DependentUpon>201708101021031_addreftoQ.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Files\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

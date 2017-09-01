@@ -75,15 +75,15 @@ namespace WebApplication1.Controllers
 
             foreach(var item in list)
             {
-                foreach(var resultcount in ResultsCount)
+                var ListItem = new SurveyView(item);
+                foreach(var result in ResultsCount)
                 {
-                    if(item.Id == resultcount.SurveyId)
+                    if(ListItem.Id == result.SurveyId)
                     {
-                        var val = new SurveyView(item, resultcount.Count);
-                        rList.Add(val);
-                        break;
+                        ListItem.ResultCount = result.Count;
                     }
                 }
+                rList.Add(ListItem);
             }
             return rList;
         }

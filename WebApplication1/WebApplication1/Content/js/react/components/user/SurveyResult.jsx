@@ -34,6 +34,23 @@ export class SurveyResult extends React.Component {
         var resultList = this.state.model.Answers.map(function(element, index) {
             var answersList = []
 
+            if(element.Question.QuestionType.Type == "dropdown") {
+                return(
+                    <div key={element.Id} className = "panel panel-defaul">
+                    <div className = "panel-body">
+                        <fieldset>
+                            <legend 
+                                dangerouslySetInnerHTML={{__html: element.Question.Text}} 
+                            />
+                            <div 
+                                dangerouslySetInnerHTML={{__html: element.AnswerText}}
+                            />
+                        </fieldset>
+                    </div>
+                </div>
+                )
+            }
+
             if(element.Question.QuestionType.Type == "options") {
                 var AnswersIdArr = element.AnswerText.split(";")
                 AnswersIdArr.forEach(function(arrElement) {
@@ -43,12 +60,40 @@ export class SurveyResult extends React.Component {
                         }
                     }, this);
                 }, this);
+
+                return(
+                    <div key={element.Id} className = "panel panel-defaul">
+                    <div className = "panel-body">
+                        <fieldset>
+                            <legend 
+                                dangerouslySetInnerHTML={{__html: element.Question.Text}} 
+                            />
+                            <div 
+                                dangerouslySetInnerHTML={{__html: answersList.join()}}
+                            />
+                        </fieldset>
+                    </div>
+                </div>
+                )
             } 
             
             
             
-            if(element.Question.QuestionType.Type == "text" || element.Question.QuestionType.Type == "dropdown") {
-                answersList.push(element.AnswerText)
+            if(element.Question.QuestionType.Type == "text") {
+                return(
+                    <div key={element.Id} className = "panel panel-defaul">
+                    <div className = "panel-body">
+                        <fieldset>
+                            <legend 
+                                dangerouslySetInnerHTML={{__html: element.Question.Text}} 
+                            />
+                            <div 
+                                dangerouslySetInnerHTML={{__html: element.AnswerText}}
+                            />
+                        </fieldset>
+                    </div>
+                </div>
+                )          
             }
 
 
